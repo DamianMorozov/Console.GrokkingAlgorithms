@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.1.11] - 2019-10-02
+### Updated
+- Binary search algorithm
+
 ## [0.1.10] - 2019-09-30
 ### Added
 - .gitattributes
@@ -12,4 +16,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - GrokkingAlgorithms solution & project
 - EnumHelper
 - ArrayHelper
-- Binary search algorithm.
+- Binary search algorithm

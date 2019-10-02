@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using GrokkingAlgorithms.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace GrokkingAlgorithms
@@ -66,65 +66,31 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"---                         Binary search                          ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            var _arrayHelper = ArrayHelper.Instance;
-            var arr = _arrayHelper.GetSortArray(1, 10_000_000, EnumWriteLine.False);
+            var _binarySearch = BinarySearchHelper.Instance;
+            var _array = ArrayHelper.Instance;
+            var arr = _array.GetSortArray(1, 100_000_000, EnumWriteLine.False);
+            Console.WriteLine($"var arr = _array.GetSortArray(1, 100_000_000, EnumWriteLine.False);");
             var list = arr.ToList();
+            Console.WriteLine($"var list = arr.ToList();");
+            Console.WriteLine(@"----------------------------------------------------------------------");
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"BinarySearch(arr, 123_456): {BinarySearch(arr, 123_456):N0}. ");
+            Console.Write($"Execute(arr, 123_456): {_binarySearch.Execute(arr, 123_456):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"BinarySearch(list, 123_456): {BinarySearch(list, 123_456):N0}. ");
+            Console.Write($"Execute(list, 123_456): {_binarySearch.Execute(list, 123_456):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"BinarySearch(arr, 12): {BinarySearch(arr, 12):N0}. ");
+            Console.Write($"Execute(arr, 12): {_binarySearch.Execute(arr, 12):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"BinarySearch(list, 12): {BinarySearch(list, 12):N0}. ");
+            Console.Write($"Execute(list, 12): {_binarySearch.Execute(list, 12):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-        }
-
-        private static (int? pos, int count) BinarySearch(int?[] arr, int item)
-        {
-            var count = 0;
-            var start = 0;
-            var end = arr.Count() - 1;
-            while (start <= end)
-            {
-                count++;
-                var mid = (start + end) / 2;
-                var guess = arr[mid];
-                if (guess == item) return (mid, count);
-                if (guess > item)
-                    end = mid - 1;
-                else
-                    start = mid + 1;
-            }
-            return (null, count);
-        }
-
-        private static (int? pos, int count) BinarySearch(IEnumerable<int?> list, int item)
-        {
-            var count = 0;
-            var start = 0;
-            var end = list.Count() - 1;
-            while (start <= end)
-            {
-                count++;
-                var mid = (start + end) / 2;
-                var guess = list.ElementAt(mid);
-                if (guess == item) return (mid, count);
-                if (guess > item)
-                    end = mid - 1;
-                else
-                    start = mid + 1;
-            }
-            return (null, count);
         }
     }
 }

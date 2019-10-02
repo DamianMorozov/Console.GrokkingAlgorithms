@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GrokkingAlgorithms
+namespace GrokkingAlgorithms.Helpers
 {
     public sealed class ArrayHelper
     {
@@ -31,6 +31,5 @@ namespace GrokkingAlgorithms
                 Console.WriteLine($"Source array {string.Join(" ; ", arr)}.");
             return arr;
         }
-
     }
 }
