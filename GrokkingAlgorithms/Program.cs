@@ -37,6 +37,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine("0. Exit from console.");
             Console.WriteLine("1. Binary search.");
+            Console.WriteLine("2. Sort selection.");
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.Write("Type switch: ");
         }
@@ -50,6 +51,10 @@ namespace GrokkingAlgorithms
                 case 1:
                     isPrintMenu = true;
                     PrintBinarySearch();
+                    break;
+                case 2:
+                    isPrintMenu = true;
+                    PrintSortSelection();
                     break;
             }
             if (isPrintMenu)
@@ -89,6 +94,33 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
             Console.Write($"Execute(list, 12): {_binarySearch.Execute(list, 12):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+        }
+
+        private static void PrintSortSelection()
+        {
+            Console.WriteLine(@"----------------------------------------------------------------------");
+            Console.WriteLine(@"---                         Sort selection                         ---");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var _array = ArrayHelper.Instance;
+            var _sortSelection = SortSelectionHelper.Instance;
+
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            _sortSelection.SelectionSort(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.First);
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            _sortSelection.SelectionSort(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Second);
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            _sortSelection.SelectionSort(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Third);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }

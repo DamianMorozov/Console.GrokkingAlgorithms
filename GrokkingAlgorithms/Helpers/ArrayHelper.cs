@@ -31,5 +31,18 @@ namespace GrokkingAlgorithms.Helpers
                 Console.WriteLine($"Source array {string.Join(" ; ", arr)}.");
             return arr;
         }
+
+        public int?[] GetRandomArray(int size, int maxValue, EnumWriteLine writeLine = EnumWriteLine.False)
+        {
+            var arr = new int?[size];
+            var random = new Random();
+            for (var i = 0; i < size; i++)
+            {
+                arr[i] = random.Next(maxValue);
+            }
+            if (writeLine == EnumWriteLine.True)
+                Console.WriteLine($"Source array {string.Join(" ; ", arr)}.");
+            return arr;
+        }
     }
 }
