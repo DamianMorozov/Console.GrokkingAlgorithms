@@ -16,19 +16,19 @@ namespace GrokkingAlgorithms.Helpers
 
         #endregion
 
-        public void SelectionSort(int?[] arr, EnumSort sort, EnumAlgorithm algorithm, EnumWriteLine writeLine = EnumWriteLine.False)
+        public void Execute(int?[] arr, EnumSort sort, EnumAlgorithm algorithm, EnumWriteLine writeLine = EnumWriteLine.False)
         {
             var sw = System.Diagnostics.Stopwatch.StartNew();
             switch (algorithm)
             {
                 case EnumAlgorithm.First:
-                    SelectionSortAlgorithm1(arr, sort);
+                    Algorithm1(arr, sort);
                     break;
                 case EnumAlgorithm.Second:
-                    SelectionSortAlgorithm2(arr, sort);
+                    Algorithm2(arr, sort);
                     break;
                 case EnumAlgorithm.Third:
-                    SelectionSortAlgorithm3(arr, sort);
+                    Algorithm3(arr, sort);
                     break;
             }
             sw.Stop();
@@ -39,7 +39,7 @@ namespace GrokkingAlgorithms.Helpers
                 Console.WriteLine($" Count items: {arr.Length:N0}.");
         }
 
-        public void SelectionSortAlgorithm1(int?[] arr, EnumSort sort)
+        public static void Algorithm1(int?[] arr, EnumSort sort)
         {
             bool check = false;
             while (!check)
@@ -61,7 +61,7 @@ namespace GrokkingAlgorithms.Helpers
             }
         }
 
-        public void SelectionSortAlgorithm2(int?[] arr, EnumSort sort)
+        public static void Algorithm2(int?[] arr, EnumSort sort)
         {
             bool check = false;
             int? swap;
@@ -120,7 +120,7 @@ namespace GrokkingAlgorithms.Helpers
             return (i, value);
         }
 
-        public void SelectionSortAlgorithm3(int?[] arr, EnumSort sort)
+        public void Algorithm3(int?[] arr, EnumSort sort)
         {
             var list = arr.ToList();
             for (var i = 0; i < arr.Length; i++)

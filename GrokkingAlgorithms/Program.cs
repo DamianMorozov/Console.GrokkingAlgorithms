@@ -38,6 +38,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine("0. Exit from console.");
             Console.WriteLine("1. Binary search.");
             Console.WriteLine("2. Sort selection.");
+            Console.WriteLine("3. Recursion.");
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.Write("Type switch: ");
         }
@@ -55,6 +56,10 @@ namespace GrokkingAlgorithms
                 case 2:
                     isPrintMenu = true;
                     PrintSortSelection();
+                    break;
+                case 3:
+                    isPrintMenu = true;
+                    PrintRecursion();
                     break;
             }
             if (isPrintMenu)
@@ -105,22 +110,41 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var _array = ArrayHelper.Instance;
+            Console.WriteLine(@"var _array = ArrayHelper.Instance;");
             var _sortSelection = SortSelectionHelper.Instance;
+            Console.WriteLine(@"var _sortSelection = SortSelectionHelper.Instance;");
+            Console.WriteLine(@"----------------------------------------------------------------------");
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            _sortSelection.SelectionSort(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.First);
+            _sortSelection.Execute(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.First);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            _sortSelection.SelectionSort(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Second);
+            _sortSelection.Execute(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Second);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            _sortSelection.SelectionSort(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Third);
+            _sortSelection.Execute(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Third);
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+        }
+
+        private static void PrintRecursion()
+        {
+            Console.WriteLine(@"----------------------------------------------------------------------");
+            Console.WriteLine(@"---                            Recursion                           ---");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var _recursion = RecursionHelper.Instance;
+            Console.WriteLine("var _recursion = RecursionHelper.Instance;");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.WriteLine($"Factorial(5): {_recursion.Factorial(8):N0}");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }

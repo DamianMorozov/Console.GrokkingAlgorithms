@@ -2,9 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.1.20] - 2019-10-03
+## [0.1.30] - 2019-10-03
 ### Added
 - Sort selection algorithm
+- Recursion algorithm
 
 ## [0.1.11] - 2019-10-02
 ### Updated
