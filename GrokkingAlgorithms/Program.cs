@@ -39,7 +39,8 @@ namespace GrokkingAlgorithms
             Console.WriteLine("1. Binary search.");
             Console.WriteLine("2. Sort selection.");
             Console.WriteLine("3. Recursion.");
-            Console.WriteLine("4. Quick sort loop.");
+            Console.WriteLine("4. Summary loop.");
+            Console.WriteLine("5. Summary recursion.");
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.Write("Type switch: ");
         }
@@ -64,7 +65,11 @@ namespace GrokkingAlgorithms
                     break;
                 case 4:
                     isPrintMenu = true;
-                    PrintSortQuickLoop();
+                    PrintSummaryLoop();
+                    break;
+                case 5:
+                    isPrintMenu = true;
+                    PrintSummaryRecursion();
                     break;
             }
             if (isPrintMenu)
@@ -154,31 +159,58 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        private static void PrintSortQuickLoop()
+        private static void PrintSummaryLoop()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
-            Console.WriteLine(@"---                         Quick sort loop                        ---");
+            Console.WriteLine(@"---                          Summary loop                          ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var array = ArrayHelper.Instance;
-            var sortQuickLoop = SortQuickLoopHelper.Instance;
+            var summaryLoop = SummaryLoopHelper.Instance;
             var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
-            Console.WriteLine("var sortQuickLoop = SortQuickLoopHelper.Instance;");
+            Console.WriteLine("var summaryLoop = SummaryLoopHelper.Instance;");
             Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);");
             Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"sortQuickLoop.Execute(arr): {sortQuickLoop.Execute(arr):N0}. ");
+            Console.Write($"sortQuickLoop.Execute(arr): {summaryLoop.Execute(arr):N0}. ");
             sw.Stop();
             Console.WriteLine($"Loop(). Elapsed time: {sw.Elapsed}.");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"sortQuickLoop.Execute(list): {sortQuickLoop.Execute(list):N0}. ");
+            Console.Write($"sortQuickLoop.Execute(list): {summaryLoop.Execute(list):N0}. ");
             sw.Stop();
             Console.WriteLine($"Loop(). Elapsed time: {sw.Elapsed}.");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+        }
+
+        private static void PrintSummaryRecursion()
+        {
+            Console.WriteLine(@"----------------------------------------------------------------------");
+            Console.WriteLine(@"---                       Summary recursion                        ---");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var array = ArrayHelper.Instance;
+            var summaryRecursion = SummaryRecursionHelper.Instance;
+            var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);
+            var list = arr.ToList();
+            Console.WriteLine("var array = ArrayHelper.Instance;");
+            Console.WriteLine("var summaryRecursion = SummaryRecursionHelper.Instance;");
+            Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);");
+            Console.WriteLine("var list = arr.ToList();");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"summaryRecursion.Execute(arr): {summaryRecursion.Execute(arr):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"summaryRecursion.Execute(list): {summaryRecursion.Execute(list):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }

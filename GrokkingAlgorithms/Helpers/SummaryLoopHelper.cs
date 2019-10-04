@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace GrokkingAlgorithms.Helpers
 {
-    public sealed class SortQuickLoopHelper
+    public sealed class SummaryLoopHelper
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<SortQuickLoopHelper> _instance = new Lazy<SortQuickLoopHelper>(() => new SortQuickLoopHelper());
-        public static SortQuickLoopHelper Instance { get { return _instance.Value; } }
-        private SortQuickLoopHelper()
+        private static readonly Lazy<SummaryLoopHelper> _instance = new Lazy<SummaryLoopHelper>(() => new SummaryLoopHelper());
+        public static SummaryLoopHelper Instance { get { return _instance.Value; } }
+        private SummaryLoopHelper()
         {
             //
         }
