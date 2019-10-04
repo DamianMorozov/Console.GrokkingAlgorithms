@@ -39,6 +39,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine("1. Binary search.");
             Console.WriteLine("2. Sort selection.");
             Console.WriteLine("3. Recursion.");
+            Console.WriteLine("4. Quick sort loop.");
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.Write("Type switch: ");
         }
@@ -61,6 +62,10 @@ namespace GrokkingAlgorithms
                     isPrintMenu = true;
                     PrintRecursion();
                     break;
+                case 4:
+                    isPrintMenu = true;
+                    PrintSortQuickLoop();
+                    break;
             }
             if (isPrintMenu)
             {
@@ -76,29 +81,29 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"---                         Binary search                          ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            var _binarySearch = BinarySearchHelper.Instance;
-            var _array = ArrayHelper.Instance;
-            var arr = _array.GetSortArray(1, 100_000_000, EnumWriteLine.False);
+            var binarySearch = BinarySearchHelper.Instance;
+            var array = ArrayHelper.Instance;
+            var arr = array.GetSortArray(1, 100_000_000, EnumWriteLine.False);
             Console.WriteLine($"var arr = _array.GetSortArray(1, 100_000_000, EnumWriteLine.False);");
             var list = arr.ToList();
             Console.WriteLine($"var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(arr, 123_456): {_binarySearch.Execute(arr, 123_456):N0}. ");
+            Console.Write($"Execute(arr, 123_456): {binarySearch.Execute(arr, 123_456):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(list, 123_456): {_binarySearch.Execute(list, 123_456):N0}. ");
+            Console.Write($"Execute(list, 123_456): {binarySearch.Execute(list, 123_456):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(arr, 12): {_binarySearch.Execute(arr, 12):N0}. ");
+            Console.Write($"Execute(arr, 12): {binarySearch.Execute(arr, 12):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(list, 12): {_binarySearch.Execute(list, 12):N0}. ");
+            Console.Write($"Execute(list, 12): {binarySearch.Execute(list, 12):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
@@ -109,26 +114,26 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"---                         Sort selection                         ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            var _array = ArrayHelper.Instance;
+            var array = ArrayHelper.Instance;
             Console.WriteLine(@"var _array = ArrayHelper.Instance;");
-            var _sortSelection = SortSelectionHelper.Instance;
+            var sortSelection = SortSelectionHelper.Instance;
             Console.WriteLine(@"var _sortSelection = SortSelectionHelper.Instance;");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            _sortSelection.Execute(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.First);
+            sortSelection.Execute(array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.First);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            _sortSelection.Execute(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Second);
+            sortSelection.Execute(array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Second);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            _sortSelection.Execute(_array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Third);
+            sortSelection.Execute(array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Third);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
@@ -139,12 +144,41 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"---                            Recursion                           ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            var _recursion = RecursionHelper.Instance;
+            var recursion = RecursionHelper.Instance;
             Console.WriteLine("var _recursion = RecursionHelper.Instance;");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.WriteLine($"Factorial(5): {_recursion.Factorial(8):N0}");
+            Console.WriteLine($"Factorial(8): {recursion.Factorial(8):N0}");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+        }
+
+        private static void PrintSortQuickLoop()
+        {
+            Console.WriteLine(@"----------------------------------------------------------------------");
+            Console.WriteLine(@"---                         Quick sort loop                        ---");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var array = ArrayHelper.Instance;
+            var sortQuickLoop = SortQuickLoopHelper.Instance;
+            var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);
+            var list = arr.ToList();
+            Console.WriteLine("var array = ArrayHelper.Instance;");
+            Console.WriteLine("var sortQuickLoop = SortQuickLoopHelper.Instance;");
+            Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);");
+            Console.WriteLine("var list = arr.ToList();");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"sortQuickLoop.Execute(arr): {sortQuickLoop.Execute(arr):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Loop(). Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"sortQuickLoop.Execute(list): {sortQuickLoop.Execute(list):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Loop(). Elapsed time: {sw.Elapsed}.");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
