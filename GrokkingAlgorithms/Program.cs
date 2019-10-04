@@ -41,6 +41,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine("3. Recursion.");
             Console.WriteLine("4. Summary loop.");
             Console.WriteLine("5. Summary recursion.");
+            Console.WriteLine("6. Count recursion.");
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.Write("Type switch: ");
         }
@@ -70,6 +71,10 @@ namespace GrokkingAlgorithms
                 case 5:
                     isPrintMenu = true;
                     PrintSummaryRecursion();
+                    break;
+                case 6:
+                    isPrintMenu = true;
+                    PrintCountRecursion();
                     break;
             }
             if (isPrintMenu)
@@ -211,6 +216,53 @@ namespace GrokkingAlgorithms
 
             sw = System.Diagnostics.Stopwatch.StartNew();
             Console.Write($"summaryRecursion.Execute(list): {summaryRecursion.Execute(list):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+        }
+
+        private static void PrintCountRecursion()
+        {
+            Console.WriteLine(@"----------------------------------------------------------------------");
+            Console.WriteLine(@"---                        Count recursion                         ---");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var array = ArrayHelper.Instance;
+            var countRecursion = CountRecursionHelper.Instance;
+            var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);
+            var list = arr.ToList();
+            Console.WriteLine("var array = ArrayHelper.Instance;");
+            Console.WriteLine("var countRecursion = CountRecursionHelper.Instance;");
+            Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);");
+            Console.WriteLine("var list = arr.ToList();");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"countRecursion.Execute(arr): {countRecursion.Execute(arr):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"countRecursion.ExecuteForeach(arr): {countRecursion.ExecuteForeach(arr):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"arr.Length: {arr.Length:N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"countRecursion.Execute(list): {countRecursion.Execute(list):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"countRecursion.ExecuteForeach(list): {countRecursion.ExecuteForeach(list):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"list.Count: {list.Count:N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
