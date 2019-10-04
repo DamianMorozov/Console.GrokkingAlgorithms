@@ -1,30 +1,32 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GrokkingAlgorithms.Helpers
 {
-    public sealed class CountRecursionHelper
+    public sealed class CountHelper
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<CountRecursionHelper> _instance = new Lazy<CountRecursionHelper>(() => new CountRecursionHelper());
-        public static CountRecursionHelper Instance { get { return _instance.Value; } }
-        private CountRecursionHelper()
+        private static readonly Lazy<CountHelper> _instance = new Lazy<CountHelper>(() => new CountHelper());
+        public static CountHelper Instance { get { return _instance.Value; } }
+        private CountHelper()
         {
             //
         }
 
         #endregion
 
-        public int Execute(int?[] arr)
+        public int ExecuteRecursive(int?[] arr)
         {
             if (arr.Length == 0)
                 return 0;
             var list = arr.ToList();
             list.RemoveAt(0);
-            return 1 + Execute(list.ToArray());
+            return 1 + ExecuteRecursive(list.ToArray());
         }
 
         public int ExecuteForeach(int?[] arr)
@@ -35,11 +37,11 @@ namespace GrokkingAlgorithms.Helpers
             return result;
         }
 
-        public int Execute(IEnumerable<int?> list)
+        public int ExecuteRecursive(IEnumerable<int?> list)
         {
             if (!list.Any())
                 return 0;
-            return 1 + Execute(list.Skip(1));
+            return 1 + ExecuteRecursive(list.Skip(1));
         }
 
         public int ExecuteForeach(IEnumerable<int?> list)

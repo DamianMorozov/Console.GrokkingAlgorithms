@@ -1,24 +1,26 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GrokkingAlgorithms.Helpers
 {
-    public sealed class FirstRecursionHelper
+    public sealed class FirstValueHelper
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<FirstRecursionHelper> _instance = new Lazy<FirstRecursionHelper>(() => new FirstRecursionHelper());
-        public static FirstRecursionHelper Instance { get { return _instance.Value; } }
-        private FirstRecursionHelper()
+        private static readonly Lazy<FirstValueHelper> _instance = new Lazy<FirstValueHelper>(() => new FirstValueHelper());
+        public static FirstValueHelper Instance { get { return _instance.Value; } }
+        private FirstValueHelper()
         {
             //
         }
 
         #endregion
 
-        public (int pos, int? val) Execute(int?[] arr, EnumSort sort)
+        public (int pos, int? val) ExecuteForeach(int?[] arr, EnumSort sort)
         {
             if (arr.Length <= 0)
                 return (-1, null);
@@ -54,7 +56,7 @@ namespace GrokkingAlgorithms.Helpers
             return (i, value);
         }
 
-        public (int pos, int? val) Execute(IEnumerable<int?> list, EnumSort sort)
+        public (int pos, int? val) ExecuteForeach(IEnumerable<int?> list, EnumSort sort)
         {
             int i = 0, j = 0;
             int? value = null;

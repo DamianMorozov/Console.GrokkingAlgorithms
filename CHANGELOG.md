@@ -2,12 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.1.70] - 2019-10-04
+## [0.1.80] - 2019-10-04
 ### Added
-- Summary loop algorithm
-- Summary recursion algorithm
-- Count recursion algorithm
-- First value recursion algorithm
+- Summary recursive & foreach algorithm
+- Count values recursive & foreach algorithm
+- First value recursive & foreach algorithm
+- Quick sort algorithm
 
 ## [0.1.30] - 2019-10-03
 ### Added

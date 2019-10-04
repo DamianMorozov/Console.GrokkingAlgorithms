@@ -44,5 +44,12 @@ namespace GrokkingAlgorithms.Helpers
                 Console.WriteLine($"Source array {string.Join(" ; ", arr)}.");
             return arr;
         }
+
+        public int?[] GetSubArray(int?[] data, int index, int length)
+        {
+            int?[] result = new int?[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
     }
 }
