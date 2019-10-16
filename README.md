@@ -10,3 +10,11 @@ Aditya Y. Bhargava.
 [Book](https://www.manning.com/books/grokking-algorithms)
 
 [Code source on github.com](https://github.com/egonschiele/grokking_algorithms)
+
+Algorithms:
+- Binary search.
+- Counting values.
+- Recursion.
+- Sort selection.
+- Summary recursive.
+- Quick sort.

@@ -96,11 +96,19 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"---                         Binary search                          ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
+            int startValue = default;
+            Console.Write($"Type start value (default is 1): ");
+            SetValue(Console.ReadLine(), ref startValue, 1);
+            int endValue = default;
+            Console.Write($"Type end value (default is 1_000_000): ");
+            SetValue(Console.ReadLine(), ref endValue, 1_000_000);
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
             var binarySearch = BinarySearchHelper.Instance;
             var array = ArrayHelper.Instance;
-            var arr = array.GetSortArray(1, 100_000_000, EnumWriteLine.False);
-            Console.WriteLine($"var arr = _array.GetSortArray(1, 100_000_000, EnumWriteLine.False);");
+            var arr = array.GetSortArray(startValue, endValue, EnumWriteLine.False);
             var list = arr.ToList();
+            Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue}, EnumWriteLine.False);");
             Console.WriteLine($"var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
@@ -335,6 +343,21 @@ namespace GrokkingAlgorithms
             Console.Write($"var sortListFast2 = sortQuick.ExecuteRecursiveFastWithSwithPivot(arr, EnumSort.Asc);. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
+        }
+
+        private static bool SetValue(string input, ref int value, int defValue)
+        {
+            var result = false;
+            try
+            {
+                value = Convert.ToInt32(input);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Error input value. The new value will be set to: {defValue}");
+                value = defValue;
+            }
+            return result;
         }
     }
 }
