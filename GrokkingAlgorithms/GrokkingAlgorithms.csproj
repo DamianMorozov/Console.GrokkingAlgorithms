@@ -3,10 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartupObject>GrokkingAlgorithms.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.12.0" />
+    <Compile Remove="ProgramTests.cs" />
   </ItemGroup>
 
 </Project>

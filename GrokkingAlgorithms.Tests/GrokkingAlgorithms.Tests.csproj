@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartupObject></StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GrokkingAlgorithms\GrokkingAlgorithms.csproj" />
+  </ItemGroup>
+
+</Project>

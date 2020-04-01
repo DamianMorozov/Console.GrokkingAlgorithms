@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GrokkingAlgorithms
 {
-    internal class Program
+    public class Program
     {
         private static void Main()
         {
@@ -98,10 +98,10 @@ namespace GrokkingAlgorithms
 
             int startValue = default;
             Console.Write($"Type start value (default is 1): ");
-            SetValue(Console.ReadLine(), ref startValue, 1);
+            SetValueSafe(Console.ReadLine(), ref startValue, 1);
             int endValue = default;
             Console.Write($"Type end value (default is 1_000_000): ");
-            SetValue(Console.ReadLine(), ref endValue, 1_000_000);
+            SetValueSafe(Console.ReadLine(), ref endValue, 1_000_000);
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var binarySearch = BinarySearchHelper.Instance;
@@ -345,7 +345,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
         }
 
-        private static bool SetValue(string input, ref int value, int defValue)
+        public static bool SetValue(string input, ref int value, int defValue)
         {
             var result = false;
             try
@@ -353,6 +353,21 @@ namespace GrokkingAlgorithms
                 value = Convert.ToInt32(input);
             }
             catch (Exception)
+            {
+                Console.WriteLine($"Error input value. The new value will be set to: {defValue}");
+                value = defValue;
+            }
+            return result;
+        }
+
+        public static bool SetValueSafe(string input, ref int value, int defValue)
+        {
+            var result = false;
+            if (int.TryParse(input, out int res))
+            {
+                value = res;
+            }
+            else
             {
                 Console.WriteLine($"Error input value. The new value will be set to: {defValue}");
                 value = defValue;
