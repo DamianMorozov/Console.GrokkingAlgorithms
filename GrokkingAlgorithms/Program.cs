@@ -4,12 +4,15 @@
 using GrokkingAlgorithms.Helpers;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("GrokkingAlgorithms.Tests")]
 
 namespace GrokkingAlgorithms
 {
-    public class Program
+    internal class Program
     {
-        private static void Main()
+        internal static void Main()
         {
             var numberMenu = -1;
             while (numberMenu != 0)
@@ -29,7 +32,7 @@ namespace GrokkingAlgorithms
             }
         }
 
-        private static void PrintCaption()
+        internal static void PrintCaption()
         {
             Console.Clear();
             Console.WriteLine(@"----------------------------------------------------------------------");
@@ -47,7 +50,7 @@ namespace GrokkingAlgorithms
             Console.Write("Type switch: ");
         }
 
-        private static void PrintSwitch(int numberMenu)
+        internal static void PrintSwitch(int numberMenu)
         {
             Console.Clear();
             var isPrintMenu = false;
@@ -90,7 +93,7 @@ namespace GrokkingAlgorithms
             }
         }
 
-        private static void PrintBinarySearch()
+        internal static void PrintBinarySearch()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                         Binary search                          ---");
@@ -106,7 +109,7 @@ namespace GrokkingAlgorithms
 
             var binarySearch = BinarySearchHelper.Instance;
             var array = ArrayHelper.Instance;
-            var arr = array.GetSortArray(startValue, endValue, EnumWriteLine.False);
+            var arr = array.GetSortArray(startValue, endValue);
             var list = arr.ToList();
             Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue}, EnumWriteLine.False);");
             Console.WriteLine($"var list = arr.ToList();");
@@ -131,7 +134,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        private static void PrintSortSelection()
+        internal static void PrintSortSelection()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                         Sort selection                         ---");
@@ -144,24 +147,24 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.First);
+            sortSelection.Execute(array.GetRandomArray(15_000, 100_000), EnumSort.Asc, EnumAlgorithm.First);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Second);
+            sortSelection.Execute(array.GetRandomArray(15_000, 100_000), EnumSort.Asc, EnumAlgorithm.Second);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(array.GetRandomArray(25_000, 100_000), EnumSort.Asc, EnumAlgorithm.Third);
+            sortSelection.Execute(array.GetRandomArray(15_000, 100_000), EnumSort.Asc, EnumAlgorithm.Third);
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        private static void PrintRecursion()
+        internal static void PrintRecursion()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                            Recursion                           ---");
@@ -177,7 +180,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        private static void PrintSummary()
+        internal static void PrintSummary()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                   Summary recursive & foreach                  ---");
@@ -185,7 +188,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var summary = SummaryHelper.Instance;
-            var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);
+            var arr = array.GetRandomArray(2_000, 1_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var summary = SummaryHelper.Instance;");
@@ -217,7 +220,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        private static void PrintCount()
+        internal static void PrintCount()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                   Count recursive & foreach                    ---");
@@ -225,7 +228,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var count = CountHelper.Instance;
-            var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);
+            var arr = array.GetRandomArray(2_000, 1_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var count = CountHelper.Instance;");
@@ -269,7 +272,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        private static void PrintFirstValue()
+        internal static void PrintFirstValue()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                First value recursive & foreach                 ---");
@@ -277,7 +280,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var firstValue = FirstValueHelper.Instance;
-            var arr = array.GetRandomArray(1_000, 1_000, EnumWriteLine.False);
+            var arr = array.GetRandomArray(1_000, 1_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var firstValue = FirstValueHelper.Instance;");
@@ -316,7 +319,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        private static void PrintQuickSort()
+        internal static void PrintQuickSort()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                           Quick sort                           ---");
@@ -324,7 +327,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var sortQuick = SortQuickHelper.Instance;
-            var arr = array.GetRandomArray(1_000_000, 1_000_000, EnumWriteLine.False);
+            var arr = array.GetRandomArray(1_000_000, 1_000_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var sortQuick = SortQuickHelper.Instance;");
@@ -345,7 +348,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
         }
 
-        public static bool SetValue(string input, ref int value, int defValue)
+        internal static bool SetValue(string input, ref int value, int defValue)
         {
             var result = false;
             try
@@ -360,7 +363,7 @@ namespace GrokkingAlgorithms
             return result;
         }
 
-        public static bool SetValueSafe(string input, ref int value, int defValue)
+        internal static bool SetValueSafe(string input, ref int value, int defValue)
         {
             var result = false;
             if (int.TryParse(input, out int res))

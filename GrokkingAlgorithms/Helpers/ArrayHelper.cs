@@ -10,15 +10,12 @@ namespace GrokkingAlgorithms.Helpers
         #region Design pattern "Singleton".
 
         private static readonly Lazy<ArrayHelper> _instance = new Lazy<ArrayHelper>(() => new ArrayHelper());
-        public static ArrayHelper Instance { get { return _instance.Value; } }
-        private ArrayHelper()
-        {
-            //
-        }
+        public static ArrayHelper Instance => _instance.Value;
+        private ArrayHelper() { }
 
         #endregion
 
-        public int?[] GetSortArray(int startValue, int endValue, EnumWriteLine writeLine = EnumWriteLine.False)
+        public int?[] GetSortArray(int startValue, int endValue)
         {
             var arr = new int?[endValue - startValue + 1];
             var i = 0;
@@ -27,12 +24,10 @@ namespace GrokkingAlgorithms.Helpers
                 arr[i] = j;
                 i++;
             }
-            if (writeLine == EnumWriteLine.True)
-                Console.WriteLine($"Source array {string.Join(" ; ", arr)}.");
             return arr;
         }
 
-        public int?[] GetRandomArray(int size, int maxValue, EnumWriteLine writeLine = EnumWriteLine.False)
+        public int?[] GetRandomArray(int size, int maxValue)
         {
             var arr = new int?[size];
             var random = new Random();
@@ -40,8 +35,6 @@ namespace GrokkingAlgorithms.Helpers
             {
                 arr[i] = random.Next(maxValue);
             }
-            if (writeLine == EnumWriteLine.True)
-                Console.WriteLine($"Source array {string.Join(" ; ", arr)}.");
             return arr;
         }
 
