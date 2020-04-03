@@ -5,10 +5,10 @@ using GrokkingAlgorithms.Helpers;
 using NUnit.Framework;
 using System.Diagnostics;
 
-namespace GrokkingAlgorithms.Tests.Helpers.Tests
+namespace GrokkingAlgorithms.Tests.Helpers
 {
     [TestFixture]
-    public class ArrayHelperTests
+    internal class ArrayHelperTests
     {
         private ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
