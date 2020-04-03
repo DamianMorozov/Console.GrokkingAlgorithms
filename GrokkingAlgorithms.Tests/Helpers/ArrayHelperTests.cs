@@ -44,9 +44,15 @@ namespace GrokkingAlgorithms.Tests.Helpers
             TestContext.WriteLine($@"{nameof(GetSortArray_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var actual = _arrayHelper.GetSortArray(210, 220);
+            var actual = _arrayHelper.GetSortArray(210, 220, EnumSort.Asc);
             var expected = new int?[] { 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220 };
-            TestContext.WriteLine($"actual/expected: {actual}");
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+            Assert.AreEqual(expected, actual);
+
+            actual = _arrayHelper.GetSortArray(220, 210, EnumSort.Desc);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+            expected = new int?[] { 220, 219, 218, 217, 216, 215, 214, 213, 212, 211, 210 };
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(expected, actual);
 
             sw.Stop();
@@ -77,10 +83,16 @@ namespace GrokkingAlgorithms.Tests.Helpers
             TestContext.WriteLine($@"{nameof(GetSubArray_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.GetSortArray(210, 220);
+            var arr = _arrayHelper.GetSortArray(210, 220, EnumSort.Asc);
             var actual = _arrayHelper.GetSubArray(arr, 6, 5);
             var expected = new int?[] { 216, 217, 218, 219, 220 };
-            TestContext.WriteLine($"actual/expected: {actual}");
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+            Assert.AreEqual(expected, actual);
+
+            arr = _arrayHelper.GetSortArray(220, 210, EnumSort.Desc);
+            actual = _arrayHelper.GetSubArray(arr, 6, 5);
+            expected = new int?[] { 214, 213, 212, 211, 210 };
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(expected, actual);
 
             sw.Stop();

@@ -48,51 +48,62 @@ namespace GrokkingAlgorithms.Tests.Helpers
 
 			int?[] arr;
 			(int? pos, int count) actual;
+			(int?, int) expected;
 
 			// array
-			arr = _arrayHelper.GetSortArray(1300, 1400);
-			actual = _binarySearchHelper.Execute(arr, 1313);
-			(int?, int) expected = (13, 7);
+			arr = _arrayHelper.GetSortArray(1300, 1400, EnumSort.Asc);
+			actual = _binarySearchHelper.Execute(arr, 1313, EnumSort.Asc);
+			expected = (13, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSort.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			actual = _binarySearchHelper.Execute(arr, 2000);
+			arr = _arrayHelper.GetSortArray(1400, 1300, EnumSort.Desc);
+			TestContext.WriteLine("== " + string.Join(", ", arr));
+			actual = _binarySearchHelper.Execute(arr, 1313, EnumSort.Desc);
+			expected = (87, 7);
+			TestContext.WriteLine($"actual/expected: {actual}");
+			Assert.AreEqual(expected, actual);
+			// list
+			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSort.Desc);
+			TestContext.WriteLine($"actual/expected: {actual}");
+			Assert.AreEqual(expected, actual);
+
+			// array
+			actual = _binarySearchHelper.Execute(arr, 2000, EnumSort.Asc);
 			expected = (null, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 2000);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 2000, EnumSort.Asc);
 			expected = (null, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.GetSortArray(20100, 22200);
-			actual = _binarySearchHelper.Execute(arr, 21500);
+			arr = _arrayHelper.GetSortArray(20100, 22200, EnumSort.Asc);
+			actual = _binarySearchHelper.Execute(arr, 21500, EnumSort.Asc);
 			expected = (1400, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			arr = _arrayHelper.GetSortArray(20100, 22200);
-			actual = _binarySearchHelper.Execute(arr.ToList(), 21500);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 21500, EnumSort.Asc);
 			expected = (1400, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.GetSortArray(20100, 22200);
-			actual = _binarySearchHelper.Execute(arr, 1313);
+			arr = _arrayHelper.GetSortArray(20100, 22200, EnumSort.Asc);
+			actual = _binarySearchHelper.Execute(arr, 1313, EnumSort.Asc);
 			expected = (null, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			arr = _arrayHelper.GetSortArray(20100, 22200);
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSort.Asc);
 			expected = (null, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);

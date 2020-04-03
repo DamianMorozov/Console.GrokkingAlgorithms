@@ -15,14 +15,27 @@ namespace GrokkingAlgorithms.Helpers
 
         #endregion
 
-        public int?[] GetSortArray(int startValue, int endValue)
+        public int?[] GetSortArray(int startValue, int endValue, EnumSort enumSort)
         {
-            var arr = new int?[endValue - startValue + 1];
+            int?[] arr = null;
             var i = 0;
-            for (var j = startValue; j <= endValue; j++)
+            if (enumSort == EnumSort.Asc)
             {
-                arr[i] = j;
-                i++;
+                arr = new int?[endValue - startValue + 1];
+                for (var j = startValue; j <= endValue; j++)
+                {
+                    arr[i] = j;
+                    i++;
+                }
+            }
+            else if (enumSort == EnumSort.Desc)
+            {
+                arr = new int?[startValue - endValue + 1];
+                for (var j = startValue; j >= endValue; j--)
+                {
+                    arr[i] = j;
+                    i++;
+                }
             }
             return arr;
         }

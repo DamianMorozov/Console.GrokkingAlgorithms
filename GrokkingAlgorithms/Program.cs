@@ -110,30 +110,52 @@ namespace GrokkingAlgorithms
             System.Diagnostics.Stopwatch sw;
             var binarySearch = BinarySearchHelper.Instance;
             var array = ArrayHelper.Instance;
-            var arr = array.GetSortArray(startValue, endValue);
+            var arr = array.GetSortArray(startValue, endValue, EnumSort.Asc);
             var list = arr.ToList();
-            Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue});");
+            Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue}, EnumSort.Asc);");
             Console.WriteLine($"var list = arr.ToList();");
+            var arrDesc = array.GetSortArray(endValue, startValue, EnumSort.Desc);
+            var listDesc = arrDesc.ToList();
+            Console.WriteLine($"var arrDesc = _array.GetSortArray({endValue}, {startValue}, EnumSort.Desc);");
+            Console.WriteLine($"var listDesc = arrDesc.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Faster.
             Console.WriteLine(@"Faster:");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(arr, 123_456): {binarySearch.Execute(arr, 123_456):N0}.  ");
+            Console.Write($"Execute(arr, 123_456, EnumSort.Asc): {binarySearch.Execute(arr, 123_456, EnumSort.Asc):N0}.  ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(list, 123_456): {binarySearch.Execute(list, 123_456):N0}. ");
+            Console.Write($"Execute(list, 123_456, EnumSort.Asc): {binarySearch.Execute(list, 123_456, EnumSort.Asc):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(arr, 12): {binarySearch.Execute(arr, 12):N0}.           ");
+            Console.Write($"Execute(arr, 12, EnumSort.Asc): {binarySearch.Execute(arr, 12, EnumSort.Asc):N0}.           ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"Execute(list, 12): {binarySearch.Execute(list, 12):N0}.          ");
+            Console.Write($"Execute(list, 12, EnumSort.Asc): {binarySearch.Execute(list, 12, EnumSort.Asc):N0}.          ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"Execute(arrDesc, 123_456, EnumSort.Desc): {binarySearch.Execute(arrDesc, 123_456, EnumSort.Desc):N0}.  ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"Execute(listDesc, 123_456, EnumSort.Desc): {binarySearch.Execute(listDesc, 123_456, EnumSort.Desc):N0}. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"Execute(arrDesc, 12, EnumSort.Desc): {binarySearch.Execute(arrDesc, 12, EnumSort.Desc):N0}.       ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"Execute(listDesc, 12, EnumSort.Desc): {binarySearch.Execute(listDesc, 12, EnumSort.Desc):N0}.      ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
