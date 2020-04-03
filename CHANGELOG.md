@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.2.10] - 2020-04-03
+## [0.2.11] - 2020-04-03
 ### Added
 - GrokkingAlgorithms.Tests
   - ArrayHelperTests
@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - ArrayHelper
   - BinarySearchHelper
   - SortSelectionHelper
+  - FirstValueHelperTests
 
 ## [0.2.04] - 2020-04-01
 ### Added
