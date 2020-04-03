@@ -12,11 +12,8 @@ namespace GrokkingAlgorithms.Helpers
         #region Design pattern "Singleton".
 
         private static readonly Lazy<CountHelper> _instance = new Lazy<CountHelper>(() => new CountHelper());
-        public static CountHelper Instance { get { return _instance.Value; } }
-        private CountHelper()
-        {
-            //
-        }
+        public static CountHelper Instance => _instance.Value;
+        private CountHelper() { }
 
         #endregion
 

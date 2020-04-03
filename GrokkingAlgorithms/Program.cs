@@ -111,7 +111,7 @@ namespace GrokkingAlgorithms
             var array = ArrayHelper.Instance;
             var arr = array.GetSortArray(startValue, endValue);
             var list = arr.ToList();
-            Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue}, EnumWriteLine.False);");
+            Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue});");
             Console.WriteLine($"var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
@@ -192,7 +192,7 @@ namespace GrokkingAlgorithms
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var summary = SummaryHelper.Instance;");
-            Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);");
+            Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000);");
             Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
@@ -232,7 +232,7 @@ namespace GrokkingAlgorithms
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var count = CountHelper.Instance;");
-            Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000, EnumWriteLine.False);");
+            Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000);");
             Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
@@ -284,7 +284,7 @@ namespace GrokkingAlgorithms
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var firstValue = FirstValueHelper.Instance;");
-            Console.WriteLine("var arr = array.GetRandomArray(1_000, 1_000, EnumWriteLine.False);");
+            Console.WriteLine("var arr = array.GetRandomArray(1_000, 1_000);");
             Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
@@ -331,7 +331,7 @@ namespace GrokkingAlgorithms
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var sortQuick = SortQuickHelper.Instance;");
-            Console.WriteLine("var arr = array.GetRandomArray(1_000_000, 1_000_000, EnumWriteLine.False);");
+            Console.WriteLine("var arr = array.GetRandomArray(1_000_000, 1_000_000);");
             Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
