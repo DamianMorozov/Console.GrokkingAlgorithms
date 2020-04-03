@@ -45,9 +45,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
             var sw = Stopwatch.StartNew();
 
             var actual = _arrayHelper.GetSortArray(210, 220);
-            TestContext.WriteLine($"actual: {string.Join(", ", actual)}");
             var expected = new int?[] { 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220 };
-            TestContext.WriteLine($"expected: {string.Join(", ", expected)}");
+            TestContext.WriteLine($"actual/expected: {actual}");
             Assert.AreEqual(expected, actual);
 
             sw.Stop();
@@ -63,9 +62,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
 
             var arr = _arrayHelper.GetRandomArray(12_500, 100_000);
             var actual = arr.Length;
-            TestContext.WriteLine($"actual: {actual}");
             var expected = 12_500;
-            TestContext.WriteLine($"expected: {expected}");
+            TestContext.WriteLine($"actual/expected: {actual}");
             Assert.AreEqual(expected, actual);
 
             sw.Stop();
@@ -81,9 +79,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
 
             var arr = _arrayHelper.GetSortArray(210, 220);
             var actual = _arrayHelper.GetSubArray(arr, 6, 5);
-            TestContext.WriteLine($"actual: {string.Join(", ", actual)}");
             var expected = new int?[] { 216, 217, 218, 219, 220 };
-            TestContext.WriteLine($"expected: {string.Join(", ", expected)}");
+            TestContext.WriteLine($"actual/expected: {actual}");
             Assert.AreEqual(expected, actual);
 
             sw.Stop();
