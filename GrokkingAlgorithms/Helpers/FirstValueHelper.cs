@@ -12,12 +12,8 @@ namespace GrokkingAlgorithms.Helpers
         #region Design pattern "Singleton".
 
         private static readonly Lazy<FirstValueHelper> _instance = new Lazy<FirstValueHelper>(() => new FirstValueHelper());
-        public static FirstValueHelper Instance { get { return _instance.Value; } }
-        private FirstValueHelper()
-        {
-            //
-        }
-
+        public static FirstValueHelper Instance => _instance.Value;
+        private FirstValueHelper() { }
         #endregion
 
         public (int pos, int? val) ExecuteForeach(int?[] arr, EnumSort sort)
