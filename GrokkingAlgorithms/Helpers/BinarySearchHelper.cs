@@ -12,11 +12,8 @@ namespace GrokkingAlgorithms.Helpers
         #region Design pattern "Singleton".
 
         private static readonly Lazy<BinarySearchHelper> _instance = new Lazy<BinarySearchHelper>(() => new BinarySearchHelper());
-        public static BinarySearchHelper Instance { get { return _instance.Value; } }
-        private BinarySearchHelper()
-        {
-            //
-        }
+        public static BinarySearchHelper Instance => _instance.Value;
+        private BinarySearchHelper() { }
 
         #endregion
 
