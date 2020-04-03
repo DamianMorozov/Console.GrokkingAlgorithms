@@ -4,6 +4,6 @@
 namespace GrokkingAlgorithms.Helpers
 {
     public enum EnumWriteLine { True, False }
-    public enum EnumAlgorithm { First, Second, Third }
+    public enum EnumAlgorithm { Slow, Middle, Fast }
     public enum EnumSort { Asc, Desc }
 }

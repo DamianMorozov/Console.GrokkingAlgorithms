@@ -24,13 +24,13 @@ namespace GrokkingAlgorithms.Helpers
             var sw = System.Diagnostics.Stopwatch.StartNew();
             switch (algorithm)
             {
-                case EnumAlgorithm.First:
+                case EnumAlgorithm.Slow:
                     Algorithm1(arr, sort);
                     break;
-                case EnumAlgorithm.Second:
+                case EnumAlgorithm.Middle:
                     Algorithm2(arr, sort);
                     break;
-                case EnumAlgorithm.Third:
+                case EnumAlgorithm.Fast:
                     Algorithm3(arr, sort);
                     break;
             }
