@@ -12,37 +12,27 @@ namespace GrokkingAlgorithms.Helpers
 
         private static readonly Lazy<SortSelectionHelper> _instance = new Lazy<SortSelectionHelper>(() => new SortSelectionHelper());
         public static SortSelectionHelper Instance { get { return _instance.Value; } }
-        private SortSelectionHelper()
-        {
-            //
-        }
+        private SortSelectionHelper() { }
 
         #endregion
 
-        public void Execute(int?[] arr, EnumSort sort, EnumAlgorithm algorithm, EnumWriteLine writeLine = EnumWriteLine.False)
+        public void Execute(int?[] arr, EnumSort sort, EnumAlgorithm algorithm)
         {
-            var sw = System.Diagnostics.Stopwatch.StartNew();
             switch (algorithm)
             {
                 case EnumAlgorithm.Slow:
-                    Algorithm1(arr, sort);
+                    ExecuteSlow(arr, sort);
                     break;
                 case EnumAlgorithm.Middle:
-                    Algorithm2(arr, sort);
+                    ExecuteMiddle(arr, sort);
                     break;
                 case EnumAlgorithm.Fast:
-                    Algorithm3(arr, sort);
+                    ExecuteFast(arr, sort);
                     break;
             }
-            sw.Stop();
-            Console.Write($"Sorting: {sort}. Algorithm: {algorithm}. Elapsed time: {sw.Elapsed}.");
-            if (writeLine == EnumWriteLine.True)
-                Console.WriteLine($" Sorting array: {string.Join(sort == EnumSort.Asc ? " < " : " > ", arr)}.");
-            else
-                Console.WriteLine($" Count items: {arr.Length:N0}.");
         }
 
-        public static void Algorithm1(int?[] arr, EnumSort sort)
+        public static void ExecuteSlow(int?[] arr, EnumSort sort)
         {
             bool check = false;
             while (!check)
@@ -64,7 +54,7 @@ namespace GrokkingAlgorithms.Helpers
             }
         }
 
-        public static void Algorithm2(int?[] arr, EnumSort sort)
+        public static void ExecuteMiddle(int?[] arr, EnumSort sort)
         {
             bool check = false;
             int? swap;
@@ -123,7 +113,7 @@ namespace GrokkingAlgorithms.Helpers
             return (i, value);
         }
 
-        public void Algorithm3(int?[] arr, EnumSort sort)
+        public void ExecuteFast(int?[] arr, EnumSort sort)
         {
             var list = arr.ToList();
             for (var i = 0; i < arr.Length; i++)

@@ -168,29 +168,37 @@ namespace GrokkingAlgorithms
 
             System.Diagnostics.Stopwatch sw;
             var array = ArrayHelper.Instance;
+            int?[] arr;
             Console.WriteLine(@"var _array = ArrayHelper.Instance;");
             var sortSelection = SortSelectionHelper.Instance;
             Console.WriteLine(@"var _sortSelection = SortSelectionHelper.Instance;");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Faster.
+            arr = array.GetRandomArray(15_000, 100_000);
             Console.WriteLine(@"Faster:");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(array.GetRandomArray(15_000, 100_000), EnumSort.Asc, EnumAlgorithm.Fast);
+            sortSelection.Execute(arr, EnumSort.Asc, EnumAlgorithm.Fast);
             sw.Stop();
-            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            // Middle.
+            arr = array.GetRandomArray(15_000, 100_000);
+            Console.WriteLine(@"Middle:");
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            sortSelection.Execute(arr, EnumSort.Asc, EnumAlgorithm.Middle);
+            sw.Stop();
+            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Slower.
+            arr = array.GetRandomArray(15_000, 100_000);
             Console.WriteLine(@"Slower:");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(array.GetRandomArray(15_000, 100_000), EnumSort.Asc, EnumAlgorithm.Middle);
+            sortSelection.Execute(arr, EnumSort.Asc, EnumAlgorithm.Slow);
             sw.Stop();
-            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(array.GetRandomArray(15_000, 100_000), EnumSort.Asc, EnumAlgorithm.Slow);
-            sw.Stop();
-            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
         }
 
         internal static void PrintRecursion()
