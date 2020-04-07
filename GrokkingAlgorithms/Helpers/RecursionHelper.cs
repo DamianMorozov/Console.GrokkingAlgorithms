@@ -11,10 +11,7 @@ namespace GrokkingAlgorithms.Helpers
 
         private static readonly Lazy<RecursionHelper> _instance = new Lazy<RecursionHelper>(() => new RecursionHelper());
         public static RecursionHelper Instance { get { return _instance.Value; } }
-        private RecursionHelper()
-        {
-            //
-        }
+        private RecursionHelper() { }
 
         #endregion
 
