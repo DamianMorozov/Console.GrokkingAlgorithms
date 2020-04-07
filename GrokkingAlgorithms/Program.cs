@@ -225,26 +225,27 @@ namespace GrokkingAlgorithms
             Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
+            // Faster.
+            Console.WriteLine(@"Faster:");
+
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"sortQuickLoop.Execute(arr): {summary.ExecuteForeach(arr):N0}. ");
+            Console.Write($"sortQuickLoop.ExecuteForeach(arr): {summary.ExecuteForeach(arr):N0}.  ");
             sw.Stop();
-            Console.WriteLine($"Loop(). Elapsed time: {sw.Elapsed}.");
-            Console.WriteLine(@"----------------------------------------------------------------------");
-
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"sortQuickLoop.Execute(list): {summary.ExecuteForeach(list):N0}. ");
-            sw.Stop();
-            Console.WriteLine($"Loop(). Elapsed time: {sw.Elapsed}.");
-            Console.WriteLine(@"----------------------------------------------------------------------");
-
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"summaryRecursion.Execute(arr): {summary.ExecuteRecursive(arr):N0}. ");
+            Console.Write($"sortQuickLoop.ExecuteForeach(list): {summary.ExecuteForeach(list):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
+            // Slower.
+            Console.WriteLine(@"Slower:");
             sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"summaryRecursion.Execute(list): {summary.ExecuteRecursive(list):N0}. ");
+            Console.Write($"summaryRecursion.ExecuteRecursive(arr): {summary.ExecuteRecursive(arr):N0}.  ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            sw = System.Diagnostics.Stopwatch.StartNew();
+            Console.Write($"summaryRecursion.ExecuteRecursive(list): {summary.ExecuteRecursive(list):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }

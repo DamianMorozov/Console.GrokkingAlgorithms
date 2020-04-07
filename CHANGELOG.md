@@ -2,13 +2,15 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.2.12] - 2020-04-07
+## [0.2.13] - 2020-04-07
 ### Added
 - GrokkingAlgorithms.Tests
   - RecursionHelperTests
+  - SummaryHelperTests
 ### Updated
 - GrokkingAlgorithms
   - RecursionHelper
+  - SummaryHelper
 
 ## [0.2.11] - 2020-04-03
 ### Added

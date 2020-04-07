@@ -13,10 +13,7 @@ namespace GrokkingAlgorithms.Helpers
 
         private static readonly Lazy<SummaryHelper> _instance = new Lazy<SummaryHelper>(() => new SummaryHelper());
         public static SummaryHelper Instance { get { return _instance.Value; } }
-        private SummaryHelper()
-        {
-            //
-        }
+        private SummaryHelper() { }
 
         #endregion
 
