@@ -11,7 +11,7 @@ namespace GrokkingAlgorithms.Helpers
         #region Design pattern "Singleton".
 
         private static readonly Lazy<SortSelectionHelper> _instance = new Lazy<SortSelectionHelper>(() => new SortSelectionHelper());
-        public static SortSelectionHelper Instance { get { return _instance.Value; } }
+        public static SortSelectionHelper Instance => _instance.Value;
         private SortSelectionHelper() { }
 
         #endregion

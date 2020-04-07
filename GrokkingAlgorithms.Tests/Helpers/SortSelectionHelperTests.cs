@@ -10,8 +10,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
 	[TestFixture]
 	public class SortSelectionHelperTests
 	{
-		private SortSelectionHelper _sortSelectionHelper = SortSelectionHelper.Instance;
-		private ArrayHelper _arrayHelper = ArrayHelper.Instance;
+		private readonly SortSelectionHelper _sortSelectionHelper = SortSelectionHelper.Instance;
+		private readonly ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
 		/// <summary>
 		/// Setup private fields.

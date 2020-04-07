@@ -12,8 +12,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
 	[TestFixture]
 	public class CountHelperTests
 	{
-		private CountHelper _countHelper = CountHelper.Instance;
-		private ArrayHelper _arrayHelper = ArrayHelper.Instance;
+		private readonly CountHelper _countHelper = CountHelper.Instance;
+		private readonly ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
 		/// <summary>
 		/// Setup private fields.

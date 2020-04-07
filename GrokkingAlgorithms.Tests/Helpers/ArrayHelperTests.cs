@@ -8,9 +8,9 @@ using System.Diagnostics;
 namespace GrokkingAlgorithms.Tests.Helpers
 {
     [TestFixture]
-    internal class ArrayHelperTests
+    public class ArrayHelperTests
     {
-        private ArrayHelper _arrayHelper = ArrayHelper.Instance;
+        private readonly ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
         /// <summary>
         /// Setup private fields.

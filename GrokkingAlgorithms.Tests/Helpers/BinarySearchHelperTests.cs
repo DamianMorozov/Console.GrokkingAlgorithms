@@ -11,8 +11,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
 	[TestFixture]
 	public class BinarySearchHelperTests
 	{
-		private BinarySearchHelper _binarySearchHelper = BinarySearchHelper.Instance;
-		private ArrayHelper _arrayHelper = ArrayHelper.Instance;
+		private readonly BinarySearchHelper _binarySearchHelper = BinarySearchHelper.Instance;
+		private readonly ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
 		/// <summary>
 		/// Setup private fields.

@@ -11,8 +11,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
 	[TestFixture]
 	public class SummaryHelperTests
 	{
-		private SummaryHelper _summaryHelper = SummaryHelper.Instance;
-		private ArrayHelper _arrayHelper = ArrayHelper.Instance;
+		private readonly SummaryHelper _summaryHelper = SummaryHelper.Instance;
+		private readonly ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
 		/// <summary>
 		/// Setup private fields.

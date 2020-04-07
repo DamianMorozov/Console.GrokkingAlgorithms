@@ -11,8 +11,8 @@ namespace GrokkingAlgorithms.Tests.Helpers
 	[TestFixture]
 	public class FirstValueHelperTests
 	{
-		private FirstValueHelper _firstValueHelper = FirstValueHelper.Instance;
-		private ArrayHelper _arrayHelper = ArrayHelper.Instance;
+		private readonly FirstValueHelper _firstValueHelper = FirstValueHelper.Instance;
+		private readonly ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
 		/// <summary>
 		/// Setup private fields.

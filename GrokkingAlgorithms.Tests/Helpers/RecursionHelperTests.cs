@@ -10,7 +10,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 	[TestFixture]
 	public class RecursionHelperTests
 	{
-		private RecursionHelper _recursionHelper = RecursionHelper.Instance;
+		private readonly RecursionHelper _recursionHelper = RecursionHelper.Instance;
 
 		/// <summary>
 		/// Setup private fields.
