@@ -28,13 +28,9 @@ namespace GrokkingAlgorithms.Helpers
         /// <returns></returns>
         public int Execute(int?[] arr, EnumSpeed speed = EnumSpeed.Fast)
         {
-            switch (speed)
-            {
-                case EnumSpeed.Slow:
+            if (speed == EnumSpeed.Slow)
                     return ExecuteRecursive(arr);
-                default:
-                    return ExecuteForeach(arr);
-            }
+            return ExecuteForeach(arr);
         }
 
         /// <summary>
