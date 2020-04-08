@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace GrokkingAlgorithms.Helpers
 {
+    /// <summary>
+    /// Sort selection helper.
+    /// </summary>
     public sealed class SortSelectionHelper
     {
         #region Design pattern "Singleton".
@@ -16,23 +19,23 @@ namespace GrokkingAlgorithms.Helpers
 
         #endregion
 
-        public void Execute(int?[] arr, EnumSort sort, EnumAlgorithm algorithm)
+        /// <summary>
+        /// Execute method.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="sort"></param>
+        /// <param name="speed"></param>
+        public void Execute(int?[] arr, EnumSort sort, EnumSpeed speed = EnumSpeed.Fast)
         {
-            switch (algorithm)
-            {
-                case EnumAlgorithm.Slow:
-                    ExecuteSlow(arr, sort);
-                    break;
-                case EnumAlgorithm.Middle:
-                    ExecuteMiddle(arr, sort);
-                    break;
-                case EnumAlgorithm.Fast:
-                    ExecuteFast(arr, sort);
-                    break;
-            }
+            if (speed == EnumSpeed.Slow)
+                ExecuteSlow(arr, sort);
+            else if (speed == EnumSpeed.Middle)
+                ExecuteMiddle(arr, sort);
+            else
+                ExecuteFast(arr, sort);
         }
 
-        public static void ExecuteSlow(int?[] arr, EnumSort sort)
+        private void ExecuteSlow(int?[] arr, EnumSort sort)
         {
             bool check = false;
             while (!check)
@@ -54,7 +57,7 @@ namespace GrokkingAlgorithms.Helpers
             }
         }
 
-        public static void ExecuteMiddle(int?[] arr, EnumSort sort)
+        private void ExecuteMiddle(int?[] arr, EnumSort sort)
         {
             bool check = false;
             int? swap;
@@ -113,7 +116,7 @@ namespace GrokkingAlgorithms.Helpers
             return (i, value);
         }
 
-        public void ExecuteFast(int?[] arr, EnumSort sort)
+        private void ExecuteFast(int?[] arr, EnumSort sort)
         {
             var list = arr.ToList();
             for (var i = 0; i < arr.Length; i++)
