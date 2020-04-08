@@ -5,22 +5,29 @@ using System;
 
 namespace GrokkingAlgorithms.Helpers
 {
+    /// <summary>
+    /// Recursion helper.
+    /// </summary>
     public sealed class RecursionHelper
     {
         #region Design pattern "Singleton".
 
         private static readonly Lazy<RecursionHelper> _instance = new Lazy<RecursionHelper>(() => new RecursionHelper());
-        public static RecursionHelper Instance { get { return _instance.Value; } }
+        public static RecursionHelper Instance => _instance.Value;
         private RecursionHelper() { }
 
         #endregion
 
+        /// <summary>
+        /// Factorial method.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public int Factorial(int x)
         {
             if (x <= 1)
                 return x;
-            else
-                return x * Factorial(x - 1);
+            return x * Factorial(x - 1);
         }
     }
 }
