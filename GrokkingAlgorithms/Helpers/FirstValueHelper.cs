@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace GrokkingAlgorithms.Helpers
 {
+    /// <summary>
+    /// First value helper.
+    /// </summary>
     public sealed class FirstValueHelper
     {
         #region Design pattern "Singleton".
@@ -16,7 +19,33 @@ namespace GrokkingAlgorithms.Helpers
         private FirstValueHelper() { }
         #endregion
 
-        public (int pos, int? val) ExecuteForeach(int?[] arr, EnumSort sort)
+        /// <summary>
+        /// Execute method. Fast - for & foreach. Slow - recursion.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="sort"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public (int pos, int? val) Execute(int?[] arr, EnumSort sort, EnumSpeed speed = EnumSpeed.Fast)
+        {
+            return ExecuteForeach(arr, sort);
+        }
+
+        /// <summary>
+        /// Execute method. Fast - for & foreach. Slow - recursion.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="sort"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public (int pos, int? val) Execute(IEnumerable<int?> list, EnumSort sort, EnumSpeed speed = EnumSpeed.Fast)
+        {
+            if (speed == EnumSpeed.Slow)
+                return (0, ExecuteRecursive(list, sort));
+            return ExecuteForeach(list, sort);
+        }
+
+        private (int pos, int? val) ExecuteForeach(int?[] arr, EnumSort sort)
         {
             if (arr.Length <= 0)
                 return (-1, null);
@@ -52,7 +81,7 @@ namespace GrokkingAlgorithms.Helpers
             return (i, value);
         }
 
-        public (int pos, int? val) ExecuteForeach(IEnumerable<int?> list, EnumSort sort)
+        private (int pos, int? val) ExecuteForeach(IEnumerable<int?> list, EnumSort sort)
         {
             int i = 0, j = 0;
             int? value = null;
@@ -85,7 +114,7 @@ namespace GrokkingAlgorithms.Helpers
             return (i, value);
         }
 
-        public int? ExecuteRecursive(IEnumerable<int?> list, EnumSort sort)
+        private int? ExecuteRecursive(IEnumerable<int?> list, EnumSort sort)
         {
             if (!list.Any()) return null;
             if (list.Count() == 1) return list.First();
