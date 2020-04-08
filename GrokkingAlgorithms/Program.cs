@@ -236,11 +236,11 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"Faster:");
 
             var sw = Stopwatch.StartNew();
-            Console.Write($"sortQuickLoop.ExecuteForeach(arr): {summary.ExecuteForeach(arr):N0}.  ");
+            Console.Write($"sortQuickLoop.ExecuteForeach(arr): {summary.Execute(arr):N0}.  ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            Console.Write($"sortQuickLoop.ExecuteForeach(list): {summary.ExecuteForeach(list):N0}. ");
+            Console.Write($"sortQuickLoop.ExecuteForeach(list): {summary.Execute(list):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
@@ -248,11 +248,11 @@ namespace GrokkingAlgorithms
             // Slower.
             Console.WriteLine(@"Slower:");
             sw = Stopwatch.StartNew();
-            Console.Write($"summaryRecursion.ExecuteRecursive(arr): {summary.ExecuteRecursive(arr):N0}.  ");
+            Console.Write($"summaryRecursion.ExecuteRecursive(arr, EnumSpeed.Slow): {summary.Execute(arr, EnumSpeed.Slow):N0}.  ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            Console.Write($"summaryRecursion.ExecuteRecursive(list): {summary.ExecuteRecursive(list):N0}. ");
+            Console.Write($"summaryRecursion.ExecuteRecursive(list, EnumSpeed.Slow): {summary.Execute(list, EnumSpeed.Slow):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
