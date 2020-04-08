@@ -5,6 +5,9 @@ using System;
 
 namespace GrokkingAlgorithms.Helpers
 {
+    /// <summary>
+    /// Array helper.
+    /// </summary>
     public sealed class ArrayHelper
     {
         #region Design pattern "Singleton".
@@ -15,6 +18,13 @@ namespace GrokkingAlgorithms.Helpers
 
         #endregion
 
+        /// <summary>
+        /// Get sorted array.
+        /// </summary>
+        /// <param name="startValue"></param>
+        /// <param name="endValue"></param>
+        /// <param name="enumSort"></param>
+        /// <returns></returns>
         public int?[] GetSortArray(int startValue, int endValue, EnumSort enumSort)
         {
             int?[] arr = null;
@@ -40,6 +50,12 @@ namespace GrokkingAlgorithms.Helpers
             return arr;
         }
 
+        /// <summary>
+        /// Get random array.
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="maxValue"></param>
+        /// <returns></returns>
         public int?[] GetRandomArray(int size, int maxValue)
         {
             var arr = new int?[size];
@@ -51,6 +67,13 @@ namespace GrokkingAlgorithms.Helpers
             return arr;
         }
 
+        /// <summary>
+        /// Get subarray.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="index"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public int?[] GetSubArray(int?[] data, int index, int length)
         {
             int?[] result = new int?[length];
