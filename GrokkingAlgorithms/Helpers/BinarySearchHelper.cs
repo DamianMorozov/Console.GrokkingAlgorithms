@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace GrokkingAlgorithms.Helpers
 {
+    /// <summary>
+    /// Binary search helper.
+    /// </summary>
     public sealed class BinarySearchHelper
     {
         #region Design pattern "Singleton".
@@ -17,13 +20,20 @@ namespace GrokkingAlgorithms.Helpers
 
         #endregion
 
+        /// <summary>
+        /// Execute method.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="item"></param>
+        /// <param name="enumSort"></param>
+        /// <returns></returns>
         public (int? pos, int count) Execute(int?[] arr, int item, EnumSort enumSort)
         {
             var count = 0;
             if (enumSort == EnumSort.Asc)
             {
                 var start = 0;
-                var end = arr.Count() - 1;
+                var end = arr.Length - 1;
                 while (start <= end)
                 {
                     count++;
@@ -39,7 +49,7 @@ namespace GrokkingAlgorithms.Helpers
             else if (enumSort == EnumSort.Desc)
             {
                 var end = 0;
-                var start = arr.Count() - 1;
+                var start = arr.Length - 1;
                 while (start >= end)
                 {
                     count++;
@@ -55,6 +65,13 @@ namespace GrokkingAlgorithms.Helpers
             return (null, count);
         }
 
+        /// <summary>
+        /// Execute method.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="item"></param>
+        /// <param name="enumSort"></param>
+        /// <returns></returns>
         public (int? pos, int count) Execute(IEnumerable<int?> list, int item, EnumSort enumSort)
         {
             var count = 0;
