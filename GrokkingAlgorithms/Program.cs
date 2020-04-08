@@ -3,6 +3,7 @@
 
 using GrokkingAlgorithms.Helpers;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -10,7 +11,7 @@ using System.Runtime.CompilerServices;
 
 namespace GrokkingAlgorithms
 {
-    internal class Program
+    internal static class Program
     {
         internal static void Main()
         {
@@ -82,7 +83,7 @@ namespace GrokkingAlgorithms
                     break;
                 case 7:
                     isPrintMenu = true;
-                    PrintQuickSort();
+                    PrintSortQuick();
                     break;
             }
             if (isPrintMenu)
@@ -107,7 +108,6 @@ namespace GrokkingAlgorithms
             SetValueSafe(Console.ReadLine(), ref endValue, 1_000_000);
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            System.Diagnostics.Stopwatch sw;
             var binarySearch = BinarySearchHelper.Instance;
             var array = ArrayHelper.Instance;
             var arr = array.GetSortArray(startValue, endValue, EnumSort.Asc);
@@ -123,38 +123,38 @@ namespace GrokkingAlgorithms
             // Faster.
             Console.WriteLine(@"Faster:");
 
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            var sw = Stopwatch.StartNew();
             Console.Write($"Execute(arr, 123_456, EnumSort.Asc): {binarySearch.Execute(arr, 123_456, EnumSort.Asc):N0}.  ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"Execute(list, 123_456, EnumSort.Asc): {binarySearch.Execute(list, 123_456, EnumSort.Asc):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"Execute(arr, 12, EnumSort.Asc): {binarySearch.Execute(arr, 12, EnumSort.Asc):N0}.           ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"Execute(list, 12, EnumSort.Asc): {binarySearch.Execute(list, 12, EnumSort.Asc):N0}.          ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"Execute(arrDesc, 123_456, EnumSort.Desc): {binarySearch.Execute(arrDesc, 123_456, EnumSort.Desc):N0}.  ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"Execute(listDesc, 123_456, EnumSort.Desc): {binarySearch.Execute(listDesc, 123_456, EnumSort.Desc):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"Execute(arrDesc, 12, EnumSort.Desc): {binarySearch.Execute(arrDesc, 12, EnumSort.Desc):N0}.       ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"Execute(listDesc, 12, EnumSort.Desc): {binarySearch.Execute(listDesc, 12, EnumSort.Desc):N0}.      ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
@@ -166,7 +166,6 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"---                         Sort selection                         ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            System.Diagnostics.Stopwatch sw;
             var array = ArrayHelper.Instance;
             int?[] arr;
             Console.WriteLine(@"var _array = ArrayHelper.Instance;");
@@ -177,8 +176,8 @@ namespace GrokkingAlgorithms
             // Faster.
             arr = array.GetRandomArray(15_000, 100_000);
             Console.WriteLine(@"Faster:");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(arr, EnumSort.Asc, EnumAlgorithm.Fast);
+            var sw = Stopwatch.StartNew();
+            sortSelection.Execute(arr, EnumSort.Asc, EnumSpeed.Fast);
             sw.Stop();
             Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
@@ -186,8 +185,8 @@ namespace GrokkingAlgorithms
             // Middle.
             arr = array.GetRandomArray(15_000, 100_000);
             Console.WriteLine(@"Middle:");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(arr, EnumSort.Asc, EnumAlgorithm.Middle);
+            sw = Stopwatch.StartNew();
+            sortSelection.Execute(arr, EnumSort.Asc, EnumSpeed.Middle);
             sw.Stop();
             Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
@@ -195,8 +194,8 @@ namespace GrokkingAlgorithms
             // Slower.
             arr = array.GetRandomArray(15_000, 100_000);
             Console.WriteLine(@"Slower:");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            sortSelection.Execute(arr, EnumSort.Asc, EnumAlgorithm.Slow);
+            sw = Stopwatch.StartNew();
+            sortSelection.Execute(arr, EnumSort.Asc, EnumSpeed.Slow);
             sw.Stop();
             Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
         }
@@ -211,7 +210,7 @@ namespace GrokkingAlgorithms
             Console.WriteLine("var _recursion = RecursionHelper.Instance;");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            var sw = System.Diagnostics.Stopwatch.StartNew();
+            var sw = Stopwatch.StartNew();
             Console.WriteLine($"Factorial(8): {recursion.Factorial(8):N0}");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
@@ -236,11 +235,11 @@ namespace GrokkingAlgorithms
             // Faster.
             Console.WriteLine(@"Faster:");
 
-            var sw = System.Diagnostics.Stopwatch.StartNew();
+            var sw = Stopwatch.StartNew();
             Console.Write($"sortQuickLoop.ExecuteForeach(arr): {summary.ExecuteForeach(arr):N0}.  ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"sortQuickLoop.ExecuteForeach(list): {summary.ExecuteForeach(list):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
@@ -248,11 +247,11 @@ namespace GrokkingAlgorithms
 
             // Slower.
             Console.WriteLine(@"Slower:");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"summaryRecursion.ExecuteRecursive(arr): {summary.ExecuteRecursive(arr):N0}.  ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"summaryRecursion.ExecuteRecursive(list): {summary.ExecuteRecursive(list):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
@@ -264,7 +263,6 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"---                   Count recursive & foreach                    ---");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            System.Diagnostics.Stopwatch sw;
             var array = ArrayHelper.Instance;
             var count = CountHelper.Instance;
             var arr = array.GetRandomArray(2_000, 1_000);
@@ -277,32 +275,32 @@ namespace GrokkingAlgorithms
 
             // Faster.
             Console.WriteLine(@"Faster:");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"arr.Length:                         {arr.Length:N0}. ");
+            var sw = Stopwatch.StartNew();
+            Console.Write($"arr.Length:                          {arr.Length:N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"list.Count:                         {list.Count:N0}. ");
+            sw = Stopwatch.StartNew();
+            Console.Write($"list.Count:                          {list.Count:N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"countHelper.ExecuteForeach(arr):    {count.ExecuteForeach(arr):N0}. ");
+            sw = Stopwatch.StartNew();
+            Console.Write($"count.Execute(arr, EnumSpeed.Fast):  {count.Execute(arr, EnumSpeed.Fast):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"countHelper.ExecuteForeach(list):   {count.ExecuteForeach(list):N0}. ");
+            sw = Stopwatch.StartNew();
+            Console.Write($"count.Execute(list, EnumSpeed.Fast): {count.Execute(list, EnumSpeed.Fast):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Slower.
             Console.WriteLine(@"Slower:");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"countHelper.ExecuteRecursive(arr):  {count.ExecuteRecursive(arr):N0}. ");
+            sw = Stopwatch.StartNew();
+            Console.Write($"count.Execute(arr, EnumSpeed.Slow):  {count.Execute(arr, EnumSpeed.Slow):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            Console.Write($"countHelper.ExecuteRecursive(list): {count.ExecuteRecursive(list):N0}. ");
+            sw = Stopwatch.StartNew();
+            Console.Write($"count.Execute(list, EnumSpeed.Slow): {count.Execute(list, EnumSpeed.Slow):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
@@ -325,19 +323,19 @@ namespace GrokkingAlgorithms
 
             // Faster.
             Console.WriteLine(@"Faster:");
-            var sw = System.Diagnostics.Stopwatch.StartNew();
+            var sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteForeach(arr, EnumSort.Asc):     {firstValue.ExecuteForeach(arr, EnumSort.Asc):N0}.   ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteForeach(arr, EnumSort.Desc):    {firstValue.ExecuteForeach(arr, EnumSort.Desc):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteForeach(list, EnumSort.Asc):    {firstValue.ExecuteForeach(list, EnumSort.Asc):N0}.   ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteRecursive(list, EnumSort.Desc): {firstValue.ExecuteForeach(list, EnumSort.Desc):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
@@ -345,25 +343,25 @@ namespace GrokkingAlgorithms
 
             // Slower.
             Console.WriteLine(@"Slower:");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteRecursive(arr, EnumSort.Asc):   {firstValue.ExecuteRecursive(arr, EnumSort.Asc):N0}.   ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteRecursive(arr, EnumSort.Desc):  {firstValue.ExecuteRecursive(arr, EnumSort.Desc):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteRecursive(list, EnumSort.Asc):  {firstValue.ExecuteRecursive(list, EnumSort.Asc):N0}.   ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = System.Diagnostics.Stopwatch.StartNew();
+            sw = Stopwatch.StartNew();
             Console.Write($"firstValue.ExecuteRecursive(list, EnumSort.Desc): {firstValue.ExecuteRecursive(list, EnumSort.Desc):N0}. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        internal static void PrintQuickSort()
+        internal static void PrintSortQuick()
         {
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine(@"---                           Quick sort                           ---");
@@ -371,7 +369,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var sortQuick = SortQuickHelper.Instance;
-            var arr = array.GetRandomArray(1_000_000, 1_000_000);
+            int?[] arr = array.GetRandomArray(1_000_000, 1_000_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var sortQuick = SortQuickHelper.Instance;");
@@ -379,15 +377,15 @@ namespace GrokkingAlgorithms
             Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
-            var sw = System.Diagnostics.Stopwatch.StartNew();
-            var sortListFast = sortQuick.ExecuteRecursiveFast(arr, EnumSort.Asc);
-            Console.Write($"var sortListFast = sortQuick.ExecuteRecursiveFast(arr, EnumSort.Asc);. ");
+            var sw = Stopwatch.StartNew();
+            sortQuick.ExecuteRecursiveFast(arr, EnumSort.Asc);
+            Console.Write($"sortQuick.ExecuteRecursiveFast(arr, EnumSort.Asc);. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
 
-            sw = System.Diagnostics.Stopwatch.StartNew();
-            var sortListFast2 = sortQuick.ExecuteRecursiveFastWithSwithPivot(arr, EnumSort.Asc);
-            Console.Write($"var sortListFast2 = sortQuick.ExecuteRecursiveFastWithSwithPivot(arr, EnumSort.Asc);. ");
+            sw = Stopwatch.StartNew();
+            sortQuick.ExecuteRecursiveFastWithSwithPivot(arr, EnumSort.Asc);
+            Console.Write($"sortQuick.ExecuteRecursiveFastWithSwithPivot(arr, EnumSort.Asc);. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
         }

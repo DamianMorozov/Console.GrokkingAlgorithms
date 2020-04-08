@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace GrokkingAlgorithms.Helpers
 {
+    /// <summary>
+    /// Counter helper.
+    /// </summary>
     public sealed class CountHelper
     {
         #region Design pattern "Singleton".
@@ -17,7 +20,46 @@ namespace GrokkingAlgorithms.Helpers
 
         #endregion
 
-        public int ExecuteRecursive(int?[] arr)
+        /// <summary>
+        /// Execute method. Fast - recursion. Slow - for & foreach.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public int Execute(int?[] arr, EnumSpeed speed = EnumSpeed.Fast)
+        {
+            switch (speed)
+            {
+                case EnumSpeed.Slow:
+                    return ExecuteRecursive(arr);
+                default:
+                    return ExecuteForeach(arr);
+            }
+        }
+
+        /// <summary>
+        /// Execute method. Fast - recursion. Slow - for & foreach.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public int Execute(IEnumerable<int?> list, EnumSpeed speed = EnumSpeed.Fast)
+        {
+            switch (speed)
+            {
+                case EnumSpeed.Slow:
+                    return ExecuteRecursive(list);
+                default:
+                    return ExecuteForeach(list);
+            }
+        }
+
+        /// <summary>
+        /// Execute method using recursion.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        private int ExecuteRecursive(int?[] arr)
         {
             if (arr.Length == 0)
                 return 0;
@@ -26,7 +68,12 @@ namespace GrokkingAlgorithms.Helpers
             return 1 + ExecuteRecursive(list.ToArray());
         }
 
-        public int ExecuteForeach(int?[] arr)
+        /// <summary>
+        /// Execute method using foreach.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        private int ExecuteForeach(int?[] arr)
         {
             var result = 0;
             for (var i = 0; i < arr.Length; i++)
@@ -34,14 +81,24 @@ namespace GrokkingAlgorithms.Helpers
             return result;
         }
 
-        public int ExecuteRecursive(IEnumerable<int?> list)
+        /// <summary>
+        /// Execute method using recursion.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        private int ExecuteRecursive(IEnumerable<int?> list)
         {
             if (!list.Any())
                 return 0;
             return 1 + ExecuteRecursive(list.Skip(1));
         }
 
-        public int ExecuteForeach(IEnumerable<int?> list)
+        /// <summary>
+        /// Execute method using foreach.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        private int ExecuteForeach(IEnumerable<int?> list)
         {
             if (!list.Any())
                 return 0;
