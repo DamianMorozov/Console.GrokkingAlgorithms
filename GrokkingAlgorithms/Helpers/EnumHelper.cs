@@ -3,6 +3,37 @@
 
 namespace GrokkingAlgorithms.Helpers
 {
-    public enum EnumAlgorithm { Fast = 0, Middle = 1, Slow = 3 }
-    public enum EnumSort { Asc = 0, Desc = 1 }
+    /// <summary>
+    /// Speed algorithm.
+    /// </summary>
+    public enum EnumSpeed
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        Fast = 0,
+        /// <summary>
+        /// 
+        /// </summary>
+        Middle = 1,
+        /// <summary>
+        /// 
+        /// </summary>
+        Slow = 3,
+    }
+
+    /// <summary>
+    /// Sorting method.
+    /// </summary>
+    public enum EnumSort
+    {
+        /// <summary>
+        /// Ascending.
+        /// </summary>
+        Asc = 0,
+        /// <summary>
+        /// Descending.
+        /// </summary>
+        Desc = 1,
+    }
 }
