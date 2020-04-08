@@ -21,7 +21,7 @@ namespace GrokkingAlgorithms.Helpers
         #endregion
 
         /// <summary>
-        /// Execute method. Fast - recursion. Slow - for & foreach.
+        /// Execute method. Fast - for & foreach. Slow - recursion.
         /// </summary>
         /// <param name="arr"></param>
         /// <param name="speed"></param>
@@ -29,25 +29,21 @@ namespace GrokkingAlgorithms.Helpers
         public int Execute(int?[] arr, EnumSpeed speed = EnumSpeed.Fast)
         {
             if (speed == EnumSpeed.Slow)
-                    return ExecuteRecursive(arr);
+                return ExecuteRecursive(arr);
             return ExecuteForeach(arr);
         }
 
         /// <summary>
-        /// Execute method. Fast - recursion. Slow - for & foreach.
+        /// Execute method. Fast - for & foreach. Slow - recursion.
         /// </summary>
         /// <param name="list"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
         public int Execute(IEnumerable<int?> list, EnumSpeed speed = EnumSpeed.Fast)
         {
-            switch (speed)
-            {
-                case EnumSpeed.Slow:
-                    return ExecuteRecursive(list);
-                default:
-                    return ExecuteForeach(list);
-            }
+            if (speed == EnumSpeed.Slow)
+                return ExecuteRecursive(list);
+            return ExecuteForeach(list);
         }
 
         /// <summary>
