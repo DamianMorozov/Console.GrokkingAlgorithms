@@ -2,35 +2,29 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.2.15] - 2020-04-07
-### Added
-- GrokkingAlgorithms.Tests
-  - RecursionHelperTests
-  - SummaryHelperTests
-  - SortSelectionHelperTests
+## [0.2.40] - 2020-04-09
 ### Updated
 - GrokkingAlgorithms
-  - RecursionHelper
-  - SummaryHelper
-  - SortSelectionHelper
+- GrokkingAlgorithms.Tests
 
-## [0.2.11] - 2020-04-03
+## [0.2.15] - 2020-04-07
 ### Added
 - GrokkingAlgorithms.Tests
   - ArrayHelperTests
   - BinarySearchHelperTests
   - CountHelperTests
+  - RecursionHelperTests
+  - SummaryHelperTests
+  - SortSelectionHelperTests
 ### Updated
 - GrokkingAlgorithms
   - ArrayHelper
   - BinarySearchHelper
   - SortSelectionHelper
   - FirstValueHelperTests
-
-## [0.2.04] - 2020-04-01
-### Added
-- GrokkingAlgorithms.Tests
-### Updated
+  - RecursionHelper
+  - SummaryHelper
+  - SortSelectionHelper
 - Target Framework: .NET Core 3.1
 
 ## [0.1.81] - 2019-10-16

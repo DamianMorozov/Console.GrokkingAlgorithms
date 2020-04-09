@@ -49,24 +49,24 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			var expectedAsc = new int?[] { 2110, 2111, 2112, 2113, 2114, 2115, 2116, 2117, 2118, 2119, 2120 };
 
 			var arr = _arrayHelper.GetSortArray(2110, 2120, EnumSort.Asc);
-			_sortSelectionHelper.Execute(arr, EnumSort.Desc, EnumAlgorithm.Slow);
+			_sortSelectionHelper.Execute(arr, EnumSort.Desc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {arr}");
 			Assert.AreEqual(expectedDesc, arr);
-			_sortSelectionHelper.Execute(arr, EnumSort.Asc, EnumAlgorithm.Slow);
+			_sortSelectionHelper.Execute(arr, EnumSort.Asc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {arr}");
 			Assert.AreEqual(expectedAsc, arr);
 
-			_sortSelectionHelper.Execute(arr, EnumSort.Desc, EnumAlgorithm.Middle);
+			_sortSelectionHelper.Execute(arr, EnumSort.Desc, EnumSpeed.Middle);
 			TestContext.WriteLine($"actual/expected: {arr}");
 			Assert.AreEqual(expectedDesc, arr);
-			_sortSelectionHelper.Execute(arr, EnumSort.Asc, EnumAlgorithm.Middle);
+			_sortSelectionHelper.Execute(arr, EnumSort.Asc, EnumSpeed.Middle);
 			TestContext.WriteLine($"actual/expected: {arr}");
 			Assert.AreEqual(expectedAsc, arr);
 
-			_sortSelectionHelper.Execute(arr, EnumSort.Desc, EnumAlgorithm.Fast);
+			_sortSelectionHelper.Execute(arr, EnumSort.Desc, EnumSpeed.Fast);
 			TestContext.WriteLine($"actual/expected: {arr}");
 			Assert.AreEqual(expectedDesc, arr);
-			_sortSelectionHelper.Execute(arr, EnumSort.Asc, EnumAlgorithm.Fast);
+			_sortSelectionHelper.Execute(arr, EnumSort.Asc, EnumSpeed.Fast);
 			TestContext.WriteLine($"actual/expected: {arr}");
 			Assert.AreEqual(expectedAsc, arr);
 

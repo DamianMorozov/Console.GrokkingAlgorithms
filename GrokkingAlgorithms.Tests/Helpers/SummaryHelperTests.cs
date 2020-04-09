@@ -40,89 +40,89 @@ namespace GrokkingAlgorithms.Tests.Helpers
 		}
 
 		[Test]
-		public void ExecuteForeach_AreEqual()
+		public void Execute_Fast_AreEqual()
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-			TestContext.WriteLine($@"{nameof(ExecuteForeach_AreEqual)} start.");
+			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
 			var arr = _arrayHelper.GetSortArray(0, 10, EnumSort.Asc);
 			int expected = 55;
-			int actual = _summaryHelper.ExecuteForeach(arr);
+			int actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteForeach(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			arr = _arrayHelper.GetSortArray(10, 0, EnumSort.Desc);
-			actual = _summaryHelper.ExecuteForeach(arr);
+			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteForeach(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			arr = _arrayHelper.GetSortArray(2001, 2003, EnumSort.Asc);
 			expected = 6006;
-			actual = _summaryHelper.ExecuteForeach(arr);
+			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteForeach(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			arr = _arrayHelper.GetSortArray(2003, 2001, EnumSort.Desc);
-			actual = _summaryHelper.ExecuteForeach(arr);
+			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteForeach(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			sw.Stop();
-			TestContext.WriteLine($@"{nameof(ExecuteForeach_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
 		}
 
 		[Test]
-		public void ExecuteRecursive_AreEqual()
+		public void Execute_Slow_AreEqual()
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-			TestContext.WriteLine($@"{nameof(ExecuteRecursive_AreEqual)} start.");
+			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
 			var arr = _arrayHelper.GetSortArray(0, 10, EnumSort.Asc);
 			int expected = 55;
-			int actual = _summaryHelper.ExecuteRecursive(arr);
+			int actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteRecursive(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			arr = _arrayHelper.GetSortArray(10, 0, EnumSort.Desc);
-			actual = _summaryHelper.ExecuteForeach(arr);
+			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteRecursive(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			arr = _arrayHelper.GetSortArray(2001, 2003, EnumSort.Asc);
 			expected = 6006;
-			actual = _summaryHelper.ExecuteForeach(arr);
+			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteRecursive(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			arr = _arrayHelper.GetSortArray(2003, 2001, EnumSort.Desc);
-			actual = _summaryHelper.ExecuteForeach(arr);
+			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			actual = _summaryHelper.ExecuteRecursive(arr.ToList());
+			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			sw.Stop();
-			TestContext.WriteLine($@"{nameof(ExecuteRecursive_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
 		}
 	}
 }

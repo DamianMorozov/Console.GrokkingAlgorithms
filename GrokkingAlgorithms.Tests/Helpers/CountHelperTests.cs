@@ -41,73 +41,73 @@ namespace GrokkingAlgorithms.Tests.Helpers
 		}
 
 		[Test]
-		public void ExecuteRecursive_AreEqual()
+		public void Execute_Slow_AreEqual()
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-			TestContext.WriteLine($@"{nameof(ExecuteRecursive_AreEqual)} start.");
+			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
 			// null
 			var arr = _arrayHelper.GetRandomArray(0, 1_000);
-			int actual = _countHelper.ExecuteRecursive(arr);
+			int actual = _countHelper.Execute(arr, EnumSpeed.Slow);
 			int expected = 0;
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// null list
-			actual = _countHelper.ExecuteRecursive(new List<int?>());
+			actual = _countHelper.Execute(new List<int?>(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
 			arr = _arrayHelper.GetRandomArray(2_123, 1_000);
-			actual = _countHelper.ExecuteRecursive(arr);
+			actual = _countHelper.Execute(arr, EnumSpeed.Slow);
 			expected = 2_123;
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			
 			// list
-			actual = _countHelper.ExecuteRecursive(arr.ToList());
+			actual = _countHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			sw.Stop();
-			TestContext.WriteLine($@"{nameof(ExecuteRecursive_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
 		}
 
 		[Test]
-		public void ExecuteForeach_AreEqual()
+		public void Execute_Fast_AreEqual()
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-			TestContext.WriteLine($@"{nameof(ExecuteForeach_AreEqual)} start.");
+			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
 			// null
 			var arr = _arrayHelper.GetRandomArray(0, 1_000);
-			int actual = _countHelper.ExecuteForeach(arr);
+			int actual = _countHelper.Execute(arr);
 			int expected = 0;
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// null list
-			actual = _countHelper.ExecuteForeach(new List<int?>());
+			actual = _countHelper.Execute(new List<int?>());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
 			expected = 2_123;
 			arr = _arrayHelper.GetRandomArray(2_123, 1_000);
-			actual = _countHelper.ExecuteForeach(arr);
+			actual = _countHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// list
-			actual = _countHelper.ExecuteForeach(arr.ToList());
+			actual = _countHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			sw.Stop();
-			TestContext.WriteLine($@"{nameof(ExecuteForeach_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
 		}
 	}
 }
