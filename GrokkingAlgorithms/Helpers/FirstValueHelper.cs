@@ -17,6 +17,7 @@ namespace GrokkingAlgorithms.Helpers
         private static readonly Lazy<FirstValueHelper> _instance = new Lazy<FirstValueHelper>(() => new FirstValueHelper());
         public static FirstValueHelper Instance => _instance.Value;
         private FirstValueHelper() { }
+
         #endregion
 
         /// <summary>
@@ -40,9 +41,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <returns></returns>
         public (int pos, int? val) Execute(IEnumerable<int?> list, EnumSort sort, EnumSpeed speed = EnumSpeed.Fast)
         {
-            if (speed == EnumSpeed.Slow)
-                return (0, ExecuteRecursive(list, sort));
-            return ExecuteForeach(list, sort);
+            return speed == EnumSpeed.Slow ? (-1, ExecuteRecursive(list, sort)) : ExecuteForeach(list, sort);
         }
 
         private (int pos, int? val) ExecuteForeach(int?[] arr, EnumSort sort)

@@ -370,13 +370,13 @@ namespace GrokkingAlgorithms
             var array = ArrayHelper.Instance;
             var sortQuick = SortQuickHelper.Instance;
             int?[] arr = array.GetRandomArray(1_000_000, 1_000_000);
-            var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var sortQuick = SortQuickHelper.Instance;");
-            Console.WriteLine("var arr = array.GetRandomArray(1_000_000, 1_000_000);");
-            Console.WriteLine("var list = arr.ToList();");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
+            // Faster.
+            Console.WriteLine(@"Faster:");
+            Console.WriteLine("var arr = array.GetRandomArray(1_000_000, 1_000_000);");
             var sw = Stopwatch.StartNew();
             sortQuick.ExecuteRecursiveFast(arr, EnumSort.Asc);
             Console.Write($"sortQuick.ExecuteRecursiveFast(arr, EnumSort.Asc);. ");
@@ -385,7 +385,25 @@ namespace GrokkingAlgorithms
 
             sw = Stopwatch.StartNew();
             sortQuick.ExecuteRecursiveFastWithSwitchPivot(arr, EnumSort.Asc);
-            Console.Write($"sortQuick.ExecuteRecursiveFastWithSwithPivot(arr, EnumSort.Asc);. ");
+            Console.Write($"sortQuick.ExecuteRecursiveFastWithSwitchPivot(arr, EnumSort.Asc);. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
+            Console.WriteLine(@"----------------------------------------------------------------------");
+
+            // Slower.
+            Console.WriteLine(@"Slower:");
+            Console.WriteLine("var arr = array.GetRandomArray(10_000, 1_000_000);");
+            sw = Stopwatch.StartNew();
+            arr = array.GetRandomArray(10_000, 1_000_000);
+            sortQuick.ExecuteRecursiveSlow(arr.ToList(), EnumSort.Asc);
+            Console.Write($"sortQuick.ExecuteRecursiveSlow(arr.ToList(), EnumSort.Asc);. ");
+            sw.Stop();
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
+            
+            sw = Stopwatch.StartNew();
+            arr = array.GetRandomArray(10_000, 1_000_000);
+            sortQuick.ExecuteRecursiveSlow(arr.ToList(), EnumSort.Desc);
+            Console.Write($"sortQuick.ExecuteRecursiveSlow(arr.ToList(), EnumSort.Desc);. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
         }

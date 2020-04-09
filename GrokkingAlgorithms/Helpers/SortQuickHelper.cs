@@ -7,21 +7,40 @@ using System.Linq;
 
 namespace GrokkingAlgorithms.Helpers
 {
+    /// <summary>
+    /// Quick sort helper.
+    /// </summary>
     public sealed class SortQuickHelper
     {
         #region Design pattern "Singleton".
 
         private static readonly Lazy<SortQuickHelper> _instance = new Lazy<SortQuickHelper>(() => new SortQuickHelper());
-        public static SortQuickHelper Instance { get { return _instance.Value; } }
-        private SortQuickHelper()
-        {
-            _array = ArrayHelper.Instance;
-        }
-
-        private ArrayHelper _array;
+        public static SortQuickHelper Instance => _instance.Value;
+        private SortQuickHelper() { }
 
         #endregion
+        
+        private readonly ArrayHelper _array = ArrayHelper.Instance;
 
+        /// <summary>
+        /// Execute method.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="sort"></param>
+        /// <param name="speed"></param>
+        public IEnumerable<int?> Execute(int?[] arr, EnumSort sort, EnumSpeed speed)
+        {
+            if (speed == EnumSpeed.Slow)
+                return ExecuteRecursiveSlow(arr.ToList(), sort);
+            return ExecuteRecursiveFast(arr, sort);
+        }
+
+        /// <summary>
+        /// Slow execute method.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
         public IEnumerable<int?> ExecuteRecursiveSlow(IEnumerable<int?> list, EnumSort sort)
         {
             if (list.Count() <= 1) { return list; }
@@ -44,6 +63,12 @@ namespace GrokkingAlgorithms.Helpers
                 Union(ExecuteRecursiveSlow(greater, sort));
         }
 
+        /// <summary>
+        /// Fast execute method.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
         public int?[] ExecuteRecursiveFast(int?[] arr, EnumSort sort)
         {
             if (arr.Length <= 1) { return arr; }
@@ -61,7 +86,7 @@ namespace GrokkingAlgorithms.Helpers
                         greater.Add(item);
                 else
                     if (item > pivot)
-                    less.Add(item);
+                        less.Add(item);
                 else
                     greater.Add(item);
             }
@@ -70,7 +95,13 @@ namespace GrokkingAlgorithms.Helpers
                 Union(ExecuteRecursiveFast(greater.ToArray(), sort)).ToArray();
         }
 
-        public int?[] ExecuteRecursiveFastWithSwithPivot(int?[] arr, EnumSort sort)
+        /// <summary>
+        /// Fast execute method.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public int?[] ExecuteRecursiveFastWithSwitchPivot(int?[] arr, EnumSort sort)
         {
             if (arr.Length <= 1) { return arr; }
             int? pivot = arr.First();
@@ -109,13 +140,13 @@ namespace GrokkingAlgorithms.Helpers
                         greater.Add(item);
                 else
                     if (item > pivot)
-                    less.Add(item);
+                        less.Add(item);
                 else
                     greater.Add(item);
             }
-            return ExecuteRecursiveFastWithSwithPivot(less.ToArray(), sort).
+            return ExecuteRecursiveFastWithSwitchPivot(less.ToArray(), sort).
                 Union(new int?[] { pivot }).
-                Union(ExecuteRecursiveFastWithSwithPivot(greater.ToArray(), sort)).ToArray();
+                Union(ExecuteRecursiveFastWithSwitchPivot(greater.ToArray(), sort)).ToArray();
         }
     }
 }

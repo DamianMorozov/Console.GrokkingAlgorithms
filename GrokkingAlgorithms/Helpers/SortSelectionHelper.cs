@@ -18,6 +18,8 @@ namespace GrokkingAlgorithms.Helpers
         private SortSelectionHelper() { }
 
         #endregion
+        
+        private readonly FirstValueHelper _firstValueHelper = FirstValueHelper.Instance;
 
         /// <summary>
         /// Execute method.
@@ -80,48 +82,12 @@ namespace GrokkingAlgorithms.Helpers
             }
         }
 
-        public (int pos, int? val) GetFirstValue(int?[] arr, EnumSort sort)
-        {
-            if (arr.Length <= 0)
-                return (-1, null);
-            if (arr.Length == 1)
-                return (0, arr[0]);
-            var i = 0;
-            int? value = null;
-            for (var j = 0; j < arr.Length; j++)
-            {
-                if (value == null)
-                    value = arr[j];
-                else
-                    if (arr[j] != null)
-                {
-                    if (sort == EnumSort.Asc)
-                    {
-                        if (value > arr[j])
-                        {
-                            value = arr[j];
-                            i = j;
-                        }
-                    }
-                    else
-                    {
-                        if (value < arr[j])
-                        {
-                            value = arr[j];
-                            i = j;
-                        }
-                    }
-                }
-            }
-            return (i, value);
-        }
-
         private void ExecuteFast(int?[] arr, EnumSort sort)
         {
             var list = arr.ToList();
             for (var i = 0; i < arr.Length; i++)
             {
-                var value = GetFirstValue(list.ToArray(), sort);
+                var value = _firstValueHelper.Execute(list.ToArray(), sort);
                 arr[i] = value.val;
                 list.RemoveAt(value.pos);
             }

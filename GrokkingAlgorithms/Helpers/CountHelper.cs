@@ -28,9 +28,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <returns></returns>
         public int Execute(int?[] arr, EnumSpeed speed = EnumSpeed.Fast)
         {
-            if (speed == EnumSpeed.Slow)
-                return ExecuteRecursive(arr);
-            return ExecuteForeach(arr);
+            return speed == EnumSpeed.Slow ? ExecuteRecursive(arr) : ExecuteForeach(arr);
         }
 
         /// <summary>
@@ -41,9 +39,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <returns></returns>
         public int Execute(IEnumerable<int?> list, EnumSpeed speed = EnumSpeed.Fast)
         {
-            if (speed == EnumSpeed.Slow)
-                return ExecuteRecursive(list);
-            return ExecuteForeach(list);
+            return speed == EnumSpeed.Slow ? ExecuteRecursive(list) : ExecuteForeach(list);
         }
 
         /// <summary>
