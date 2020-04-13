@@ -42,22 +42,19 @@ namespace GrokkingAlgorithms.Tests
             var sw = Stopwatch.StartNew();
 
             var defValue = 111;
-            int actual = default;
-            Program.SetValue("123", ref actual, defValue);
+            Program.SetValue("123", out var actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
             var expected = 123;
             TestContext.WriteLine($"expected: {expected}");
             Assert.AreEqual(expected, actual);
 
-            actual = default;
-            Program.SetValue("12s3", ref actual, defValue);
+            Program.SetValue("12s3", out actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
             expected = defValue;
             TestContext.WriteLine($"expected: {expected}");
             Assert.AreEqual(expected, actual);
 
-            actual = default;
-            Program.SetValue(string.Empty, ref actual, defValue);
+            Program.SetValue(string.Empty, out actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
             expected = defValue;
             TestContext.WriteLine($"expected: {expected}");
@@ -75,21 +72,18 @@ namespace GrokkingAlgorithms.Tests
             var sw = Stopwatch.StartNew();
 
             var defValue = 111;
-            int actual = default;
-            Program.SetValueSafe("123", ref actual, defValue);
+            Program.SetValueSafe("123", out var actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
             var expected = 123;
             TestContext.WriteLine($"expected: {expected}");
             Assert.AreEqual(expected, actual);
 
-            actual = default;
-            Program.SetValueSafe("12s3", ref actual, defValue);
+            Program.SetValueSafe("12s3", out actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
             TestContext.WriteLine($"expected: {defValue}");
             Assert.AreEqual(defValue, actual);
 
-            actual = default;
-            Program.SetValueSafe(string.Empty, ref actual, defValue);
+            Program.SetValueSafe(string.Empty, out actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
             TestContext.WriteLine($"expected: {defValue}");
             Assert.AreEqual(defValue, actual);

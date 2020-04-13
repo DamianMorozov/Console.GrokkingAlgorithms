@@ -47,35 +47,35 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			var sw = Stopwatch.StartNew();
 
             var arr = new int?[0];
-			var actual = _firstValueHelper.Execute(arr, EnumSort.Asc);
+			var actual = _firstValueHelper.Execute(arr, EnumSortDirection.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((-1, default(int?)), actual);
-			arr = _arrayHelper.GetSortArray(1234, 2345, EnumSort.Asc);
-			actual = _firstValueHelper.Execute(arr, EnumSort.Desc);
+			arr = _arrayHelper.GetSortArray(1234, 2345, EnumSortDirection.Asc);
+			actual = _firstValueHelper.Execute(arr, EnumSortDirection.Desc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((1111, 2345), actual);
 
-			arr = _arrayHelper.GetSortArray(12345, 12345, EnumSort.Asc);
-			actual = _firstValueHelper.Execute(arr, EnumSort.Asc);
+			arr = _arrayHelper.GetSortArray(12345, 12345, EnumSortDirection.Asc);
+			actual = _firstValueHelper.Execute(arr, EnumSortDirection.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((0, 12345), actual);
-			actual = _firstValueHelper.Execute(arr, EnumSort.Desc);
+			actual = _firstValueHelper.Execute(arr, EnumSortDirection.Desc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((0, 12345), actual);
 
-			arr = _arrayHelper.GetSortArray(1234, 2345, EnumSort.Asc);
-			actual = _firstValueHelper.Execute(arr, EnumSort.Asc);
+			arr = _arrayHelper.GetSortArray(1234, 2345, EnumSortDirection.Asc);
+			actual = _firstValueHelper.Execute(arr, EnumSortDirection.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((0, 1234), actual);
-			actual = _firstValueHelper.Execute(arr.ToList(), EnumSort.Asc);
+			actual = _firstValueHelper.Execute(arr.ToList(), EnumSortDirection.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((0, 1234), actual);
 
-			arr = _arrayHelper.GetSortArray(1233, 2345, EnumSort.Asc);
-			actual = _firstValueHelper.Execute(arr, EnumSort.Desc);
+			arr = _arrayHelper.GetSortArray(1233, 2345, EnumSortDirection.Asc);
+			actual = _firstValueHelper.Execute(arr, EnumSortDirection.Desc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((1112, 2345), actual);
-			actual = _firstValueHelper.Execute(arr.ToList(), EnumSort.Desc);
+			actual = _firstValueHelper.Execute(arr.ToList(), EnumSortDirection.Desc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((1112, 2345), actual);
 
@@ -90,18 +90,18 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.GetSortArray(1233, 2345, EnumSort.Asc);
-			var actual = _firstValueHelper.Execute(arr, EnumSort.Asc, EnumSpeed.Slow);
+            var arr = _arrayHelper.GetSortArray(1233, 2345, EnumSortDirection.Asc);
+			var actual = _firstValueHelper.Execute(arr, EnumSortDirection.Asc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((0, 1233), actual);
-			actual = _firstValueHelper.Execute(arr, EnumSort.Desc, EnumSpeed.Slow);
+			actual = _firstValueHelper.Execute(arr, EnumSortDirection.Desc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((1112, 2345), actual);
-			arr = _arrayHelper.GetSortArray(1233, 2345, EnumSort.Asc);
-			actual = _firstValueHelper.Execute(arr.ToList(), EnumSort.Asc, EnumSpeed.Slow);
+			arr = _arrayHelper.GetSortArray(1233, 2345, EnumSortDirection.Asc);
+			actual = _firstValueHelper.Execute(arr.ToList(), EnumSortDirection.Asc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((-1, 1233), actual);
-			actual = _firstValueHelper.Execute(arr.ToList(), EnumSort.Desc, EnumSpeed.Slow);
+			actual = _firstValueHelper.Execute(arr.ToList(), EnumSortDirection.Desc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((-1, 2345), actual);
 

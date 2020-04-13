@@ -25,12 +25,12 @@ namespace GrokkingAlgorithms.Helpers
         /// </summary>
         /// <param name="arr"></param>
         /// <param name="item"></param>
-        /// <param name="enumSort"></param>
+        /// <param name="sortDirection"></param>
         /// <returns></returns>
-        public (int? pos, int count) Execute(int?[] arr, int item, EnumSort enumSort)
+        public (int? pos, int count) Execute(int?[] arr, int item, EnumSortDirection sortDirection)
         {
             var count = 0;
-            if (enumSort == EnumSort.Asc)
+            if (sortDirection == EnumSortDirection.Asc)
             {
                 var start = 0;
                 var end = arr.Length - 1;
@@ -46,7 +46,7 @@ namespace GrokkingAlgorithms.Helpers
                         start = mid + 1;
                 }
             }
-            else if (enumSort == EnumSort.Desc)
+            else if (sortDirection == EnumSortDirection.Desc)
             {
                 var end = 0;
                 var start = arr.Length - 1;
@@ -70,12 +70,12 @@ namespace GrokkingAlgorithms.Helpers
         /// </summary>
         /// <param name="list"></param>
         /// <param name="item"></param>
-        /// <param name="enumSort"></param>
+        /// <param name="sortDirection"></param>
         /// <returns></returns>
-        public (int? pos, int count) Execute(IEnumerable<int?> list, int item, EnumSort enumSort)
+        public (int? pos, int count) Execute(IEnumerable<int?> list, int item, EnumSortDirection sortDirection)
         {
             var count = 0;
-            if (enumSort == EnumSort.Asc)
+            if (sortDirection == EnumSortDirection.Asc)
             {
                 var start = 0;
                 var end = list.Count() - 1;
@@ -91,7 +91,7 @@ namespace GrokkingAlgorithms.Helpers
                         start = mid + 1;
                 }
             }
-            else if (enumSort == EnumSort.Desc)
+            else if (sortDirection == EnumSortDirection.Desc)
             {
                 var end = 0;
                 var start = list.Count() - 1;

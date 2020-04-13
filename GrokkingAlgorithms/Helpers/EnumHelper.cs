@@ -23,9 +23,9 @@ namespace GrokkingAlgorithms.Helpers
     }
 
     /// <summary>
-    /// Sorting method.
+    /// Sorting direction.
     /// </summary>
-    public enum EnumSort
+    public enum EnumSortDirection
     {
         /// <summary>
         /// Ascending.
@@ -35,5 +35,20 @@ namespace GrokkingAlgorithms.Helpers
         /// Descending.
         /// </summary>
         Desc = 1,
+    }
+
+    /// <summary>
+    /// Sorting method.
+    /// </summary>
+    public enum EnumSortMethod
+    {
+        /// <summary>
+        /// Selection method.
+        /// </summary>
+        Selection = 0,
+        /// <summary>
+        /// Quick method.
+        /// </summary>
+        Quick = 1,
     }
 }

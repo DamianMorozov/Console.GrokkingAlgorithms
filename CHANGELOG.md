@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.2.40] - 2020-04-09
+## [0.2.50] - 2020-04-13
 ### Updated
 - GrokkingAlgorithms
 - GrokkingAlgorithms.Tests

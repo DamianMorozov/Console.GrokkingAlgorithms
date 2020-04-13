@@ -23,13 +23,13 @@ namespace GrokkingAlgorithms.Helpers
         /// </summary>
         /// <param name="startValue"></param>
         /// <param name="endValue"></param>
-        /// <param name="enumSort"></param>
+        /// <param name="sortDirection"></param>
         /// <returns></returns>
-        public int?[] GetSortArray(int startValue, int endValue, EnumSort enumSort)
+        public int?[] GetSortArray(int startValue, int endValue, EnumSortDirection sortDirection)
         {
             int?[] arr = null;
             var i = 0;
-            if (enumSort == EnumSort.Asc)
+            if (sortDirection == EnumSortDirection.Asc)
             {
                 arr = new int?[endValue - startValue + 1];
                 for (var j = startValue; j <= endValue; j++)
@@ -38,7 +38,7 @@ namespace GrokkingAlgorithms.Helpers
                     i++;
                 }
             }
-            else if (enumSort == EnumSort.Desc)
+            else if (sortDirection == EnumSortDirection.Desc)
             {
                 arr = new int?[startValue - endValue + 1];
                 for (var j = startValue; j >= endValue; j--)
@@ -79,6 +79,16 @@ namespace GrokkingAlgorithms.Helpers
             int?[] result = new int?[length];
             Array.Copy(data, index, result, 0, length);
             return result;
+        }
+
+        /// <summary>
+        /// Get copy of array.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public int?[] GetCopyArray(int?[] data)
+        {
+            return GetSubArray(data, 0, data.Length);
         }
     }
 }
