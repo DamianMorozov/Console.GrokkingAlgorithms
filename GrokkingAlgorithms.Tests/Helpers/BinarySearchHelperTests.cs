@@ -47,7 +47,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			var sw = Stopwatch.StartNew();
 
             // array
-			var arr = _arrayHelper.GetSortArray(1300, 1400, EnumSortDirection.Asc);
+			var arr = _arrayHelper.SortArray(1300, 1400, EnumSortDirection.Asc);
 			var actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Asc);
 			(int?, int) expected = (13, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -58,7 +58,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.GetSortArray(1400, 1300, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(1400, 1300, EnumSortDirection.Desc);
 			TestContext.WriteLine("== " + string.Join(", ", arr));
 			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Desc);
 			expected = (87, 7);
@@ -81,7 +81,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.GetSortArray(20100, 22200, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirection.Asc);
 			actual = _binarySearchHelper.Execute(arr, 21500, EnumSortDirection.Asc);
 			expected = (1400, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -93,7 +93,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.GetSortArray(20100, 22200, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirection.Asc);
 			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Asc);
 			expected = (null, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");

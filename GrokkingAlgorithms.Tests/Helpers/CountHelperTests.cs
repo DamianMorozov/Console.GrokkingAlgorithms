@@ -48,7 +48,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			var sw = Stopwatch.StartNew();
 
 			// null
-			var arr = _arrayHelper.GetRandomArray(0, 1_000);
+			var arr = _arrayHelper.RandomArray(0, 1_000);
 			int actual = _countHelper.Execute(arr, EnumSpeed.Slow);
 			int expected = 0;
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -60,7 +60,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.GetRandomArray(2_123, 1_000);
+			arr = _arrayHelper.RandomArray(2_123, 1_000);
 			actual = _countHelper.Execute(arr, EnumSpeed.Slow);
 			expected = 2_123;
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -83,7 +83,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			var sw = Stopwatch.StartNew();
 
 			// null
-			var arr = _arrayHelper.GetRandomArray(0, 1_000);
+			var arr = _arrayHelper.RandomArray(0, 1_000);
 			int actual = _countHelper.Execute(arr);
 			int expected = 0;
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -96,7 +96,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 
 			// array
 			expected = 2_123;
-			arr = _arrayHelper.GetRandomArray(2_123, 1_000);
+			arr = _arrayHelper.RandomArray(2_123, 1_000);
 			actual = _countHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);

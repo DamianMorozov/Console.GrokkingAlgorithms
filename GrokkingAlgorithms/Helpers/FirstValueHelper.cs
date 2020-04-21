@@ -35,6 +35,18 @@ namespace GrokkingAlgorithms.Helpers
         /// <summary>
         /// Execute method. Fast - for & foreach. Slow - recursion.
         /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="sortDirection"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public (int pos, T val) Execute<T>(T[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
+        {
+            return ExecuteForeach(arr, sortDirection);
+        }
+
+        /// <summary>
+        /// Execute method. Fast - for & foreach. Slow - recursion.
+        /// </summary>
         /// <param name="list"></param>
         /// <param name="sortDirection"></param>
         /// <param name="speed"></param>
@@ -70,6 +82,45 @@ namespace GrokkingAlgorithms.Helpers
                     else
                     {
                         if (value < arr[j])
+                        {
+                            value = arr[j];
+                            i = j;
+                        }
+                    }
+                }
+            }
+            return (i, value);
+        }
+
+        private (int pos, T val) ExecuteForeach<T>(T[] arr, EnumSortDirection sortDirection)
+        {
+            if (arr.Length <= 0)
+                return (-1, default(T));
+            if (arr.Length == 1)
+                return (0, arr[0]);
+            var i = 0;
+            var value = default(T);
+            var comparer = Comparer<T>.Default;
+            for (var j = 0; j < arr.Length; j++)
+            {
+                if (value == null)
+                    value = arr[j];
+                else
+                    if (arr[j] != null)
+                {
+                    if (sortDirection == EnumSortDirection.Asc)
+                    {
+                        //if (value > arr[j])
+                        if (comparer.Compare(value, arr[j]) > 0)
+                        {
+                            value = arr[j];
+                            i = j;
+                        }
+                    }
+                    else
+                    {
+                        //if (value < arr[j])
+                        if (comparer.Compare(value, arr[j]) < 0)
                         {
                             value = arr[j];
                             i = j;

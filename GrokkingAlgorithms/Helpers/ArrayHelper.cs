@@ -25,7 +25,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="endValue"></param>
         /// <param name="sortDirection"></param>
         /// <returns></returns>
-        public int?[] GetSortArray(int startValue, int endValue, EnumSortDirection sortDirection)
+        public int?[] SortArray(int startValue, int endValue, EnumSortDirection sortDirection)
         {
             int?[] arr = null;
             var i = 0;
@@ -56,7 +56,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="size"></param>
         /// <param name="maxValue"></param>
         /// <returns></returns>
-        public int?[] GetRandomArray(int size, int maxValue)
+        public int?[] RandomArray(int size, int maxValue)
         {
             var arr = new int?[size];
             var random = new Random();
@@ -74,9 +74,23 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="index"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public int?[] GetSubArray(int?[] data, int index, int length)
+        public int?[] Sub(int?[] data, int index, int length)
         {
             int?[] result = new int?[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
+
+        /// <summary>
+        /// Get subarray.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="index"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public T[] Sub<T>(T[] data, int index, int length)
+        {
+            var result = new T[length];
             Array.Copy(data, index, result, 0, length);
             return result;
         }
@@ -86,9 +100,19 @@ namespace GrokkingAlgorithms.Helpers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public int?[] GetCopyArray(int?[] data)
+        public int?[] Copy(int?[] data)
         {
-            return GetSubArray(data, 0, data.Length);
+            return Sub(data, 0, data.Length);
+        }
+
+        /// <summary>
+        /// Get copy of array.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public T[] Copy<T>(T[] data)
+        {
+            return Sub(data, 0, data.Length);
         }
     }
 }

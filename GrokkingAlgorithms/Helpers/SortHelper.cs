@@ -23,6 +23,8 @@ namespace GrokkingAlgorithms.Helpers
         private readonly ArrayHelper _array = ArrayHelper.Instance;
         private readonly FirstValueHelper _firstValueHelper = FirstValueHelper.Instance;
 
+        #region Selection sort methods without return value.
+
         /// <summary>
         /// Execute selection method.
         /// </summary>
@@ -32,16 +34,14 @@ namespace GrokkingAlgorithms.Helpers
         public void ExecuteSelection(int?[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
         {
             if (speed == EnumSpeed.Slow)
-                SelectionExecuteSlow(arr, sortDirection);
+                ExecuteSelectionSlow(arr, sortDirection);
             else if (speed == EnumSpeed.Middle)
-                SelectionExecuteMiddle(arr, sortDirection);
+                ExecuteSelectionMiddle(arr, sortDirection);
             else
-                SelectionExecuteFast(arr, sortDirection);
+                ExecuteSelectionFast(arr, sortDirection);
         }
 
-        #region Selection method.
-
-        private void SelectionExecuteSlow(int?[] arr, EnumSortDirection sortDirection)
+        private void ExecuteSelectionSlow(int?[] arr, EnumSortDirection sortDirection)
         {
             bool check = false;
             while (!check)
@@ -63,7 +63,7 @@ namespace GrokkingAlgorithms.Helpers
             }
         }
 
-        private void SelectionExecuteMiddle(int?[] arr, EnumSortDirection sortDirection)
+        private void ExecuteSelectionMiddle(int?[] arr, EnumSortDirection sortDirection)
         {
             bool check = false;
             int? swap;
@@ -86,7 +86,7 @@ namespace GrokkingAlgorithms.Helpers
             }
         }
 
-        private void SelectionExecuteFast(int?[] arr, EnumSortDirection sortDirection)
+        private void ExecuteSelectionFast(int?[] arr, EnumSortDirection sortDirection)
         {
             var list = arr.ToList();
             for (var i = 0; i < arr.Length; i++)
@@ -99,7 +99,62 @@ namespace GrokkingAlgorithms.Helpers
 
         #endregion
 
-        #region Quick method.
+        #region Selection sort methods with return value.
+
+        public T[] GetExecuteSelection<T>(T[] data, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
+        {
+            if (speed == EnumSpeed.Slow || speed == EnumSpeed.Middle)
+                return GetExecuteSelectionMiddle(data, sortDirection);
+            return GetExecuteSelectionFast(data, sortDirection);
+        }
+
+        private T[] GetExecuteSelectionMiddle<T>(T[] data, EnumSortDirection sortDirection)
+        {
+            var result = _array.Copy(data);
+            var comparer = Comparer<T>.Default;
+            bool check = false;
+            T swap;
+            while (!check)
+            {
+                check = true;
+                for (var i = 0; i < result.Length; i++)
+                {
+                    if (i + 1 < result.Length)
+                    {
+                        //if (sortDirection == EnumSortDirection.Asc ? result[i] > result[i + 1] : result[i] < result[i + 1])
+                        if (sortDirection == EnumSortDirection.Asc 
+                            // ? result[i] > result[i + 1] 
+                            ? comparer.Compare(result[i], result[i + 1]) > 0
+                            // : result[i] < result[i + 1]
+                            : comparer.Compare(result[i], result[i + 1]) < 0)
+                        {
+                            swap = result[i];
+                            result[i] = result[i + 1];
+                            result[i + 1] = swap;
+                            check = false;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        private T[] GetExecuteSelectionFast<T>(T[] data, EnumSortDirection sortDirection)
+        {
+            var result = _array.Copy(data);
+            var list = result.ToList();
+            for (var i = 0; i < result.Length; i++)
+            {
+                var value = _firstValueHelper.Execute(list.ToArray(), sortDirection);
+                result[i] = value.val;
+                list.RemoveAt(value.pos);
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region Quick sort methods with return value.
 
         /// <summary>
         /// Quick execute method.
@@ -109,14 +164,14 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="speed"></param>
         /// <param name="useSwitchPivot"></param>
         /// <returns></returns>
-        public IEnumerable<int?> ExecuteQuick(int?[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast,
+        public IEnumerable<int?> GetExecuteQuick(int?[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast,
             bool useSwitchPivot = false)
         {
             if (speed == EnumSpeed.Slow)
-                return QuickExecuteRecursiveSlow(arr.ToList(), sortDirection);
+                return GetExecuteQuickRecursiveSlow(arr.ToList(), sortDirection);
             return useSwitchPivot
-                ? QuickExecuteRecursiveFastWithSwitchPivot(arr, sortDirection)
-                : QuickExecuteRecursiveFast(arr, sortDirection);
+                ? GetExecuteQuickRecursiveFastWithSwitchPivot(arr, sortDirection)
+                : GetExecuteQuickRecursiveFast(arr, sortDirection);
         }
         
         /// <summary>
@@ -125,9 +180,9 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="list"></param>
         /// <param name="sortDirection"></param>
         /// <returns></returns>
-        public IEnumerable<int?> ExecuteQuick(IEnumerable<int?> list, EnumSortDirection sortDirection = EnumSortDirection.Asc)
+        public IEnumerable<int?> GetExecuteQuick(IEnumerable<int?> list, EnumSortDirection sortDirection = EnumSortDirection.Asc)
         {
-            return QuickExecuteRecursiveSlow(list, sortDirection);
+            return GetExecuteQuickRecursiveSlow(list, sortDirection);
         }
 
         /// <summary>
@@ -136,7 +191,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="list"></param>
         /// <param name="sortDirection"></param>
         /// <returns></returns>
-        private IEnumerable<int?> QuickExecuteRecursiveSlow(IEnumerable<int?> list, EnumSortDirection sortDirection)
+        private IEnumerable<int?> GetExecuteQuickRecursiveSlow(IEnumerable<int?> list, EnumSortDirection sortDirection)
         {
             if (list.Count() <= 1) { return list; }
             int? pivot = list.First();
@@ -153,9 +208,9 @@ namespace GrokkingAlgorithms.Helpers
                 less = list.Skip(1).Where(i => i > pivot);
                 greater = list.Skip(1).Where(i => i <= pivot);
             }
-            return QuickExecuteRecursiveSlow(less, sortDirection).
+            return GetExecuteQuickRecursiveSlow(less, sortDirection).
                 Union(new List<int?> { pivot }).
-                Union(QuickExecuteRecursiveSlow(greater, sortDirection));
+                Union(GetExecuteQuickRecursiveSlow(greater, sortDirection));
         }
 
         /// <summary>
@@ -164,7 +219,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="arr"></param>
         /// <param name="sortDirection"></param>
         /// <returns></returns>
-        private int?[] QuickExecuteRecursiveFast(int?[] arr, EnumSortDirection sortDirection)
+        private int?[] GetExecuteQuickRecursiveFast(int?[] arr, EnumSortDirection sortDirection)
         {
             if (arr.Length <= 1) { return arr; }
             int? pivot = arr.First();
@@ -172,7 +227,7 @@ namespace GrokkingAlgorithms.Helpers
             var less = new List<int?>();
             var greater = new List<int?>();
             //foreach (var item in arr.ToList().Skip(1))
-            foreach (var item in _array.GetSubArray(arr, 1, arr.Length - 1))
+            foreach (var item in _array.Sub(arr, 1, arr.Length - 1))
             {
                 if (sortDirection == EnumSortDirection.Asc)
                     if (item <= pivot)
@@ -185,9 +240,9 @@ namespace GrokkingAlgorithms.Helpers
                 else
                     greater.Add(item);
             }
-            return QuickExecuteRecursiveFast(less.ToArray(), sortDirection).
+            return GetExecuteQuickRecursiveFast(less.ToArray(), sortDirection).
                 Union(new int?[] { pivot }).
-                Union(QuickExecuteRecursiveFast(greater.ToArray(), sortDirection)).ToArray();
+                Union(GetExecuteQuickRecursiveFast(greater.ToArray(), sortDirection)).ToArray();
         }
 
         /// <summary>
@@ -196,7 +251,7 @@ namespace GrokkingAlgorithms.Helpers
         /// <param name="arr"></param>
         /// <param name="sortDirection"></param>
         /// <returns></returns>
-        private int?[] QuickExecuteRecursiveFastWithSwitchPivot(int?[] arr, EnumSortDirection sortDirection)
+        private int?[] GetExecuteQuickRecursiveFastWithSwitchPivot(int?[] arr, EnumSortDirection sortDirection)
         {
             if (arr.Length <= 1) { return arr; }
             int? pivot = arr.First();
@@ -210,7 +265,7 @@ namespace GrokkingAlgorithms.Helpers
             //			pivot = item;
             //			pos++;
             //		}
-            foreach (var item in _array.GetSubArray(arr, 1, arr.Length - 1))
+            foreach (var item in _array.Sub(arr, 1, arr.Length - 1))
             {
                 if (sortDirection == EnumSortDirection.Asc)
                     if (item <= arr[pos - 1]) break;
@@ -239,9 +294,9 @@ namespace GrokkingAlgorithms.Helpers
                 else
                     greater.Add(item);
             }
-            return QuickExecuteRecursiveFastWithSwitchPivot(less.ToArray(), sortDirection).
+            return GetExecuteQuickRecursiveFastWithSwitchPivot(less.ToArray(), sortDirection).
                 Union(new int?[] { pivot }).
-                Union(QuickExecuteRecursiveFastWithSwitchPivot(greater.ToArray(), sortDirection)).ToArray();
+                Union(GetExecuteQuickRecursiveFastWithSwitchPivot(greater.ToArray(), sortDirection)).ToArray();
         }
 
         #endregion

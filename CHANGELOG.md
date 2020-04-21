@@ -2,6 +2,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.2.60] - 2020-04-21
+### Updated
+- GrokkingAlgorithms
+- GrokkingAlgorithms.Tests
+
 ## [0.2.50] - 2020-04-13
 ### Updated
 - GrokkingAlgorithms

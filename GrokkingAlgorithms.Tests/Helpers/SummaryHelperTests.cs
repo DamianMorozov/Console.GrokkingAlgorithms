@@ -46,7 +46,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.GetSortArray(0, 10, EnumSortDirection.Asc);
+			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirection.Asc);
 			int expected = 55;
 			int actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -54,7 +54,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.GetSortArray(10, 0, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(10, 0, EnumSortDirection.Desc);
 			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
@@ -62,7 +62,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
-			arr = _arrayHelper.GetSortArray(2001, 2003, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(2001, 2003, EnumSortDirection.Asc);
 			expected = 6006;
 			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -70,7 +70,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.GetSortArray(2003, 2001, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(2003, 2001, EnumSortDirection.Desc);
 			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
@@ -89,7 +89,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.GetSortArray(0, 10, EnumSortDirection.Asc);
+			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirection.Asc);
 			int expected = 55;
 			int actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -97,7 +97,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.GetSortArray(10, 0, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(10, 0, EnumSortDirection.Desc);
 			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
@@ -105,7 +105,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
-			arr = _arrayHelper.GetSortArray(2001, 2003, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(2001, 2003, EnumSortDirection.Asc);
 			expected = 6006;
 			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -113,7 +113,7 @@ namespace GrokkingAlgorithms.Tests.Helpers
 			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.GetSortArray(2003, 2001, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(2003, 2001, EnumSortDirection.Desc);
 			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);

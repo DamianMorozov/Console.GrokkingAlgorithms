@@ -41,52 +41,85 @@ namespace GrokkingAlgorithms.Tests.Helpers
 		}
 
 		[Test]
-		public void Selection_Execute_AreEqual()
+		public void ExecuteSelection_AreEqual()
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-			TestContext.WriteLine($@"{nameof(Selection_Execute_AreEqual)} start.");
+			TestContext.WriteLine($@"{nameof(ExecuteSelection_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.GetSortArray(2110, 2120, EnumSortDirection.Asc);
-			_sortHelper.ExecuteSelection(arr, EnumSortDirection.Desc, EnumSpeed.Slow);
-			TestContext.WriteLine($"actual/expected: {arr}");
-			Assert.AreEqual(_expectedDesc, arr);
-			_sortHelper.ExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Slow);
-			TestContext.WriteLine($"actual/expected: {arr}");
-			Assert.AreEqual(_expectedAsc, arr);
+			var actual = _arrayHelper.SortArray(2110, 2120, EnumSortDirection.Asc);
+			_sortHelper.ExecuteSelection(actual, EnumSortDirection.Desc, EnumSpeed.Slow);
+			TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedDesc, actual);
+			_sortHelper.ExecuteSelection(actual, EnumSortDirection.Asc, EnumSpeed.Slow);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedAsc, actual);
 
-			_sortHelper.ExecuteSelection(arr, EnumSortDirection.Desc, EnumSpeed.Middle);
-			TestContext.WriteLine($"actual/expected: {arr}");
-			Assert.AreEqual(_expectedDesc, arr);
-			_sortHelper.ExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Middle);
-			TestContext.WriteLine($"actual/expected: {arr}");
-			Assert.AreEqual(_expectedAsc, arr);
+			_sortHelper.ExecuteSelection(actual, EnumSortDirection.Desc, EnumSpeed.Middle);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedDesc, actual);
+			_sortHelper.ExecuteSelection(actual, EnumSortDirection.Asc, EnumSpeed.Middle);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedAsc, actual);
 
-			_sortHelper.ExecuteSelection(arr, EnumSortDirection.Desc);
-			TestContext.WriteLine($"actual/expected: {arr}");
-			Assert.AreEqual(_expectedDesc, arr);
-			_sortHelper.ExecuteSelection(arr, EnumSortDirection.Asc);
-			TestContext.WriteLine($"actual/expected: {arr}");
-			Assert.AreEqual(_expectedAsc, arr);
+			_sortHelper.ExecuteSelection(actual, EnumSortDirection.Desc);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedDesc, actual);
+			_sortHelper.ExecuteSelection(actual, EnumSortDirection.Asc);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedAsc, actual);
 
 			sw.Stop();
-			TestContext.WriteLine($@"{nameof(Selection_Execute_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+			TestContext.WriteLine($@"{nameof(ExecuteSelection_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+		}
+
+		[Test]
+		public void GetExecuteSelection_AreEqual()
+		{
+			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+			TestContext.WriteLine($@"{nameof(GetExecuteSelection_AreEqual)} start.");
+            var sw = Stopwatch.StartNew();
+
+			var arr = _arrayHelper.SortArray(2110, 2120, EnumSortDirection.Asc);
+			var actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirection.Desc, EnumSpeed.Slow);
+			TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedDesc, actual);
+            actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Slow);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedAsc, actual);
+
+            actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirection.Desc, EnumSpeed.Middle);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedDesc, actual);
+            actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Middle);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedAsc, actual);
+
+            actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirection.Desc);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedDesc, actual);
+            actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirection.Asc);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
+			Assert.AreEqual(_expectedAsc, actual);
+
+			sw.Stop();
+			TestContext.WriteLine($@"{nameof(GetExecuteSelection_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
 		}
 
         [Test]
-        public void Quick_Execute_AreEqual()
+        public void ExecuteQuickGet_AreEqual()
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Quick_Execute_AreEqual)} start.");
+            TestContext.WriteLine($@"{nameof(ExecuteQuickGet_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.GetSortArray(2110, 2120, EnumSortDirection.Asc);
-            var actual = _sortHelper.ExecuteQuick(arr, EnumSortDirection.Asc, EnumSpeed.Slow);
-            TestContext.WriteLine($"actual/expected: {actual}");
+            var arr = _arrayHelper.SortArray(2110, 2120, EnumSortDirection.Asc);
+            var actual = _sortHelper.GetExecuteQuick(arr, EnumSortDirection.Asc, EnumSpeed.Slow);
+            TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedAsc, actual);
 
             sw.Stop();
-            TestContext.WriteLine($@"{nameof(Quick_Execute_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(ExecuteQuickGet_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
         }
 
 	}

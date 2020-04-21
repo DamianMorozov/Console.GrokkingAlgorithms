@@ -41,11 +41,11 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.WriteLine("0. Exit from console.");
             Console.WriteLine("1. Binary search.");
-            Console.WriteLine("2. Sort selection.");
-            Console.WriteLine("3. Recursion.");
-            Console.WriteLine("4. Summary recursive & foreach.");
-            Console.WriteLine("5. Count values recursive & foreach.");
-            Console.WriteLine("6. First value recursive & foreach.");
+            Console.WriteLine("2. Recursion.");
+            Console.WriteLine("3. Summary recursive & foreach.");
+            Console.WriteLine("4. Count values recursive & foreach.");
+            Console.WriteLine("5. First value recursive & foreach.");
+            Console.WriteLine("6. Sort selection.");
             Console.WriteLine("7. Quick sort.");
             Console.WriteLine(@"----------------------------------------------------------------------");
             Console.Write("Type switch: ");
@@ -63,23 +63,23 @@ namespace GrokkingAlgorithms
                     break;
                 case 2:
                     isPrintMenu = true;
-                    PrintSortSelection();
+                    PrintRecursion();
                     break;
                 case 3:
                     isPrintMenu = true;
-                    PrintRecursion();
+                    PrintSummary();
                     break;
                 case 4:
                     isPrintMenu = true;
-                    PrintSummary();
+                    PrintCount();
                     break;
                 case 5:
                     isPrintMenu = true;
-                    PrintCount();
+                    PrintFirstValue();
                     break;
                 case 6:
                     isPrintMenu = true;
-                    PrintFirstValue();
+                    PrintSortSelection();
                     break;
                 case 7:
                     isPrintMenu = true;
@@ -111,11 +111,11 @@ namespace GrokkingAlgorithms
 
             var binarySearch = BinarySearchHelper.Instance;
             var array = ArrayHelper.Instance;
-            var arr = array.GetSortArray(startValue, endValue, EnumSortDirection.Asc);
+            var arr = array.SortArray(startValue, endValue, EnumSortDirection.Asc);
             var list = arr.ToList();
             Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue}, EnumSort.Asc);");
             Console.WriteLine("var list = arr.ToList();");
-            var arrDesc = array.GetSortArray(endValue, startValue, EnumSortDirection.Desc);
+            var arrDesc = array.SortArray(endValue, startValue, EnumSortDirection.Desc);
             var listDesc = arrDesc.ToList();
             Console.WriteLine($"var arrDesc = _array.GetSortArray({endValue}, {startValue}, EnumSort.Desc);");
             Console.WriteLine($"var listDesc = arrDesc.ToList();");
@@ -191,7 +191,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var summary = SummaryHelper.Instance;
-            var arr = array.GetRandomArray(2_000, 1_000);
+            var arr = array.RandomArray(2_000, 1_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var summary = SummaryHelper.Instance;");
@@ -235,7 +235,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var count = CountHelper.Instance;
-            var arr = array.GetRandomArray(2_000, 1_000);
+            var arr = array.RandomArray(2_000, 1_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var count = CountHelper.Instance;");
@@ -286,7 +286,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var firstValue = FirstValueHelper.Instance;
-            var arr = array.GetRandomArray(1_000, 1_000);
+            var arr = array.RandomArray(1_000, 1_000);
             var list = arr.ToList();
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var firstValue = FirstValueHelper.Instance;");
@@ -346,29 +346,39 @@ namespace GrokkingAlgorithms
             var array = ArrayHelper.Instance;
             Console.WriteLine(@"var _array = ArrayHelper.Instance;");
             var sortSelection = SortHelper.Instance;
-            Console.WriteLine(@"var _sortSelection = SortSelectionHelper.Instance;");
+            Console.WriteLine(@"var _sortSelection = SortHelper.Instance;");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Faster.
-            var arr = array.GetRandomArray(15_000, 100_000);
             Console.WriteLine(@"Faster:");
+            var arr = array.RandomArray(15_000, 100_000);
             var sw = Stopwatch.StartNew();
-            sortSelection.ExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Fast);
+            sortSelection.GetExecuteSelection(arr, EnumSortDirection.Asc);
             sw.Stop();
-            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
+            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. With return value.");
+            arr = array.RandomArray(15_000, 100_000);
+            sw = Stopwatch.StartNew();
+            sortSelection.ExecuteSelection(arr, EnumSortDirection.Asc);
+            sw.Stop();
+            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. Without return value.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Middle.
-            arr = array.GetRandomArray(15_000, 100_000);
             Console.WriteLine(@"Middle:");
+            arr = array.RandomArray(15_000, 100_000);
+            sw = Stopwatch.StartNew();
+            sortSelection.GetExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Middle);
+            sw.Stop();
+            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. With return value.");
+            arr = array.RandomArray(15_000, 100_000);
             sw = Stopwatch.StartNew();
             sortSelection.ExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Middle);
             sw.Stop();
-            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
+            Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. Without return value.");
             Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Slower.
-            arr = array.GetRandomArray(15_000, 100_000);
+            arr = array.RandomArray(15_000, 100_000);
             Console.WriteLine(@"Slower:");
             sw = Stopwatch.StartNew();
             sortSelection.ExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Slow);
@@ -387,7 +397,7 @@ namespace GrokkingAlgorithms
 
             var array = ArrayHelper.Instance;
             var sortQuick = SortHelper.Instance;
-            var arr = array.GetRandomArray(1_000_000, 1_000_000);
+            var arr = array.RandomArray(1_000_000, 1_000_000);
             Console.WriteLine("var array = ArrayHelper.Instance;");
             Console.WriteLine("var sortQuick = SortQuickHelper.Instance;");
             Console.WriteLine(@"----------------------------------------------------------------------");
@@ -396,13 +406,13 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"Faster:");
             Console.WriteLine("var arr = array.GetRandomArray(1_000_000, 1_000_000);");
             var sw = Stopwatch.StartNew();
-            sortQuick.ExecuteQuick(arr, EnumSortDirection.Asc);
+            sortQuick.GetExecuteQuick(arr, EnumSortDirection.Asc);
             Console.Write("sortQuick.Execute(arr, EnumSortDirection.Asc);. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
 
             sw = Stopwatch.StartNew();
-            sortQuick.ExecuteQuick(arr, EnumSortDirection.Asc, EnumSpeed.Fast, true);
+            sortQuick.GetExecuteQuick(arr, EnumSortDirection.Asc, EnumSpeed.Fast, true);
             Console.Write("sortQuick.Execute(arr, EnumSortDirection.Asc, EnumSpeed.Fast, true);. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
@@ -412,15 +422,15 @@ namespace GrokkingAlgorithms
             Console.WriteLine(@"Slower:");
             Console.WriteLine("var arr = array.GetRandomArray(10_000, 1_000_000);");
             sw = Stopwatch.StartNew();
-            arr = array.GetRandomArray(10_000, 1_000_000);
-            sortQuick.ExecuteQuick(arr.ToList());
+            arr = array.RandomArray(10_000, 1_000_000);
+            sortQuick.GetExecuteQuick(arr.ToList());
             Console.Write("sortQuick.ExecuteQuick(arr.ToList());. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
             
             sw = Stopwatch.StartNew();
-            arr = array.GetRandomArray(10_000, 1_000_000);
-            sortQuick.ExecuteQuick(arr.ToList(), EnumSortDirection.Desc);
+            arr = array.RandomArray(10_000, 1_000_000);
+            sortQuick.GetExecuteQuick(arr.ToList(), EnumSortDirection.Desc);
             Console.Write("sortQuick.ExecuteQuick(arr.ToList(), EnumSortDirection.Desc);. ");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
