@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GrokkingAlgorithms.Helpers
+namespace GrokkingAlgorithms.Lib
 {
     /// <summary>
     /// Sort helper.

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GrokkingAlgorithms.Helpers
+namespace GrokkingAlgorithms.Lib
 {
     /// <summary>
     /// Array helper.

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GrokkingAlgorithms.Helpers
+namespace GrokkingAlgorithms.Lib
 {
     /// <summary>
     /// First value helper.
@@ -25,9 +25,8 @@ namespace GrokkingAlgorithms.Helpers
         /// </summary>
         /// <param name="arr"></param>
         /// <param name="sortDirection"></param>
-        /// <param name="speed"></param>
         /// <returns></returns>
-        public (int pos, int? val) Execute(int?[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
+        public (int pos, int? val) Execute(int?[] arr, EnumSortDirection sortDirection)
         {
             return ExecuteForeach(arr, sortDirection);
         }
@@ -37,9 +36,8 @@ namespace GrokkingAlgorithms.Helpers
         /// </summary>
         /// <param name="arr"></param>
         /// <param name="sortDirection"></param>
-        /// <param name="speed"></param>
         /// <returns></returns>
-        public (int pos, T val) Execute<T>(T[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
+        public (int pos, T val) Execute<T>(T[] arr, EnumSortDirection sortDirection)
         {
             return ExecuteForeach(arr, sortDirection);
         }

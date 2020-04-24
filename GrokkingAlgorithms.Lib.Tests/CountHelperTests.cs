@@ -1,17 +1,18 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using GrokkingAlgorithms.Helpers;
+using GrokkingAlgorithms.Lib;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace GrokkingAlgorithms.Tests.Helpers
+namespace GrokkingAlgorithms.Lib.Tests
 {
 	[TestFixture]
-	public class BinarySearchHelperTests
+	public class CountHelperTests
 	{
-		private readonly BinarySearchHelper _binarySearchHelper = BinarySearchHelper.Instance;
+		private readonly CountHelper _countHelper = CountHelper.Instance;
 		private readonly ArrayHelper _arrayHelper = ArrayHelper.Instance;
 
 		/// <summary>
@@ -40,72 +41,73 @@ namespace GrokkingAlgorithms.Tests.Helpers
 		}
 
 		[Test]
-		public void GetSortArray_AreEqual()
+		public void Execute_Slow_AreEqual()
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-			TestContext.WriteLine($@"{nameof(GetSortArray_AreEqual)} start.");
+			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
-            // array
-			var arr = _arrayHelper.SortArray(1300, 1400, EnumSortDirection.Asc);
-			var actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Asc);
-			(int?, int) expected = (13, 7);
+			// null
+			var arr = _arrayHelper.RandomArray(0, 1_000);
+			int actual = _countHelper.Execute(arr, EnumSpeed.Slow);
+			int expected = 0;
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirection.Asc);
+
+			// null list
+			actual = _countHelper.Execute(new List<int?>(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.SortArray(1400, 1300, EnumSortDirection.Desc);
-			TestContext.WriteLine("== " + string.Join(", ", arr));
-			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Desc);
-			expected = (87, 7);
+			arr = _arrayHelper.RandomArray(2_123, 1_000);
+			actual = _countHelper.Execute(arr, EnumSpeed.Slow);
+			expected = 2_123;
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
+			
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirection.Desc);
-			TestContext.WriteLine($"actual/expected: {actual}");
-			Assert.AreEqual(expected, actual);
-
-			// array
-			actual = _binarySearchHelper.Execute(arr, 2000, EnumSortDirection.Asc);
-			expected = (null, 7);
-			TestContext.WriteLine($"actual/expected: {actual}");
-			Assert.AreEqual(expected, actual);
-			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 2000, EnumSortDirection.Asc);
-			expected = (null, 7);
-			TestContext.WriteLine($"actual/expected: {actual}");
-			Assert.AreEqual(expected, actual);
-
-			// array
-			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirection.Asc);
-			actual = _binarySearchHelper.Execute(arr, 21500, EnumSortDirection.Asc);
-			expected = (1400, 11);
-			TestContext.WriteLine($"actual/expected: {actual}");
-			Assert.AreEqual(expected, actual);
-			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 21500, EnumSortDirection.Asc);
-			expected = (1400, 11);
-			TestContext.WriteLine($"actual/expected: {actual}");
-			Assert.AreEqual(expected, actual);
-
-			// array
-			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirection.Asc);
-			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Asc);
-			expected = (null, 11);
-			TestContext.WriteLine($"actual/expected: {actual}");
-			Assert.AreEqual(expected, actual);
-			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirection.Asc);
-			expected = (null, 11);
+			actual = _countHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			sw.Stop();
-			TestContext.WriteLine($@"{nameof(GetSortArray_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+		}
+
+		[Test]
+		public void Execute_Fast_AreEqual()
+		{
+			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} start.");
+			var sw = Stopwatch.StartNew();
+
+			// null
+			var arr = _arrayHelper.RandomArray(0, 1_000);
+			int actual = _countHelper.Execute(arr);
+			int expected = 0;
+			TestContext.WriteLine($"actual/expected: {actual}");
+			Assert.AreEqual(expected, actual);
+
+			// null list
+			actual = _countHelper.Execute(new List<int?>());
+			TestContext.WriteLine($"actual/expected: {actual}");
+			Assert.AreEqual(expected, actual);
+
+			// array
+			expected = 2_123;
+			arr = _arrayHelper.RandomArray(2_123, 1_000);
+			actual = _countHelper.Execute(arr);
+			TestContext.WriteLine($"actual/expected: {actual}");
+			Assert.AreEqual(expected, actual);
+
+			// list
+			actual = _countHelper.Execute(arr.ToList());
+			TestContext.WriteLine($"actual/expected: {actual}");
+			Assert.AreEqual(expected, actual);
+
+			sw.Stop();
+			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
 		}
 	}
 }

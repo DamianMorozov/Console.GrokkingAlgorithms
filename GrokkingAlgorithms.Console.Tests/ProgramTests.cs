@@ -4,7 +4,7 @@
 using NUnit.Framework;
 using System.Diagnostics;
 
-namespace GrokkingAlgorithms.Tests
+namespace GrokkingAlgorithms.Console.Tests
 {
     [TestFixture]
     public class ProgramTests
