@@ -1,15 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrokkingAlgorithms.Lib", "GrokkingAlgorithms.Lib\GrokkingAlgorithms.Lib.csproj", "{76D2A1F3-84D6-48E6-9A1C-F6485EA994BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrokkingAlgorithms.Lib", "GrokkingAlgorithms.Lib\GrokkingAlgorithms.Lib.csproj", "{76D2A1F3-84D6-48E6-9A1C-F6485EA994BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrokkingAlgorithms.Lib.Tests", "GrokkingAlgorithms.Lib.Tests\GrokkingAlgorithms.Lib.Tests.csproj", "{3F5DB883-D935-4EA1-B046-4BEF88986830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrokkingAlgorithms.Console.Tests", "GrokkingAlgorithms.Console.Tests\GrokkingAlgorithms.Console.Tests.csproj", "{C9FBC86B-EB13-42A0-AC19-A7FD7EE74EFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrokkingAlgorithms.Console.Tests", "GrokkingAlgorithms.Console.Tests\GrokkingAlgorithms.Console.Tests.csproj", "{C9FBC86B-EB13-42A0-AC19-A7FD7EE74EFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrokkingAlgorithms.Console", "GrokkingAlgorithms.Console\GrokkingAlgorithms.Console.csproj", "{DC66A9B0-B232-4F57-86F9-6D3C3B7AA22B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrokkingAlgorithms.Console", "GrokkingAlgorithms.Console\GrokkingAlgorithms.Console.csproj", "{DC66A9B0-B232-4F57-86F9-6D3C3B7AA22B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D4A7F77-E094-4944-AFBB-37B4B799AC4C}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

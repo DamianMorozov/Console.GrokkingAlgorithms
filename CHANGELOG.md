@@ -2,6 +2,14 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.03.100] - 2022-05-11
+### Added
+- GrokkingAlgorithms.Lib: FileHelper
+- GrokkingAlgorithms.Console: Quick sort for one file
+- GrokkingAlgorithms.Console: Quick sort for directory files
+- LICENSE.md
+- README.md
+
 ## [0.2.70] - 2020-04-24
 ### Separate projects
 - GrokkingAlgorithms.Console
@@ -10,12 +18,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - GrokkingAlgorithms.Lib.Tests
 
 ## [0.2.60] - 2020-04-21
-### Updated
+### Changed
 - GrokkingAlgorithms
 - GrokkingAlgorithms.Tests
 
 ## [0.2.50] - 2020-04-13
-### Updated
+### Changed
 - GrokkingAlgorithms
 - GrokkingAlgorithms.Tests
 
@@ -28,7 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - RecursionHelperTests
   - SummaryHelperTests
   - SortSelectionHelperTests
-### Updated
+### Changed
 - GrokkingAlgorithms
   - ArrayHelper
   - BinarySearchHelper
@@ -40,7 +48,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Target Framework: .NET Core 3.1
 
 ## [0.1.81] - 2019-10-16
-### Updated
+### Changed
 - Binary search algorithm
 
 ## [0.1.80] - 2019-10-04
@@ -56,7 +64,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Recursion algorithm
 
 ## [0.1.11] - 2019-10-02
-### Updated
+### Changed
 - Binary search algorithm
 
 ## [0.1.10] - 2019-09-30
