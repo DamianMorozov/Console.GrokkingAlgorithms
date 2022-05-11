@@ -4,10 +4,10 @@
 - [LICENSE](LICENSE.md)
 
 ## Original idea
-Book title: Grokking Algorithms: An Illustrated Guide for Programmers and Other Curious People
-Date: May 2016
-ISBN: 9781617292231
-Author: Aditya Y. Bhargava.
+Book title: `Grokking Algorithms: An Illustrated Guide for Programmers and Other Curious People`
+Date: `May 2016`
+ISBN: `9781617292231`
+Author: `Aditya Y. Bhargava.`
 
 ## Links
 - [Official web-site](http://adit.io/)
