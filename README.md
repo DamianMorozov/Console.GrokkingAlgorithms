@@ -16,13 +16,6 @@
 
 ## Algorithms
 - Binary search
-- Counting values
-- Recursion
-- Sort selection
-- Summary recursive
-- Quick sort
-
-- Binary search
 - Recursion
 - Summary recursive & foreach
 - Count values recursive & foreach
