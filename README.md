@@ -22,5 +22,15 @@
 - Summary recursive
 - Quick sort
 
+- Binary search
+- Recursion
+- Summary recursive & foreach
+- Count values recursive & foreach
+- First value recursive & foreach
+- Sort selection
+- Quick sort
+- Quick sorting for a single file
+- Quick sorting for directory files
+
 # Support
 Please click the `star` button if this tool was helpful to you.
