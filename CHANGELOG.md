@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Target Framework 6.0
 - Optimize calling helpers
+### Added
 - Quick sorting for a single file
 - Quick sorting for directory files
 
