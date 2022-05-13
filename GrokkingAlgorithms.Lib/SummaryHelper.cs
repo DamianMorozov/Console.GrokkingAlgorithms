@@ -14,7 +14,7 @@ namespace GrokkingAlgorithms.Lib
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<SummaryHelper> _instance = new Lazy<SummaryHelper>(() => new SummaryHelper());
+        private static readonly Lazy<SummaryHelper> _instance = new(() => new SummaryHelper());
         public static SummaryHelper Instance => _instance.Value;
         private SummaryHelper() { }
 

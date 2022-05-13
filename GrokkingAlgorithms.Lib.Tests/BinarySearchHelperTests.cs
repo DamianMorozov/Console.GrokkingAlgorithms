@@ -1,14 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using GrokkingAlgorithms.Lib;
 using NUnit.Framework;
 using System.Diagnostics;
 using System.Linq;
 
 namespace GrokkingAlgorithms.Lib.Tests
 {
-	[TestFixture]
+    [TestFixture]
 	public class BinarySearchHelperTests
 	{
 		private readonly BinarySearchHelper _binarySearchHelper = BinarySearchHelper.Instance;
@@ -47,59 +46,59 @@ namespace GrokkingAlgorithms.Lib.Tests
 			var sw = Stopwatch.StartNew();
 
             // array
-			var arr = _arrayHelper.SortArray(1300, 1400, EnumSortDirection.Asc);
-			var actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Asc);
+			var arr = _arrayHelper.SortArray(1300, 1400, EnumSortDirect.Asc);
+			var actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirect.Asc);
 			(int?, int) expected = (13, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirection.Asc);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirect.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.SortArray(1400, 1300, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(1400, 1300, EnumSortDirect.Desc);
 			TestContext.WriteLine("== " + string.Join(", ", arr));
-			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Desc);
+			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirect.Desc);
 			expected = (87, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirection.Desc);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirect.Desc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			actual = _binarySearchHelper.Execute(arr, 2000, EnumSortDirection.Asc);
+			actual = _binarySearchHelper.Execute(arr, 2000, EnumSortDirect.Asc);
 			expected = (null, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 2000, EnumSortDirection.Asc);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 2000, EnumSortDirect.Asc);
 			expected = (null, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirection.Asc);
-			actual = _binarySearchHelper.Execute(arr, 21500, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirect.Asc);
+			actual = _binarySearchHelper.Execute(arr, 21500, EnumSortDirect.Asc);
 			expected = (1400, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 21500, EnumSortDirection.Asc);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 21500, EnumSortDirect.Asc);
 			expected = (1400, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
 			// array
-			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirection.Asc);
-			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(20100, 22200, EnumSortDirect.Asc);
+			actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirect.Asc);
 			expected = (null, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 			// list
-			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirection.Asc);
+			actual = _binarySearchHelper.Execute(arr.ToList(), 1313, EnumSortDirect.Asc);
 			expected = (null, 11);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);

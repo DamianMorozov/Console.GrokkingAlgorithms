@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace GrokkingAlgorithms.Lib
@@ -28,46 +29,39 @@ namespace GrokkingAlgorithms.Lib
 
         #endregion
 
-        #region Public and private fields and properties
-
-        private readonly ArrayHelper _array = ArrayHelper.Instance;
-        private readonly FirstValueHelper _firstValueHelper = FirstValueHelper.Instance;
-
-        #endregion
-
         #region Selection sort methods without return value.
 
         /// <summary>
         /// Execute selection method.
         /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <param name="speed"></param>
-        public void ExecuteSelection(int?[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
+        public void ExecuteSelection(int?[] content, EnumSortDirect sortDirect, EnumSpeed speed = EnumSpeed.Fast)
         {
             if (speed == EnumSpeed.Slow)
-                ExecuteSelectionSlow(arr, sortDirection);
+                ExecuteSelectionSlow(content, sortDirect);
             else if (speed == EnumSpeed.Middle)
-                ExecuteSelectionMiddle(arr, sortDirection);
+                ExecuteSelectionMiddle(content, sortDirect);
             else
-                ExecuteSelectionFast(arr, sortDirection);
+                ExecuteSelectionFast(content, sortDirect);
         }
 
-        private void ExecuteSelectionSlow(int?[] arr, EnumSortDirection sortDirection)
+        private void ExecuteSelectionSlow(int?[] content, EnumSortDirect sortDirect)
         {
             bool check = false;
             while (!check)
             {
                 check = true;
-                for (int i = 0; i < arr.Length; i++)
+                for (int i = 0; i < content.Length; i++)
                 {
-                    if (i + 1 < arr.Length)
+                    if (i + 1 < content.Length)
                     {
-                        if (sortDirection == EnumSortDirection.Asc ? arr[i] > arr[i + 1] : arr[i] < arr[i + 1])
+                        if (sortDirect == EnumSortDirect.Asc ? content[i] > content[i + 1] : content[i] < content[i + 1])
                         {
-                            arr[i] = arr[i] + arr[i + 1];
-                            arr[i + 1] = arr[i] - arr[i + 1];
-                            arr[i] = arr[i] - arr[i + 1];
+                            content[i] = content[i] + content[i + 1];
+                            content[i + 1] = content[i] - content[i + 1];
+                            content[i] = content[i] - content[i + 1];
                             check = false;
                         }
                     }
@@ -75,22 +69,22 @@ namespace GrokkingAlgorithms.Lib
             }
         }
 
-        private void ExecuteSelectionMiddle(int?[] arr, EnumSortDirection sortDirection)
+        private void ExecuteSelectionMiddle(int?[] content, EnumSortDirect sortDirect)
         {
             bool check = false;
             int? swap;
             while (!check)
             {
                 check = true;
-                for (int i = 0; i < arr.Length; i++)
+                for (int i = 0; i < content.Length; i++)
                 {
-                    if (i + 1 < arr.Length)
+                    if (i + 1 < content.Length)
                     {
-                        if (sortDirection == EnumSortDirection.Asc ? arr[i] > arr[i + 1] : arr[i] < arr[i + 1])
+                        if (sortDirect == EnumSortDirect.Asc ? content[i] > content[i + 1] : content[i] < content[i + 1])
                         {
-                            swap = arr[i];
-                            arr[i] = arr[i + 1];
-                            arr[i + 1] = swap;
+                            swap = content[i];
+                            content[i] = content[i + 1];
+                            content[i + 1] = swap;
                             check = false;
                         }
                     }
@@ -98,13 +92,13 @@ namespace GrokkingAlgorithms.Lib
             }
         }
 
-        private void ExecuteSelectionFast(int?[] arr, EnumSortDirection sortDirection)
+        private void ExecuteSelectionFast(int?[] content, EnumSortDirect sortDirect)
         {
-            List<int?> list = arr.ToList();
-            for (int i = 0; i < arr.Length; i++)
+            List<int?> list = content.ToList();
+            for (int i = 0; i < content.Length; i++)
             {
-                (int pos, int? val) value = _firstValueHelper.Execute(list.ToArray(), sortDirection);
-                arr[i] = value.val;
+                (int pos, int? val) value = AppHelper.Instance.FirstValueHelp.Execute(list.ToArray(), sortDirect);
+                content[i] = value.val;
                 list.RemoveAt(value.pos);
             }
         }
@@ -113,16 +107,16 @@ namespace GrokkingAlgorithms.Lib
 
         #region Selection sort methods with return value.
 
-        public T[] GetExecuteSelection<T>(T[] data, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
+        public T[] GetExecuteSelection<T>(T[] content, EnumSortDirect sortDirect, EnumSpeed speed = EnumSpeed.Fast)
         {
             if (speed == EnumSpeed.Slow || speed == EnumSpeed.Middle)
-                return GetExecuteSelectionMiddle(data, sortDirection);
-            return GetExecuteSelectionFast(data, sortDirection);
+                return GetExecuteSelectionMiddle(content, sortDirect);
+            return GetExecuteSelectionFast(content, sortDirect);
         }
 
-        private T[] GetExecuteSelectionMiddle<T>(T[] data, EnumSortDirection sortDirection)
+        private T[] GetExecuteSelectionMiddle<T>(T[] content, EnumSortDirect sortDirect)
         {
-            T[] result = _array.Copy(data);
+            T[] result = AppHelper.Instance.ArrayHelp.Copy(content);
             Comparer<T> comparer = Comparer<T>.Default;
             bool check = false;
             T swap;
@@ -133,8 +127,8 @@ namespace GrokkingAlgorithms.Lib
                 {
                     if (i + 1 < result.Length)
                     {
-                        //if (sortDirection == EnumSortDirection.Asc ? result[i] > result[i + 1] : result[i] < result[i + 1])
-                        if (sortDirection == EnumSortDirection.Asc
+                        //if (sortDirect == EnumSortDirection.Asc ? result[i] > result[i + 1] : result[i] < result[i + 1])
+                        if (sortDirect == EnumSortDirect.Asc
                             // ? result[i] > result[i + 1] 
                             ? comparer.Compare(result[i], result[i + 1]) > 0
                             // : result[i] < result[i + 1]
@@ -151,13 +145,13 @@ namespace GrokkingAlgorithms.Lib
             return result;
         }
 
-        private T[] GetExecuteSelectionFast<T>(T[] data, EnumSortDirection sortDirection)
+        private T[] GetExecuteSelectionFast<T>(T[] content, EnumSortDirect sortDirect)
         {
-            T[] result = _array.Copy(data);
+            T[] result = AppHelper.Instance.ArrayHelp.Copy(content);
             List<T> list = result.ToList();
             for (int i = 0; i < result.Length; i++)
             {
-                (int pos, T val) value = _firstValueHelper.Execute(list.ToArray(), sortDirection);
+                (int pos, T val) value = AppHelper.Instance.FirstValueHelp.Execute(list.ToArray(), sortDirect);
                 result[i] = value.val;
                 list.RemoveAt(value.pos);
             }
@@ -166,82 +160,80 @@ namespace GrokkingAlgorithms.Lib
 
         #endregion
 
-        #region Quick sort methods with return value.
+        #region Quick sort methods with return value for int.
 
         /// <summary>
         /// Quick execute method.
         /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <param name="speed"></param>
         /// <param name="useSwitchPivot"></param>
         /// <returns></returns>
-        public IEnumerable<int?> GetExecuteQuick(int?[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast,
+        public IEnumerable<int?> GetExecuteQuick(int?[] content, EnumSortDirect sortDirect, EnumSpeed speed = EnumSpeed.Fast,
             bool useSwitchPivot = false)
         {
             if (speed == EnumSpeed.Slow)
-                return GetExecuteQuickRecursiveSlow(arr.ToList(), sortDirection);
+                return GetExecuteQuickRecursiveSlow(content.ToList(), sortDirect);
             return useSwitchPivot
-                ? GetExecuteQuickRecursiveFastWithSwitchPivot(arr, sortDirection)
-                : GetExecuteQuickRecursiveFast(arr, sortDirection);
+                ? GetExecuteQuickRecursiveFastWithSwitchPivot(content, sortDirect)
+                : GetExecuteQuickRecursiveFast(content, sortDirect);
         }
 
         /// <summary>
         /// Quick execute method.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        public IEnumerable<int?> GetExecuteQuick(IEnumerable<int?> list, EnumSortDirection sortDirection = EnumSortDirection.Asc)
-        {
-            return GetExecuteQuickRecursiveSlow(list, sortDirection);
-        }
+        public IEnumerable<int?> GetExecuteQuick(IEnumerable<int?> content, EnumSortDirect sortDirect = EnumSortDirect.Asc) =>
+            GetExecuteQuickRecursiveSlow(content, sortDirect);
 
         /// <summary>
         /// Slow execute method.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        private IEnumerable<int?> GetExecuteQuickRecursiveSlow(IEnumerable<int?> list, EnumSortDirection sortDirection)
+        private IEnumerable<int?> GetExecuteQuickRecursiveSlow(IEnumerable<int?> content, EnumSortDirect sortDirect)
         {
-            if (list.Count() <= 1) { return list; }
-            int? pivot = list.First();
+            if (content.Count() <= 1) { return content; }
+            int? pivot = content.First();
             IEnumerable<int?> less;
             IEnumerable<int?> greater;
 
-            if (sortDirection == EnumSortDirection.Asc)
+            if (sortDirect == EnumSortDirect.Asc)
             {
-                less = list.Skip(1).Where(i => i <= pivot);
-                greater = list.Skip(1).Where(i => i > pivot);
+                less = content.Skip(1).Where(i => i <= pivot);
+                greater = content.Skip(1).Where(i => i > pivot);
             }
             else
             {
-                less = list.Skip(1).Where(i => i > pivot);
-                greater = list.Skip(1).Where(i => i <= pivot);
+                less = content.Skip(1).Where(i => i > pivot);
+                greater = content.Skip(1).Where(i => i <= pivot);
             }
-            return GetExecuteQuickRecursiveSlow(less, sortDirection).
+            return GetExecuteQuickRecursiveSlow(less, sortDirect).
                 Union(new List<int?> { pivot }).
-                Union(GetExecuteQuickRecursiveSlow(greater, sortDirection));
+                Union(GetExecuteQuickRecursiveSlow(greater, sortDirect));
         }
 
         /// <summary>
         /// Fast execute method.
         /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        private int?[] GetExecuteQuickRecursiveFast(int?[] arr, EnumSortDirection sortDirection)
+        private int?[] GetExecuteQuickRecursiveFast(int?[] content, EnumSortDirect sortDirect)
         {
-            if (arr.Length <= 1) { return arr; }
-            int? pivot = arr.First();
+            if (content.Length <= 1) { return content; }
+            int? pivot = content.First();
             // Use List for fast write.
             List<int?> less = new();
             List<int?> greater = new();
             //foreach (var item in arr.ToList().Skip(1))
-            foreach (int? item in _array.Sub(arr, 1, arr.Length - 1))
+            foreach (int? item in AppHelper.Instance.ArrayHelp.Sub(content, 1, content.Length - 1))
             {
-                if (sortDirection == EnumSortDirection.Asc)
+                if (sortDirect == EnumSortDirect.Asc)
                     if (item <= pivot)
                         less.Add(item);
                     else
@@ -252,21 +244,21 @@ namespace GrokkingAlgorithms.Lib
                 else
                     greater.Add(item);
             }
-            return GetExecuteQuickRecursiveFast(less.ToArray(), sortDirection).
+            return GetExecuteQuickRecursiveFast(less.ToArray(), sortDirect).
                 Union(new int?[] { pivot }).
-                Union(GetExecuteQuickRecursiveFast(greater.ToArray(), sortDirection)).ToArray();
+                Union(GetExecuteQuickRecursiveFast(greater.ToArray(), sortDirect)).ToArray();
         }
 
         /// <summary>
         /// Fast execute method.
         /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        private int?[] GetExecuteQuickRecursiveFastWithSwitchPivot(int?[] arr, EnumSortDirection sortDirection)
+        private int?[] GetExecuteQuickRecursiveFastWithSwitchPivot(int?[] content, EnumSortDirect sortDirect)
         {
-            if (arr.Length <= 1) { return arr; }
-            int? pivot = arr.First();
+            if (content.Length <= 1) { return content; }
+            int? pivot = content.First();
             int pos = 1;
             //		foreach (var item in SubArray(arr, 1, arr.Length-1))
             //		{
@@ -277,24 +269,24 @@ namespace GrokkingAlgorithms.Lib
             //			pivot = item;
             //			pos++;
             //		}
-            foreach (int? item in _array.Sub(arr, 1, arr.Length - 1))
+            foreach (int? item in AppHelper.Instance.ArrayHelp.Sub(content, 1, content.Length - 1))
             {
-                if (sortDirection == EnumSortDirection.Asc)
-                    if (item <= arr[pos - 1]) break;
-                    else if (item > arr[pos - 1]) break;
+                if (sortDirect == EnumSortDirect.Asc)
+                    if (item <= content[pos - 1]) break;
+                    else if (item > content[pos - 1]) break;
                 pos++;
             }
-            pivot = arr[pos];
+            pivot = content[pos];
             // Use List for fast write.
             List<int?> less = new();
             List<int?> greater = new();
 
-            List<int?> list = arr.ToList();
+            List<int?> list = content.ToList();
             list.RemoveAt(pos);
             //foreach (var item in list)
             foreach (int? item in list.ToArray())
             {
-                if (sortDirection == EnumSortDirection.Asc)
+                if (sortDirect == EnumSortDirect.Asc)
                     if (item <= pivot)
                         less.Add(item);
                     else
@@ -305,103 +297,220 @@ namespace GrokkingAlgorithms.Lib
                 else
                     greater.Add(item);
             }
-            return GetExecuteQuickRecursiveFastWithSwitchPivot(less.ToArray(), sortDirection).
+            return GetExecuteQuickRecursiveFastWithSwitchPivot(less.ToArray(), sortDirect).
                 Union(new int?[] { pivot }).
-                Union(GetExecuteQuickRecursiveFastWithSwitchPivot(greater.ToArray(), sortDirection)).ToArray();
+                Union(GetExecuteQuickRecursiveFastWithSwitchPivot(greater.ToArray(), sortDirect)).ToArray();
         }
 
         #endregion
 
-        #region
+        #region Quick sort methods with return value for string.
 
         /// <summary>
         /// Quick execute method.
         /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <param name="speed"></param>
         /// <param name="useSwitchPivot"></param>
         /// <returns></returns>
-        public IEnumerable<string> GetExecuteQuick(string[] arr, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast,
-            bool useSwitchPivot = false)
+        public IEnumerable<string> GetExecuteQuick(string[] content, EnumSortDirect sortDirect, bool useSwitchPivot = false)
         {
-            if (speed == EnumSpeed.Slow)
-                return GetExecuteQuickRecursiveSlow(arr.ToList(), sortDirection);
             return useSwitchPivot
-                ? GetExecuteQuickRecursiveFastWithSwitchPivot(arr, sortDirection)
-                : GetExecuteQuickRecursiveFast(arr, sortDirection);
+                ? GetExecuteQuickRecursiveFastWithSwitchPivot(content, sortDirect)
+                : GetExecuteQuickRecursiveFast(content, sortDirect);
+        }
+
+        /// <summary>
+        /// Quick execute method.
+        /// </summary>
+        /// <param name="fileIn"></param>
+        /// <param name="fileOut"></param>
+        /// <param name="sortDirect"></param>
+        /// <returns></returns>
+        public void ExecuteQuick(string fileIn, string fileOut, EnumSortDirect sortDirect)
+        {
+            if (!File.Exists(fileIn))
+                return;
+            string fileTemp = fileOut + ".tmp";
+            ulong blockRows = AppHelper.Instance.FileBlockRows;
+            ulong fileRows = AppHelper.Instance.FileHelp.GetFileRowsCount(fileIn);
+
+            // All data.
+            if (!AppHelper.Instance.IsFileBlockRows || fileRows < blockRows)
+            {
+                //Console.WriteLine(fileRows < blockRows
+                //    ? @$"Processing data (file have less rows ({fileRows}) than block limit ({blockRows}))..."
+                //    : @$"Processing data (block mode is disabled)..."
+                //);
+                string contentIn = AppHelper.Instance.FileHelp.GetFileContent(fileIn);
+                ExecuteQuickBlock(fileOut, sortDirect, contentIn.Split(Environment.NewLine), true);
+            }
+            // Block data.
+            else
+            {
+                //Console.WriteLine(@$"Processing data (block mode is enabled)...");
+                bool isStartMove = false;
+                bool isBlockDouble = false;
+                do
+                {
+                    if (!isBlockDouble)
+                        ExecuteQuickBlockData(fileIn, fileOut, sortDirect, blockRows, fileRows);
+                    else
+                    {
+                        // StartPosition = 0.
+                        if (!isStartMove)
+                        {
+                            ExecuteQuickBlockData(fileIn, fileOut, sortDirect, blockRows * 2, fileRows);
+                            isStartMove = true;
+                        }
+                        // Move StartPosition.
+                        else
+                        {
+                            ExecuteQuickBlockData(fileIn, fileOut, sortDirect, blockRows * 2, fileRows, blockRows / 2);
+                            isStartMove = false;
+                        }
+                    }
+                    isBlockDouble = !isBlockDouble;
+                    // Rotate files.
+                    if (File.Exists(fileTemp))
+                        File.Delete(fileTemp);
+                    File.Copy(fileOut, fileTemp);
+                    fileIn = fileTemp;
+                } while (!FileHelper.IsFileSorted(fileOut, sortDirect));
+                if (File.Exists(fileTemp))
+                    File.Delete(fileTemp);
+            }
+            //Console.WriteLine(@$"Processing data complete.");
+        }
+
+        private void ExecuteQuickBlockData(string fileIn, string fileOut, EnumSortDirect sortDirect, ulong blockRows, ulong fileRows, ulong startRow = 0)
+        {
+            bool isRewriteFile = true;
+            string[] dataBlock;
+
+            // Working with initial data.
+            if (startRow > 0)
+            {
+                //if (startRow % 2 != 0) startRow++;
+                dataBlock = AppHelper.Instance.FileHelp.GetFileContentBlock(fileIn, 0, startRow);
+                ExecuteQuickBlock(fileOut, sortDirect, dataBlock, isRewriteFile);
+                if (isRewriteFile)
+                    isRewriteFile = false;
+            }
+
+            // Working with sliced data.
+            ulong count = (fileRows - startRow) / blockRows;
+            ulong i;
+            for (i = 0; i < count; i++)
+            {
+                dataBlock = AppHelper.Instance.FileHelp.GetFileContentBlock(fileIn, startRow + (i * blockRows), blockRows);
+                ExecuteQuickBlock(fileOut, sortDirect, dataBlock, isRewriteFile);
+                if (isRewriteFile)
+                    isRewriteFile = false;
+            }
+
+            // Working with remaining data.
+            ulong elapsedRows = fileRows - startRow - (blockRows * i);
+            dataBlock = AppHelper.Instance.FileHelp.GetFileContentBlock(fileIn, startRow + (i * blockRows), elapsedRows);
+            ExecuteQuickBlock(fileOut, sortDirect, dataBlock, isRewriteFile);
+        }
+
+        private void ExecuteQuickBlock(string fileOut, EnumSortDirect sortDirect, string[] content, bool isRewriteFile)
+        {
+            //IEnumerable<string> contentTransform = GetExecuteQuickRecursiveSlow(content.ToList(), sortDirect);
+            IEnumerable<string> contentTransform = GetExecuteQuickRecursiveFast(content, sortDirect);
+            AppHelper.Instance.FileHelp.SetFileContent(fileOut, contentTransform, isRewriteFile, true);
         }
 
         /// <summary>
         /// Slow execute method.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        private IEnumerable<string> GetExecuteQuickRecursiveSlow(IEnumerable<string> list, EnumSortDirection sortDirection)
+        private IEnumerable<string> GetExecuteQuickRecursiveSlow(IEnumerable<string> content, EnumSortDirect sortDirect)
         {
-            if (list.Count() <= 1) { return list; }
-            string pivot = list.First();
+            if (content.Count() <= 1) { return content; }
+            string pivot = content.First();
             IEnumerable<string> less;
             IEnumerable<string> greater;
 
-            if (sortDirection == EnumSortDirection.Asc)
+            if (sortDirect == EnumSortDirect.Asc)
             {
-                less = list.Skip(1).Where(i => i.CompareTo(pivot) <= 0); // less = list.Skip(1).Where(i => i <= pivot);
-                greater = list.Skip(1).Where(i => i.CompareTo(pivot) > 0); // greater = list.Skip(1).Where(i => i > pivot);
+                // 1st: less = list.Skip(1).Where(i => i <= pivot);
+                // 2nd: less = list.Skip(1).Where(i => i.CompareTo(pivot) <= 0); 
+                // 3rd: current
+                less = content.Skip(1).Where(i => string.Compare(i, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) <= 0);
+                // 1st: greater = list.Skip(1).Where(i => i > pivot);
+                // 2nd: greater = list.Skip(1).Where(i => i.CompareTo(pivot) > 0);
+                // 3rd: current
+                greater = content.Skip(1).Where(i => string.Compare(i, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) > 0);
             }
             else
             {
-                less = list.Skip(1).Where(i => i.CompareTo(pivot) > 0); // less = list.Skip(1).Where(i => i > pivot);
-                greater = list.Skip(1).Where(i => i.CompareTo(pivot) <= 0); // greater = list.Skip(1).Where(i => i <= pivot);
+                // 1st: less = list.Skip(1).Where(i => i > pivot);
+                // 2nd: less = list.Skip(1).Where(i => i.CompareTo(pivot) > 0);
+                // 3rd: current
+                less = content.Skip(1).Where(i => string.Compare(i, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) > 0);
+                // 1st: greater = list.Skip(1).Where(i => i <= pivot);
+                // 2nd: greater = list.Skip(1).Where(i => i.CompareTo(pivot) <= 0);
+                // 3rd: current
+                greater = content.Skip(1).Where(i => string.Compare(i, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) <= 0);
             }
-            return GetExecuteQuickRecursiveSlow(less, sortDirection).
+            return GetExecuteQuickRecursiveSlow(less, sortDirect).
                 Union(new List<string> { pivot }).
-                Union(GetExecuteQuickRecursiveSlow(greater, sortDirection));
+                Union(GetExecuteQuickRecursiveSlow(greater, sortDirect));
         }
         
         /// <summary>
         /// Fast execute method.
         /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        private string[] GetExecuteQuickRecursiveFast(string[] arr, EnumSortDirection sortDirection)
+        private string[] GetExecuteQuickRecursiveFast(string[] content, EnumSortDirect sortDirect)
         {
-            if (arr.Length <= 1) { return arr; }
-            string pivot = arr.First();
+            if (content.Length <= 1) { return content; }
+            string pivot = content.First();
             // Use List for fast write.
             List<string> less = new();
             List<string> greater = new();
             //foreach (var item in arr.ToList().Skip(1))
-            foreach (string item in _array.Sub(arr, 1, arr.Length - 1))
+            foreach (string item in AppHelper.Instance.ArrayHelp.Sub(content, 1, content.Length - 1))
             {
-                if (sortDirection == EnumSortDirection.Asc)
-                    if (item.CompareTo(pivot) <= 0) // if (item <= pivot)
+                if (sortDirect == EnumSortDirect.Asc)
+                    // 1st: if (item <= pivot)
+                    // 2nd: if (item.CompareTo(pivot) <= 0)
+                    // 3rd: current
+                    if (string.Compare(item, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) <= 0)
                         less.Add(item);
                     else
                         greater.Add(item);
                 else
-                    if (item.CompareTo(pivot) > 0) // if (item > pivot)
-                    less.Add(item);
+                    // 1st: if (item > pivot)
+                    // 2nd: if (item.CompareTo(pivot) > 0)
+                    // 3rd: current
+                    if (string.Compare(item, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) > 0)
+                        less.Add(item);
                 else
                     greater.Add(item);
             }
-            return GetExecuteQuickRecursiveFast(less.ToArray(), sortDirection).
+            return GetExecuteQuickRecursiveFast(less.ToArray(), sortDirect).
                 Union(new string[] { pivot }).
-                Union(GetExecuteQuickRecursiveFast(greater.ToArray(), sortDirection)).ToArray();
+                Union(GetExecuteQuickRecursiveFast(greater.ToArray(), sortDirect)).ToArray();
         }
 
         /// <summary>
         /// Fast execute method.
         /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="content"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        private string[] GetExecuteQuickRecursiveFastWithSwitchPivot(string[] arr, EnumSortDirection sortDirection)
+        private string[] GetExecuteQuickRecursiveFastWithSwitchPivot(string[] content, EnumSortDirect sortDirect)
         {
-            if (arr.Length <= 1) { return arr; }
-            string pivot = arr.First();
+            if (content.Length <= 1) { return content; }
+            string pivot = content.First();
             int pos = 1;
             //		foreach (var item in SubArray(arr, 1, arr.Length-1))
             //		{
@@ -412,37 +521,49 @@ namespace GrokkingAlgorithms.Lib
             //			pivot = item;
             //			pos++;
             //		}
-            foreach (string item in _array.Sub(arr, 1, arr.Length - 1))
+            foreach (string item in AppHelper.Instance.ArrayHelp.Sub(content, 1, content.Length - 1))
             {
-                if (sortDirection == EnumSortDirection.Asc)
-                    if (item.CompareTo(arr[pos - 1]) <= 0) break; // if (item <= arr[pos - 1]) break;
-                    else if (item.CompareTo(arr[pos - 1]) > 0) break; // else if (item > arr[pos - 1]) break;
+                if (sortDirect == EnumSortDirect.Asc)
+                    // 1st: if (item <= arr[pos - 1]) break;
+                    // 2nd: if (item.CompareTo(arr[pos - 1]) <= 0) break;
+                    // 3rd: current
+                    if (string.Compare(item, content[pos - 1], AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) <= 0) break;
+                    // 1st: else if (item > arr[pos - 1]) break;
+                    // 2nd: else if (item.CompareTo(arr[pos - 1]) > 0) break;
+                    // 3rd: current
+                    else if (string.Compare(item, content[pos - 1], AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) > 0) break;
                 pos++;
             }
-            pivot = arr[pos];
+            pivot = content[pos];
             // Use List for fast write.
             List<string> less = new();
             List<string> greater = new();
 
-            List<string> list = arr.ToList();
+            List<string> list = content.ToList();
             list.RemoveAt(pos);
             //foreach (var item in list)
             foreach (string item in list.ToArray())
             {
-                if (sortDirection == EnumSortDirection.Asc)
-                    if (item.CompareTo(pivot) <= 0) // if (item <= pivot)
+                if (sortDirect == EnumSortDirect.Asc)
+                    // 1st: if (item <= pivot)
+                    // 2nd: if (item.CompareTo(pivot) <= 0)
+                    // 3rd: current
+                    if (string.Compare(item, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) <= 0)
                         less.Add(item);
                     else
                         greater.Add(item);
                 else
-                    if (item.CompareTo(pivot) > 0) // if (item > pivot)
+                    // 1st: if (item > pivot)
+                    // 2nd: if (item.CompareTo(pivot) > 0)
+                    // 3rd: current
+                    if (string.Compare(item, pivot, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) > 0)
                         less.Add(item);
                 else
                     greater.Add(item);
             }
-            return GetExecuteQuickRecursiveFastWithSwitchPivot(less.ToArray(), sortDirection).
+            return GetExecuteQuickRecursiveFastWithSwitchPivot(less.ToArray(), sortDirect).
                 Union(new string[] { pivot }).
-                Union(GetExecuteQuickRecursiveFastWithSwitchPivot(greater.ToArray(), sortDirection)).ToArray();
+                Union(GetExecuteQuickRecursiveFastWithSwitchPivot(greater.ToArray(), sortDirect)).ToArray();
         }
 
         #endregion

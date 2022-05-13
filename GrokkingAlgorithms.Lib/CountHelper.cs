@@ -14,7 +14,7 @@ namespace GrokkingAlgorithms.Lib
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<CountHelper> _instance = new Lazy<CountHelper>(() => new CountHelper());
+        private static readonly Lazy<CountHelper> _instance = new(() => new CountHelper());
         public static CountHelper Instance => _instance.Value;
         private CountHelper() { }
 

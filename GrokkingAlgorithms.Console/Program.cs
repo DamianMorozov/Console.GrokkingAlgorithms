@@ -15,6 +15,8 @@ namespace GrokkingAlgorithms.Console
 {
     internal static class Program
     {
+        private static AppHelper AppHelp { get; set; } = AppHelper.Instance;
+
         internal static void Main()
         {
             int numberMenu = -1;
@@ -41,16 +43,16 @@ namespace GrokkingAlgorithms.Console
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@"---                       Grokking Algorithms                      ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
-            System.Console.WriteLine("0. Exit from console.");
-            System.Console.WriteLine("1. Binary search.");
-            System.Console.WriteLine("2. Recursion.");
-            System.Console.WriteLine("3. Summary recursive & foreach.");
-            System.Console.WriteLine("4. Count values recursive & foreach.");
-            System.Console.WriteLine("5. First value recursive & foreach.");
-            System.Console.WriteLine("6. Sort selection.");
-            System.Console.WriteLine("7. Quick sort.");
-            System.Console.WriteLine("8. Quick sort for one file.");
-            System.Console.WriteLine("9. Quick sort for directory files.");
+            System.Console.WriteLine(" 0. Exit from console.");
+            System.Console.WriteLine(" 1. Binary search.");
+            System.Console.WriteLine(" 2. Recursion.");
+            System.Console.WriteLine(" 3. Summary recursive & foreach.");
+            System.Console.WriteLine(" 4. Count values recursive & foreach.");
+            System.Console.WriteLine(" 5. First value recursive & foreach.");
+            System.Console.WriteLine(" 6. Sort selection.");
+            System.Console.WriteLine(" 7. Quick sort.");
+            System.Console.WriteLine(" 8. Quick sorting for a single file.");
+            System.Console.WriteLine(" 9. Quick sorting for directory files.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.Write("Type switch: ");
         }
@@ -106,9 +108,9 @@ namespace GrokkingAlgorithms.Console
             }
         }
 
-        /// <summary>
+        /// <AppHelp.SummaryHelp>
         /// Binary search.
-        /// </summary>
+        /// </AppHelp.SummaryHelp>
         internal static void PrintBinarySearch()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -121,14 +123,12 @@ namespace GrokkingAlgorithms.Console
             SetValueSafe(System.Console.ReadLine(), out int endValue, 1_000_000);
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
-            BinarySearchHelper binarySearch = BinarySearchHelper.Instance;
-            ArrayHelper array = ArrayHelper.Instance;
-            int?[] arr = array.SortArray(startValue, endValue, EnumSortDirection.Asc);
-            System.Collections.Generic.List<int?> list = arr.ToList();
+            int?[] arr = AppHelp.ArrayHelp.SortArray(startValue, endValue, EnumSortDirect.Asc);
+            List<int?> list = arr.ToList();
             System.Console.WriteLine($"var arr = _array.GetSortArray({startValue}, {endValue}, EnumSort.Asc);");
             System.Console.WriteLine("var list = arr.ToList();");
-            int?[] arrDesc = array.SortArray(endValue, startValue, EnumSortDirection.Desc);
-            System.Collections.Generic.List<int?> listDesc = arrDesc.ToList();
+            int?[] arrDesc = AppHelp.ArrayHelp.SortArray(endValue, startValue, EnumSortDirect.Desc);
+            List<int?> listDesc = arrDesc.ToList();
             System.Console.WriteLine($"var arrDesc = _array.GetSortArray({endValue}, {startValue}, EnumSort.Desc);");
             System.Console.WriteLine($"var listDesc = arrDesc.ToList();");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -137,76 +137,68 @@ namespace GrokkingAlgorithms.Console
             System.Console.WriteLine(@"Faster:");
 
             Stopwatch sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(arr, 123_456, EnumSort.Asc): {binarySearch.Execute(arr, 123_456, EnumSortDirection.Asc)}.  ");
+            System.Console.Write($"Execute(arr, 123_456, EnumSort.Asc): {AppHelp.BinarySearchHelp.Execute(arr, 123_456, EnumSortDirect.Asc)}.  ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(list, 123_456, EnumSort.Asc): {binarySearch.Execute(list, 123_456, EnumSortDirection.Asc)}. ");
-            sw.Stop();
-            System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-
-            sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(arr, 12, EnumSort.Asc): {binarySearch.Execute(arr, 12, EnumSortDirection.Asc)}.           ");
-            sw.Stop();
-            System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
-            sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(list, 12, EnumSort.Asc): {binarySearch.Execute(list, 12, EnumSortDirection.Asc)}.          ");
+            System.Console.Write($"Execute(list, 123_456, EnumSort.Asc): {AppHelp.BinarySearchHelp.Execute(list, 123_456, EnumSortDirect.Asc)}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
             sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(arrDesc, 123_456, EnumSort.Desc): {binarySearch.Execute(arrDesc, 123_456, EnumSortDirection.Desc)}.  ");
+            System.Console.Write($"Execute(arr, 12, EnumSort.Asc): {AppHelp.BinarySearchHelp.Execute(arr, 12, EnumSortDirect.Asc)}.           ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(listDesc, 123_456, EnumSort.Desc): {binarySearch.Execute(listDesc, 123_456, EnumSortDirection.Desc)}. ");
+            System.Console.Write($"Execute(list, 12, EnumSort.Asc): {AppHelp.BinarySearchHelp.Execute(list, 12, EnumSortDirect.Asc)}.          ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
 
             sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(arrDesc, 12, EnumSort.Desc): {binarySearch.Execute(arrDesc, 12, EnumSortDirection.Desc)}.       ");
+            System.Console.Write($"Execute(arrDesc, 123_456, EnumSort.Desc): {AppHelp.BinarySearchHelp.Execute(arrDesc, 123_456, EnumSortDirect.Desc)}.  ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"Execute(listDesc, 12, EnumSort.Desc): {binarySearch.Execute(listDesc, 12, EnumSortDirection.Desc)}.      ");
+            System.Console.Write($"Execute(listDesc, 123_456, EnumSort.Desc): {AppHelp.BinarySearchHelp.Execute(listDesc, 123_456, EnumSortDirect.Desc)}. ");
+            sw.Stop();
+            System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+
+            sw = Stopwatch.StartNew();
+            System.Console.Write($"Execute(arrDesc, 12, EnumSort.Desc): {AppHelp.BinarySearchHelp.Execute(arrDesc, 12, EnumSortDirect.Desc)}.       ");
+            sw.Stop();
+            System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
+            sw = Stopwatch.StartNew();
+            System.Console.Write($"Execute(listDesc, 12, EnumSort.Desc): {AppHelp.BinarySearchHelp.Execute(listDesc, 12, EnumSortDirect.Desc)}.      ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        /// <summary>
+        /// <AppHelp.SummaryHelp>
         /// Recursion.
-        /// </summary>
+        /// </AppHelp.SummaryHelp>
         internal static void PrintRecursion()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@"---                            Recursion                           ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
-            RecursionHelper recursion = RecursionHelper.Instance;
-            System.Console.WriteLine($"{nameof(RecursionHelper)} {nameof(recursion)} = {nameof(RecursionHelper)}.{nameof(RecursionHelper.Instance)};");
-            System.Console.WriteLine(@"----------------------------------------------------------------------");
-
             Stopwatch sw = Stopwatch.StartNew();
-            System.Console.WriteLine($"Factorial(8): {recursion.Factorial(8):N0}");
+            System.Console.WriteLine($"Factorial(8): {AppHelp.RecursionHelp.Factorial(8):N0}");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        /// <summary>
+        /// <AppHelp.SummaryHelp>
         /// Summary recursive & foreach.
-        /// </summary>
+        /// </AppHelp.SummaryHelp>
         internal static void PrintSummary()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@"---                   Summary recursive & foreach                  ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
-            ArrayHelper array = ArrayHelper.Instance;
-            SummaryHelper summary = SummaryHelper.Instance;
-            int?[] arr = array.RandomArray(2_000, 1_000);
-            System.Collections.Generic.List<int?> list = arr.ToList();
-            System.Console.WriteLine("var array = ArrayHelper.Instance;");
-            System.Console.WriteLine("var summary = SummaryHelper.Instance;");
+            int?[] arr = AppHelp.ArrayHelp.RandomArray(2_000, 1_000);
+            List<int?> list = arr.ToList();
             System.Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000);");
             System.Console.WriteLine("var list = arr.ToList();");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -215,11 +207,11 @@ namespace GrokkingAlgorithms.Console
             System.Console.WriteLine(@"Faster:");
 
             Stopwatch sw = Stopwatch.StartNew();
-            System.Console.Write($"summary.Execute(arr)(arr):             {summary.Execute(arr):N0}. ");
+            System.Console.Write($"SummaryHelp.Execute(arr)(arr):             {AppHelp.SummaryHelp.Execute(arr):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"summary.Execute(list):                 {summary.Execute(list):N0}. ");
+            System.Console.Write($"SummaryHelp.Execute(list):                 {AppHelp.SummaryHelp.Execute(list):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -227,30 +219,26 @@ namespace GrokkingAlgorithms.Console
             // Slower.
             System.Console.WriteLine(@"Slower:");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"summary.Execute(arr, EnumSpeed.Slow):  {summary.Execute(arr, EnumSpeed.Slow):N0}. ");
+            System.Console.Write($"SummaryHelp.Execute(arr, EnumSpeed.Slow):  {AppHelp.SummaryHelp.Execute(arr, EnumSpeed.Slow):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"summary.Execute(list, EnumSpeed.Slow): {summary.Execute(list, EnumSpeed.Slow):N0}. ");
+            System.Console.Write($"SummaryHelp.Execute(list, EnumSpeed.Slow): {AppHelp.SummaryHelp.Execute(list, EnumSpeed.Slow):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        /// <summary>
+        /// <AppHelp.SummaryHelp>
         /// Count recursive & foreach.
-        /// </summary>
+        /// </AppHelp.SummaryHelp>
         internal static void PrintCount()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@"---                   Count recursive & foreach                    ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
-            ArrayHelper array = ArrayHelper.Instance;
-            CountHelper count = CountHelper.Instance;
-            int?[] arr = array.RandomArray(2_000, 1_000);
-            System.Collections.Generic.List<int?> list = arr.ToList();
-            System.Console.WriteLine("var array = ArrayHelper.Instance;");
-            System.Console.WriteLine("var count = CountHelper.Instance;");
+            int?[] arr = AppHelp.ArrayHelp.RandomArray(2_000, 1_000);
+            List<int?> list = arr.ToList();
             System.Console.WriteLine("var arr = array.GetRandomArray(2_000, 1_000);");
             System.Console.WriteLine("var list = arr.ToList();");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -266,11 +254,11 @@ namespace GrokkingAlgorithms.Console
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"count.Execute(arr, EnumSpeed.Fast):  {count.Execute(arr, EnumSpeed.Fast):N0}. ");
+            System.Console.Write($"count.Execute(arr, EnumSpeed.Fast):  {AppHelp.CountHelp.Execute(arr, EnumSpeed.Fast):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"count.Execute(list, EnumSpeed.Fast): {count.Execute(list, EnumSpeed.Fast):N0}. ");
+            System.Console.Write($"count.Execute(list, EnumSpeed.Fast): {AppHelp.CountHelp.Execute(list, EnumSpeed.Fast):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -278,30 +266,26 @@ namespace GrokkingAlgorithms.Console
             // Slower.
             System.Console.WriteLine(@"Slower:");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"count.Execute(arr, EnumSpeed.Slow):  {count.Execute(arr, EnumSpeed.Slow):N0}. ");
+            System.Console.Write($"count.Execute(arr, EnumSpeed.Slow):  {AppHelp.CountHelp.Execute(arr, EnumSpeed.Slow):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"count.Execute(list, EnumSpeed.Slow): {count.Execute(list, EnumSpeed.Slow):N0}. ");
+            System.Console.Write($"count.Execute(list, EnumSpeed.Slow): {AppHelp.CountHelp.Execute(list, EnumSpeed.Slow):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        /// <summary>
+        /// <AppHelp.SummaryHelp>
         /// First value recursive & foreach.
-        /// </summary>
+        /// </AppHelp.SummaryHelp>
         internal static void PrintFirstValue()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@"---                First value recursive & foreach                 ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
-            ArrayHelper array = ArrayHelper.Instance;
-            FirstValueHelper firstValue = FirstValueHelper.Instance;
-            int?[] arr = array.RandomArray(1_000, 1_000);
-            System.Collections.Generic.List<int?> list = arr.ToList();
-            System.Console.WriteLine("var array = ArrayHelper.Instance;");
-            System.Console.WriteLine("var firstValue = FirstValueHelper.Instance;");
+            int?[] arr = AppHelp.ArrayHelp.RandomArray(1_000, 1_000);
+            List<int?> list = arr.ToList();
             System.Console.WriteLine("var arr = array.GetRandomArray(1_000, 1_000);");
             System.Console.WriteLine("var list = arr.ToList();");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -309,19 +293,19 @@ namespace GrokkingAlgorithms.Console
             // Faster.
             System.Console.WriteLine(@"Faster:");
             Stopwatch sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(arr, EnumSort.Asc):   {firstValue.Execute(arr, EnumSortDirection.Asc):N0}.   ");
+            System.Console.Write($"FirstValueHelp.Execute(arr, EnumSort.Asc):   {AppHelp.FirstValueHelp.Execute(arr, EnumSortDirect.Asc):N0}.   ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(arr, EnumSort.Desc):  {firstValue.Execute(arr, EnumSortDirection.Desc):N0}. ");
+            System.Console.Write($"FirstValueHelp.Execute(arr, EnumSort.Desc):  {AppHelp.FirstValueHelp.Execute(arr, EnumSortDirect.Desc):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(list, EnumSort.Asc):  {firstValue.Execute(list, EnumSortDirection.Asc):N0}.   ");
+            System.Console.Write($"FirstValueHelp.Execute(list, EnumSort.Asc):  {AppHelp.FirstValueHelp.Execute(list, EnumSortDirect.Asc):N0}.   ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(list, EnumSort.Desc): {firstValue.Execute(list, EnumSortDirection.Desc):N0}. ");
+            System.Console.Write($"FirstValueHelp.Execute(list, EnumSort.Desc): {AppHelp.FirstValueHelp.Execute(list, EnumSortDirect.Desc):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
@@ -329,102 +313,91 @@ namespace GrokkingAlgorithms.Console
             // Slower.
             System.Console.WriteLine(@"Slower:");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(arr, EnumSort.Asc, EnumSpeed.Slow):   {firstValue.Execute(arr, EnumSortDirection.Asc, EnumSpeed.Slow):N0}.   ");
+            System.Console.Write($"FirstValueHelp.Execute(arr, EnumSort.Asc, EnumSpeed.Slow):   {AppHelp.FirstValueHelp.Execute(arr, EnumSortDirect.Asc, EnumSpeed.Slow):N0}.   ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(arr, EnumSort.Desc, EnumSpeed.Slow):  {firstValue.Execute(arr, EnumSortDirection.Desc):N0}. ");
+            System.Console.Write($"FirstValueHelp.Execute(arr, EnumSort.Desc, EnumSpeed.Slow):  {AppHelp.FirstValueHelp.Execute(arr, EnumSortDirect.Desc):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(list, EnumSort.Asc, EnumSpeed.Slow):  {firstValue.Execute(list, EnumSortDirection.Asc):N0}.   ");
+            System.Console.Write($"FirstValueHelp.Execute(list, EnumSort.Asc, EnumSpeed.Slow):  {AppHelp.FirstValueHelp.Execute(list, EnumSortDirect.Asc):N0}.   ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"firstValue.Execute(list, EnumSort.Desc, EnumSpeed.Slow): {firstValue.Execute(list, EnumSortDirection.Desc):N0}. ");
+            System.Console.Write($"FirstValueHelp.Execute(list, EnumSort.Desc, EnumSpeed.Slow): {AppHelp.FirstValueHelp.Execute(list, EnumSortDirect.Desc):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
         }
 
-        /// <summary>
+        /// <AppHelp.SummaryHelp>
         /// Sort selection.
-        /// </summary>
+        /// </AppHelp.SummaryHelp>
         internal static void PrintSortSelection()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@"---                         Sort selection                         ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
-            ArrayHelper array = ArrayHelper.Instance;
-            System.Console.WriteLine(@"var _array = ArrayHelper.Instance;");
-            SortHelper sortSelection = SortHelper.Instance;
-            System.Console.WriteLine(@"var _sortSelection = SortHelper.Instance;");
-            System.Console.WriteLine(@"----------------------------------------------------------------------");
-
             // Faster.
             System.Console.WriteLine(@"Faster:");
-            int?[] arr = array.RandomArray(15_000, 100_000);
+            int?[] arr = AppHelp.ArrayHelp.RandomArray(15_000, 100_000);
             Stopwatch sw = Stopwatch.StartNew();
-            sortSelection.GetExecuteSelection(arr, EnumSortDirection.Asc);
+            AppHelp.SortHelp.GetExecuteSelection(arr, EnumSortDirect.Asc);
             sw.Stop();
             System.Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. With return value.");
-            arr = array.RandomArray(15_000, 100_000);
+            arr = AppHelp.ArrayHelp.RandomArray(15_000, 100_000);
             sw = Stopwatch.StartNew();
-            sortSelection.ExecuteSelection(arr, EnumSortDirection.Asc);
+            AppHelp.SortHelp.ExecuteSelection(arr, EnumSortDirect.Asc);
             sw.Stop();
             System.Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. Without return value.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Middle.
             System.Console.WriteLine(@"Middle:");
-            arr = array.RandomArray(15_000, 100_000);
+            arr = AppHelp.ArrayHelp.RandomArray(15_000, 100_000);
             sw = Stopwatch.StartNew();
-            sortSelection.GetExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Middle);
+            AppHelp.SortHelp.GetExecuteSelection(arr, EnumSortDirect.Asc, EnumSpeed.Middle);
             sw.Stop();
             System.Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. With return value.");
-            arr = array.RandomArray(15_000, 100_000);
+            arr = AppHelp.ArrayHelp.RandomArray(15_000, 100_000);
             sw = Stopwatch.StartNew();
-            sortSelection.ExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Middle);
+            AppHelp.SortHelp.ExecuteSelection(arr, EnumSortDirect.Asc, EnumSpeed.Middle);
             sw.Stop();
             System.Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}. Without return value.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
             // Slower.
-            arr = array.RandomArray(15_000, 100_000);
+            arr = AppHelp.ArrayHelp.RandomArray(15_000, 100_000);
             System.Console.WriteLine(@"Slower:");
             sw = Stopwatch.StartNew();
-            sortSelection.ExecuteSelection(arr, EnumSortDirection.Asc, EnumSpeed.Slow);
+            AppHelp.SortHelp.ExecuteSelection(arr, EnumSortDirect.Asc, EnumSpeed.Slow);
             sw.Stop();
             System.Console.WriteLine($"Count items: {arr.Length:N0}. Elapsed time: {sw.Elapsed}.");
         }
 
-        /// <summary>
+        /// <AppHelp.SummaryHelp>
         /// Quick sort.
-        /// </summary>
+        /// </AppHelp.SummaryHelp>
         internal static void PrintQuickSort()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@"---                           Quick sort                           ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
 
-            ArrayHelper array = ArrayHelper.Instance;
-            SortHelper sortQuick = SortHelper.Instance;
-            int?[] arr = array.RandomArray(1_000_000, 1_000_000);
-            System.Console.WriteLine("var array = ArrayHelper.Instance;");
-            System.Console.WriteLine("var sortQuick = SortQuickHelper.Instance;");
-            System.Console.WriteLine(@"----------------------------------------------------------------------");
+            int?[] arr = AppHelp.ArrayHelp.RandomArray(1_000_000, 1_000_000);
 
             // Faster.
             System.Console.WriteLine(@"Faster:");
             System.Console.WriteLine("var arr = array.GetRandomArray(1_000_000, 1_000_000);");
             Stopwatch sw = Stopwatch.StartNew();
-            sortQuick.GetExecuteQuick(arr, EnumSortDirection.Asc);
+            AppHelp.SortHelp.GetExecuteQuick(arr, EnumSortDirect.Asc);
             System.Console.Write("sortQuick.Execute(arr, EnumSortDirection.Asc);. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
 
             sw = Stopwatch.StartNew();
-            sortQuick.GetExecuteQuick(arr, EnumSortDirection.Asc, EnumSpeed.Fast, true);
+            AppHelp.SortHelp.GetExecuteQuick(arr, EnumSortDirect.Asc, EnumSpeed.Fast, true);
             System.Console.Write("sortQuick.Execute(arr, EnumSortDirection.Asc, EnumSpeed.Fast, true);. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
@@ -434,72 +407,75 @@ namespace GrokkingAlgorithms.Console
             System.Console.WriteLine(@"Slower:");
             System.Console.WriteLine("var arr = array.GetRandomArray(10_000, 1_000_000);");
             sw = Stopwatch.StartNew();
-            arr = array.RandomArray(10_000, 1_000_000);
-            sortQuick.GetExecuteQuick(arr.ToList());
+            arr = AppHelp.ArrayHelp.RandomArray(10_000, 1_000_000);
+            AppHelp.SortHelp.GetExecuteQuick(arr.ToList());
             System.Console.Write("sortQuick.ExecuteQuick(arr.ToList());. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
 
             sw = Stopwatch.StartNew();
-            arr = array.RandomArray(10_000, 1_000_000);
-            sortQuick.GetExecuteQuick(arr.ToList(), EnumSortDirection.Desc);
+            arr = AppHelp.ArrayHelp.RandomArray(10_000, 1_000_000);
+            AppHelp.SortHelp.GetExecuteQuick(arr.ToList(), EnumSortDirect.Desc);
             System.Console.Write("sortQuick.ExecuteQuick(arr.ToList(), EnumSortDirection.Desc);. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}. ");
         }
 
-        /// <summary>
-        /// Quick sort for file.
-        /// </summary>
+        /// <AppHelp.SummaryHelp>
+        /// Quick sorting for a single file.
+        /// </AppHelp.SummaryHelp>
+        /// <param name="isBlock"></param>
         internal static void PrintFileQuickSort()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
-            System.Console.WriteLine(@"---                         File quick sort                        ---");
+            System.Console.WriteLine(@"---                 Quick sorting for a single file                ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
+            System.Console.WriteLine(@$"{nameof(AppHelp.StringCultureInfo)}: {AppHelp.StringCultureInfo.Name}");
+            System.Console.WriteLine(@$"{nameof(AppHelp.StringCompareOptions)}: {AppHelp.StringCompareOptions}");
+            System.Console.WriteLine(@$"{nameof(AppHelp.FileBlockRows)}: {AppHelp.FileBlockRows}");
 
-            FileHelper fileHelper = FileHelper.Instance;
-            SortHelper sortQuick = SortHelper.Instance;
-
-            string fileIn = fileHelper.GetFileName(fileHelper.MessageGetFileInput, true);
-            string fileOut = fileHelper.GetFileName(fileHelper.MessageGetFileOutput, false);
-            string contentIn = fileHelper.GetFileContent(fileIn);
+            string fileIn = AppHelp.FileHelp.GetFileName(AppHelp.FileHelp.MessageGetFileInput, true);
+            string fileOut = AppHelp.FileHelp.GetFileName(AppHelp.FileHelp.MessageGetFileOutput, false);
+            AppHelp.SetIsFileBlockRows();
+            AppHelp.SetFileBlockSize();
 
             Stopwatch sw = Stopwatch.StartNew();
-            IEnumerable<string> contentOut = sortQuick.GetExecuteQuick(contentIn.Split(Environment.NewLine), EnumSortDirection.Asc);
-            fileHelper.SetFileContent(fileOut, contentOut, true, true);
+            AppHelp.SortHelp.ExecuteQuick(fileIn, fileOut, EnumSortDirect.Asc);
             sw.Stop();
             System.Console.WriteLine($"{nameof(sw.Elapsed)}: {sw.Elapsed}. ");
         }
 
-        /// <summary>
-        /// Quick sort for directory.
-        /// </summary>
+        /// <AppHelp.SummaryHelp>
+        /// Quick sorting for directory files.
+        /// </AppHelp.SummaryHelp>
         internal static void PrintDirQuickSort()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
-            System.Console.WriteLine(@"---                      Directory quick sort                      ---");
+            System.Console.WriteLine(@"---                Quick sorting for directory files               ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
+            System.Console.WriteLine(@$"{nameof(AppHelp.StringCultureInfo)}: {AppHelp.StringCultureInfo}");
+            System.Console.WriteLine(@$"{nameof(AppHelp.StringCompareOptions)}: {AppHelp.StringCompareOptions}");
 
-            FileHelper fileHelper = FileHelper.Instance;
-            SortHelper sortQuick = SortHelper.Instance;
-            
             string dirIn = string.Empty;
             string dirOut = string.Empty;
             do
             {
                 if (!string.IsNullOrEmpty(dirIn) || !string.IsNullOrEmpty(dirOut))
                     System.Console.WriteLine($"Retype directory names.");
-                dirIn = fileHelper.GetDirectoryName(fileHelper.MessageGetDirectoryInput);
-                dirOut = fileHelper.GetDirectoryName(fileHelper.MessageGetDirectoryOutput);
+                dirIn = AppHelp.FileHelp.GetDirectoryName(AppHelp.FileHelp.MessageGetDirectoryInput);
+                dirOut = AppHelp.FileHelp.GetDirectoryName(AppHelp.FileHelp.MessageGetDirectoryOutput);
             } while (dirIn.Equals(dirOut));
+            AppHelp.SetIsFileBlockRows();
+            AppHelp.SetFileBlockSize();
 
             Stopwatch sw = Stopwatch.StartNew();
             foreach (string fileIn in Directory.GetFiles(dirIn))
             {
                 string fileOut = Path.Combine(dirOut, Path.GetFileName(fileIn));
-                string contentIn = fileHelper.GetFileContent(fileIn);
-                IEnumerable<string> contentOut = sortQuick.GetExecuteQuick(contentIn.Split(Environment.NewLine), EnumSortDirection.Asc);
-                fileHelper.SetFileContent(fileOut, contentOut, true, true);
+                //string contentIn = AppHelp.FileHelp.GetFileContent(fileIn);
+                //IEnumerable<string> contentOut = AppHelp.SortHelp.GetExecuteQuick(contentIn.Split(Environment.NewLine), EnumSortDirect.Asc);
+                //AppHelp.FileHelp.SetFileContent(fileOut, contentOut, true, true);
+                AppHelp.SortHelp.ExecuteQuick(fileIn, fileOut, EnumSortDirect.Asc);
             }
             sw.Stop();
             System.Console.WriteLine($"{nameof(sw.Elapsed)}: {sw.Elapsed}. ");

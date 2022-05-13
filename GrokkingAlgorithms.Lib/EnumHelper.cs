@@ -25,7 +25,7 @@ namespace GrokkingAlgorithms.Lib
     /// <summary>
     /// Sorting direction.
     /// </summary>
-    public enum EnumSortDirection
+    public enum EnumSortDirect
     {
         /// <summary>
         /// Ascending.

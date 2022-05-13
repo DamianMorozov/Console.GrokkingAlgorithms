@@ -12,7 +12,7 @@ namespace GrokkingAlgorithms.Lib
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<RecursionHelper> _instance = new Lazy<RecursionHelper>(() => new RecursionHelper());
+        private static readonly Lazy<RecursionHelper> _instance = new(() => new RecursionHelper());
         public static RecursionHelper Instance => _instance.Value;
         private RecursionHelper() { }
 

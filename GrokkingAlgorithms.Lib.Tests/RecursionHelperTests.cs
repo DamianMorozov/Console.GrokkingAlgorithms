@@ -1,13 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using GrokkingAlgorithms.Lib;
 using NUnit.Framework;
 using System.Diagnostics;
-	
+
 namespace GrokkingAlgorithms.Lib.Tests
 {
-	[TestFixture]
+    [TestFixture]
 	public class RecursionHelperTests
 	{
 		private readonly RecursionHelper _recursionHelper = RecursionHelper.Instance;

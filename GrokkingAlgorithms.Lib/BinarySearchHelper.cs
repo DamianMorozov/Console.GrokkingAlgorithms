@@ -14,7 +14,7 @@ namespace GrokkingAlgorithms.Lib
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<BinarySearchHelper> _instance = new Lazy<BinarySearchHelper>(() => new BinarySearchHelper());
+        private static readonly Lazy<BinarySearchHelper> _instance = new(() => new BinarySearchHelper());
         public static BinarySearchHelper Instance => _instance.Value;
         private BinarySearchHelper() { }
 
@@ -25,12 +25,12 @@ namespace GrokkingAlgorithms.Lib
         /// </summary>
         /// <param name="arr"></param>
         /// <param name="item"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        public (int? pos, int count) Execute(int?[] arr, int item, EnumSortDirection sortDirection)
+        public (int? pos, int count) Execute(int?[] arr, int item, EnumSortDirect sortDirect)
         {
             var count = 0;
-            if (sortDirection == EnumSortDirection.Asc)
+            if (sortDirect == EnumSortDirect.Asc)
             {
                 var start = 0;
                 var end = arr.Length - 1;
@@ -46,7 +46,7 @@ namespace GrokkingAlgorithms.Lib
                         start = mid + 1;
                 }
             }
-            else if (sortDirection == EnumSortDirection.Desc)
+            else if (sortDirect == EnumSortDirect.Desc)
             {
                 var end = 0;
                 var start = arr.Length - 1;
@@ -70,12 +70,12 @@ namespace GrokkingAlgorithms.Lib
         /// </summary>
         /// <param name="list"></param>
         /// <param name="item"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        public (int? pos, int count) Execute(IEnumerable<int?> list, int item, EnumSortDirection sortDirection)
+        public (int? pos, int count) Execute(IEnumerable<int?> list, int item, EnumSortDirect sortDirect)
         {
             var count = 0;
-            if (sortDirection == EnumSortDirection.Asc)
+            if (sortDirect == EnumSortDirect.Asc)
             {
                 var start = 0;
                 var end = list.Count() - 1;
@@ -91,7 +91,7 @@ namespace GrokkingAlgorithms.Lib
                         start = mid + 1;
                 }
             }
-            else if (sortDirection == EnumSortDirection.Desc)
+            else if (sortDirect == EnumSortDirect.Desc)
             {
                 var end = 0;
                 var start = list.Count() - 1;

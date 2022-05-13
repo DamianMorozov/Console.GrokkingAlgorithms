@@ -12,7 +12,7 @@ namespace GrokkingAlgorithms.Lib
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<ArrayHelper> _instance = new Lazy<ArrayHelper>(() => new ArrayHelper());
+        private static readonly Lazy<ArrayHelper> _instance = new(() => new ArrayHelper());
         public static ArrayHelper Instance => _instance.Value;
         private ArrayHelper() { }
 
@@ -23,13 +23,13 @@ namespace GrokkingAlgorithms.Lib
         /// </summary>
         /// <param name="startValue"></param>
         /// <param name="endValue"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        public int?[] SortArray(int startValue, int endValue, EnumSortDirection sortDirection)
+        public int?[] SortArray(int startValue, int endValue, EnumSortDirect sortDirect)
         {
             int?[] arr = null;
             var i = 0;
-            if (sortDirection == EnumSortDirection.Asc)
+            if (sortDirect == EnumSortDirect.Asc)
             {
                 arr = new int?[endValue - startValue + 1];
                 for (var j = startValue; j <= endValue; j++)
@@ -38,7 +38,7 @@ namespace GrokkingAlgorithms.Lib
                     i++;
                 }
             }
-            else if (sortDirection == EnumSortDirection.Desc)
+            else if (sortDirect == EnumSortDirect.Desc)
             {
                 arr = new int?[startValue - endValue + 1];
                 for (var j = startValue; j >= endValue; j--)

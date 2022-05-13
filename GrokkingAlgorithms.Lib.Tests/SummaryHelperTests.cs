@@ -1,14 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using GrokkingAlgorithms.Lib;
 using NUnit.Framework;
 using System.Diagnostics;
 using System.Linq;
 
 namespace GrokkingAlgorithms.Lib.Tests
 {
-	[TestFixture]
+    [TestFixture]
 	public class SummaryHelperTests
 	{
 		private readonly SummaryHelper _summaryHelper = SummaryHelper.Instance;
@@ -46,7 +45,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirection.Asc);
+			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirect.Asc);
 			int expected = 55;
 			int actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -54,7 +53,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.SortArray(10, 0, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(10, 0, EnumSortDirect.Desc);
 			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
@@ -62,7 +61,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
-			arr = _arrayHelper.SortArray(2001, 2003, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(2001, 2003, EnumSortDirect.Asc);
 			expected = 6006;
 			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -70,7 +69,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			actual = _summaryHelper.Execute(arr.ToList());
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.SortArray(2003, 2001, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(2003, 2001, EnumSortDirect.Desc);
 			actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
@@ -89,7 +88,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
 			var sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirection.Asc);
+			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirect.Asc);
 			int expected = 55;
 			int actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -97,7 +96,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.SortArray(10, 0, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(10, 0, EnumSortDirect.Desc);
 			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
@@ -105,7 +104,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
 
-			arr = _arrayHelper.SortArray(2001, 2003, EnumSortDirection.Asc);
+			arr = _arrayHelper.SortArray(2001, 2003, EnumSortDirect.Asc);
 			expected = 6006;
 			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -113,7 +112,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 			actual = _summaryHelper.Execute(arr.ToList(), EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);
-			arr = _arrayHelper.SortArray(2003, 2001, EnumSortDirection.Desc);
+			arr = _arrayHelper.SortArray(2003, 2001, EnumSortDirect.Desc);
 			actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);

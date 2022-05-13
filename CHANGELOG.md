@@ -2,6 +2,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.03.120] - 2022-05-13
+### Changed
+- Target Framework 6.0
+- Optimize calling helpers
+- Quick sorting for a single file
+- Quick sorting for directory files
+
 ## [0.03.100] - 2022-05-11
 ### Added
 - GrokkingAlgorithms.Lib: FileHelper

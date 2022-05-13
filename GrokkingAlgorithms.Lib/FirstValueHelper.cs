@@ -14,7 +14,7 @@ namespace GrokkingAlgorithms.Lib
     {
         #region Design pattern "Singleton".
 
-        private static readonly Lazy<FirstValueHelper> _instance = new Lazy<FirstValueHelper>(() => new FirstValueHelper());
+        private static readonly Lazy<FirstValueHelper> _instance = new(() => new FirstValueHelper());
         public static FirstValueHelper Instance => _instance.Value;
         private FirstValueHelper() { }
 
@@ -24,37 +24,37 @@ namespace GrokkingAlgorithms.Lib
         /// Execute method. Fast - for & foreach. Slow - recursion.
         /// </summary>
         /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        public (int pos, int? val) Execute(int?[] arr, EnumSortDirection sortDirection)
+        public (int pos, int? val) Execute(int?[] arr, EnumSortDirect sortDirect)
         {
-            return ExecuteForeach(arr, sortDirection);
+            return ExecuteForeach(arr, sortDirect);
         }
 
         /// <summary>
         /// Execute method. Fast - for & foreach. Slow - recursion.
         /// </summary>
         /// <param name="arr"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="sortDirect"></param>
         /// <returns></returns>
-        public (int pos, T val) Execute<T>(T[] arr, EnumSortDirection sortDirection)
+        public (int pos, T val) Execute<T>(T[] arr, EnumSortDirect sortDirect)
         {
-            return ExecuteForeach(arr, sortDirection);
+            return ExecuteForeach(arr, sortDirect);
         }
 
         /// <summary>
         /// Execute method. Fast - for & foreach. Slow - recursion.
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="sortDirection"></param>
+        /// <param name="sortDirect"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public (int pos, int? val) Execute(IEnumerable<int?> list, EnumSortDirection sortDirection, EnumSpeed speed = EnumSpeed.Fast)
+        public (int pos, int? val) Execute(IEnumerable<int?> list, EnumSortDirect sortDirect, EnumSpeed speed = EnumSpeed.Fast)
         {
-            return speed == EnumSpeed.Slow ? (-1, ExecuteRecursive(list, sortDirection)) : ExecuteForeach(list, sortDirection);
+            return speed == EnumSpeed.Slow ? (-1, ExecuteRecursive(list, sortDirect)) : ExecuteForeach(list, sortDirect);
         }
 
-        private (int pos, int? val) ExecuteForeach(int?[] arr, EnumSortDirection sortDirection)
+        private (int pos, int? val) ExecuteForeach(int?[] arr, EnumSortDirect sortDirect)
         {
             if (arr.Length <= 0)
                 return (-1, null);
@@ -69,7 +69,7 @@ namespace GrokkingAlgorithms.Lib
                 else
                     if (arr[j] != null)
                 {
-                    if (sortDirection == EnumSortDirection.Asc)
+                    if (sortDirect == EnumSortDirect.Asc)
                     {
                         if (value > arr[j])
                         {
@@ -90,7 +90,7 @@ namespace GrokkingAlgorithms.Lib
             return (i, value);
         }
 
-        private (int pos, T val) ExecuteForeach<T>(T[] arr, EnumSortDirection sortDirection)
+        private (int pos, T val) ExecuteForeach<T>(T[] arr, EnumSortDirect sortDirect)
         {
             if (arr.Length <= 0)
                 return (-1, default(T));
@@ -106,7 +106,7 @@ namespace GrokkingAlgorithms.Lib
                 else
                     if (arr[j] != null)
                 {
-                    if (sortDirection == EnumSortDirection.Asc)
+                    if (sortDirect == EnumSortDirect.Asc)
                     {
                         //if (value > arr[j])
                         if (comparer.Compare(value, arr[j]) > 0)
@@ -129,7 +129,7 @@ namespace GrokkingAlgorithms.Lib
             return (i, value);
         }
 
-        private (int pos, int? val) ExecuteForeach(IEnumerable<int?> list, EnumSortDirection sortDirection)
+        private (int pos, int? val) ExecuteForeach(IEnumerable<int?> list, EnumSortDirect sortDirect)
         {
             int i = 0, j = 0;
             int? value = null;
@@ -140,7 +140,7 @@ namespace GrokkingAlgorithms.Lib
                 else
                     if (item != null)
                 {
-                    if (sortDirection == EnumSortDirection.Asc)
+                    if (sortDirect == EnumSortDirect.Asc)
                     {
                         if (value > item)
                         {
@@ -162,15 +162,15 @@ namespace GrokkingAlgorithms.Lib
             return (i, value);
         }
 
-        private int? ExecuteRecursive(IEnumerable<int?> list, EnumSortDirection sortDirection)
+        private int? ExecuteRecursive(IEnumerable<int?> list, EnumSortDirect sortDirect)
         {
             if (!list.Any()) return null;
             if (list.Count() == 1) return list.First();
-            if (list.Count() == 2) return sortDirection == EnumSortDirection.Desc
+            if (list.Count() == 2) return sortDirect == EnumSortDirect.Desc
                 ? list.First() > list.Skip(1).Take(1).First() ? list.First() : list.Skip(1).Take(1).First()
                 : list.First() < list.Skip(1).Take(1).First() ? list.First() : list.Skip(1).Take(1).First();
-            var sub_max = ExecuteRecursive(list.Skip(1), sortDirection);
-            return sortDirection == EnumSortDirection.Desc
+            var sub_max = ExecuteRecursive(list.Skip(1), sortDirect);
+            return sortDirect == EnumSortDirect.Desc
                 ? list.First() > sub_max ? list.First() : sub_max
                 : list.First() < sub_max ? list.First() : sub_max;
         }

@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using GrokkingAlgorithms.Lib;
 using NUnit.Framework;
 using System.Diagnostics;
 
@@ -48,11 +47,11 @@ namespace GrokkingAlgorithms.Lib.Tests
             TestContext.WriteLine($@"{nameof(SortArray_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var actual = _arrayHelper.SortArray(210, 220, EnumSortDirection.Asc);
+            var actual = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedAsc, actual);
 
-            actual = _arrayHelper.SortArray(220, 210, EnumSortDirection.Desc);
+            actual = _arrayHelper.SortArray(220, 210, EnumSortDirect.Desc);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedDesc, actual);
 
@@ -103,12 +102,12 @@ namespace GrokkingAlgorithms.Lib.Tests
             TestContext.WriteLine($@"{nameof(Sub_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.SortArray(210, 220, EnumSortDirection.Asc);
+            var arr = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
             var actual = _arrayHelper.Sub(arr, 6, 5);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedSubDesc, actual);
 
-            arr = _arrayHelper.SortArray(220, 210, EnumSortDirection.Desc);
+            arr = _arrayHelper.SortArray(220, 210, EnumSortDirect.Desc);
             actual = _arrayHelper.Sub(arr, 6, 5);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedSubAsc, actual);
@@ -145,12 +144,12 @@ namespace GrokkingAlgorithms.Lib.Tests
             TestContext.WriteLine($@"{nameof(Copy_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.SortArray(210, 220, EnumSortDirection.Asc);
+            var arr = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
             var actual = _arrayHelper.Copy(arr);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedAsc, actual);
 
-            arr = _arrayHelper.SortArray(220, 210, EnumSortDirection.Desc);
+            arr = _arrayHelper.SortArray(220, 210, EnumSortDirect.Desc);
             actual = _arrayHelper.Copy(arr);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedDesc, actual);
