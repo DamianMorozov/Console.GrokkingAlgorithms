@@ -4,7 +4,7 @@
 		<OutputType>Library</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<StartupObject></StartupObject>
-		<Version>0.3.120.0</Version>
+		<Version>0.3.130.0</Version>
 		<LangVersion>9.0</LangVersion>
 	</PropertyGroup>
 

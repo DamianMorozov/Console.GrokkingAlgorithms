@@ -74,56 +74,210 @@ namespace GrokkingAlgorithms.Lib
         public StringBuilder GetFileContentAsStringBuilder(string fileName)
         {
             StringBuilder content = new();
-            using StreamReader streamReader = File.OpenText(fileName);
-            do
+            using Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
+            while (!streamReader.EndOfStream)
             {
                 content.Append(streamReader.ReadLine());
             }
-            while (!streamReader.EndOfStream);
             streamReader.Close();
             streamReader.Dispose();
             return content;
         }
 
-        public string GetFileContent(string fileName)
+        public string GetFileContentAsString(string fileName)
         {
-            string content = string.Empty;
-            using StreamReader streamReader = File.OpenText(fileName);
-            content = streamReader.ReadToEnd();
-            streamReader.Close();
-            streamReader.Dispose();
-            return content;
-        }
-
-        public ulong GetFileRowsCount(string fileName)
-        {
-            using StreamReader streamReader = File.OpenText(fileName);
-            ulong result = 0;
-            do
-            {
-                streamReader.ReadLine();
-                result++;
-            } while (!streamReader.EndOfStream);
+            using Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
+            string result = streamReader.ReadToEnd();
             streamReader.Close();
             streamReader.Dispose();
             return result;
         }
 
-        public string[] GetFileContentBlock(string fileName, ulong startPosition, ulong blockSize)
+        public string[] GetFileContent(string[] files)
+        {
+            string[] result = Array.Empty<string>();
+            foreach (string file in files)
+            {
+                string[] arr = GetFileContent(file);
+                result = result.Concat(arr).ToArray();
+            }
+            return result;
+        }
+
+        public List<string> GetFileContentAsEnumerable(string[] files)
+        {
+            List<string> result = new();
+            foreach (string file in files)
+            {
+                List<string> arr = GetFileContentAsEnumerable(file);
+                result.AddRange(arr);
+            }
+            return result;
+        }
+
+        public string[] GetFileContent(string file)
+        {
+            if (string.IsNullOrEmpty(file) || !File.Exists(file))
+                return Array.Empty<string>();
+            int rowsCount = GetFileRowsCount(file);
+            if (rowsCount == 0)
+                return Array.Empty<string>();
+            string[] result = new string[rowsCount];
+            using Stream stream = File.Open(file, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
+            int rowCurrent = 0;
+            while (!streamReader.EndOfStream)
+            {
+                result[rowCurrent] = streamReader.ReadLine();
+                rowCurrent++;
+            }
+            streamReader.Close();
+            streamReader.Dispose();
+            return result;
+        }
+
+        public List<string> GetFileContentAsEnumerable(string file)
+        {        
+            if (string.IsNullOrEmpty(file) || !File.Exists(file))
+                return new();
+            int rowsCount = GetFileRowsCount(file);
+            if (rowsCount == 0)
+                return new();
+            List<string> result = new();
+            using Stream stream = File.Open(file, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
+            while (!streamReader.EndOfStream)
+            {
+                result.Add(streamReader.ReadLine());
+            }
+            streamReader.Close();
+            streamReader.Dispose();
+            return result;
+        }
+
+public int GetFileRowsCount(string fileName)
+        {
+            using Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
+            int result = 0;
+            while (!streamReader.EndOfStream)
+            {
+                streamReader.ReadLine();
+                result++;
+            }
+            streamReader.Close();
+            streamReader.Dispose();
+            return result;
+        }
+
+        public int GetFileTempCount(string fileName, int rowsBlock)
+        {
+            using Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
+            int result = 0;
+            int rowsSkip = 0;
+            while (!streamReader.EndOfStream)
+            {
+                if (result == 0)
+                    result++;
+                if (rowsSkip < rowsBlock)
+                {
+                    streamReader.ReadLine();
+                    rowsSkip++;
+                }
+                else
+                {
+                    rowsSkip = 0;
+                    result++;
+                }
+            }
+            streamReader.Close();
+            streamReader.Dispose();
+            return result;
+        }
+
+        public string[] GetFilesTemp(int count, string name, string ext)
+        {
+            string[] result = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                result[i] = $"{name}.{ext}{i}";
+            }
+            return result;
+        }
+
+        //public string[] ReverseFiles(string[] files)
+        //{
+        //    int count = files.Count();
+        //    if (count == 1)
+        //        return files;
+        //    string[] result = new string[count];
+        //    if (count == 2)
+        //    {
+        //        result[0] = files[1];
+        //        result[1] = files[0];
+        //        return result;
+        //    }
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        result[count - 1 - i] = files[i];
+        //    }
+        //    return result;
+        //}
+
+        //public string[] RotateFiles(string[] files)
+        //{
+        //    int count = files.Count();
+        //    if (count == 1)
+        //        return files;
+        //    string[] result = new string[count];
+        //    if (count == 2)
+        //    {
+        //        result[0] = files[1];
+        //        result[1] = files[0];
+        //        return result;
+        //    }
+        //    //for (int i = 0; i < count; i++)
+        //    //{
+        //    //    if (i < count - 2)
+        //    //    {
+        //    //        result[i] = files[i + 2];
+        //    //        result[i + 2] = files[i];
+        //    //    }
+        //    //    else if (i < count - 1)
+        //    //    {
+        //    //        result[i] = files[i + 1];
+        //    //        result[i + 1] = files[i];
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        result[i] = files[i];
+        //    //    }
+        //    //}
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        result[count - 1 - i] = files[i];
+        //    }
+        //    return result;
+        //}
+
+        public string[] GetFileContentBlock(string fileName, int startPosition, int blockSize)
         {
             string[] content = new string[blockSize];
-            using Stream stream = File.Open(fileName, FileMode.Open);
+            using Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
             using StreamReader streamReader = new(stream);
             // Skip data.
-            ulong count = 0;
-            while (count < startPosition)
+            int count = 0;
+            while (!streamReader.EndOfStream && count < startPosition)
             {
                 streamReader.ReadLine();
                 count++;
             }
             // Read block of data.
             count = 0;
-            while (count < blockSize)
+            while (!streamReader.EndOfStream && count < blockSize)
             {
                 content[count] = streamReader.ReadLine();
                 count++;
@@ -133,10 +287,10 @@ namespace GrokkingAlgorithms.Lib
             return content;
         }
 
-        public void SetFileContent(string fileOut, IEnumerable<string> content, bool isRewriteFile, bool isSkipEmpty) => 
-            SetFileContent(fileOut, content.ToArray(), isRewriteFile, isSkipEmpty);
+        public void SetFileContent(string fileOut, List<string> content, bool isRewriteFile) => 
+            SetFileContent(fileOut, content.ToArray(), isRewriteFile);
 
-        public void SetFileContent(string fileOut, string[] content, bool isRewriteFile, bool isSkipEmpty)
+        public void SetFileContent(string fileOut, string[] content, bool isRewriteFile)
         {
             StreamWriter streamWriter;
             if (isRewriteFile && File.Exists(fileOut))
@@ -150,8 +304,82 @@ namespace GrokkingAlgorithms.Lib
             }
             foreach (string line in content)
             {
-                if (!isSkipEmpty || !string.IsNullOrEmpty(line))
+                if (!string.IsNullOrEmpty(line))
                     streamWriter.WriteLine(line);
+            }
+            streamWriter.Close();
+            streamWriter.Dispose();
+        }
+
+        public void DeleteFiles(string[] files)
+        {
+            foreach (string file in files)
+            {
+                if (File.Exists(file))
+                    File.Delete(file);
+            }
+        }
+
+        public void SplitFiles(string fileIn, string[] filesOut, int rowsBlock)
+        {
+            using Stream stream = File.Open(fileIn, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
+            int rowFileOut = 0;
+            foreach (string fileOut in filesOut)
+            {
+                using StreamWriter streamWriter = File.AppendText(fileOut);
+                while (!streamReader.EndOfStream)
+                {
+                    if (rowFileOut < rowsBlock)
+                        rowFileOut++;
+                    else
+                    {
+                        rowFileOut = 0;
+                        break;
+                    }
+                    streamWriter.WriteLine(streamReader.ReadLine());
+                }
+                streamWriter.Close();
+                streamWriter.Dispose();
+            }
+            streamReader.Close();
+            streamReader.Dispose();
+        }
+
+        public void SplitData(string[] content, string[] filesOut, int rowsBlock)
+        {
+            int rowFileIn = 0;
+            foreach (string fileOut in filesOut)
+            {
+                using StreamWriter streamWriter = File.AppendText(fileOut);
+                int rowFileOut = 0;
+                while (rowFileIn < content.Length)
+                {
+                    if (rowFileOut < rowsBlock)
+                    {
+                        streamWriter.WriteLine(content[rowFileIn]);
+                        rowFileIn++;
+                        rowFileOut++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                streamWriter.Close();
+                streamWriter.Dispose();
+            }
+        }
+
+        public void MergeFiles(string[] filesIn, string fileOut)
+        {
+            if (File.Exists(fileOut))
+                File.Delete(fileOut);
+            using StreamWriter streamWriter = File.AppendText(fileOut);
+            foreach (string fileIn in filesIn)
+            {
+                string content = GetFileContentAsString(fileIn);
+                streamWriter.Write(content);
             }
             streamWriter.Close();
             streamWriter.Dispose();
@@ -159,10 +387,10 @@ namespace GrokkingAlgorithms.Lib
 
         public void SetFileContentRemoveEmptyRows(string fileName)
         {
-            string content = GetFileContent(fileName);
+            string[] content = GetFileContent(fileName);
             string fileTmp = fileName + ".tmp";
             using StreamWriter streamWriter = File.CreateText(fileTmp);
-            foreach (string line in content.Split(Environment.NewLine))
+            foreach (string line in content)
             {
                 if (!string.IsNullOrEmpty(line))
                     streamWriter.WriteLine(line);
@@ -174,38 +402,36 @@ namespace GrokkingAlgorithms.Lib
             File.Move(fileTmp, fileName);
         }
 
-        public static bool IsFileSorted(string fileName, EnumSortDirect sortDirect)
+        public bool IsFileSorted(string fileName, EnumSortDirect sortDirect)
         {
-            bool result = true;
-            using StreamReader streamReader = File.OpenText(fileName);
+            using Stream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            using StreamReader streamReader = new(stream);
             string line1 = string.Empty;
             string line2 = string.Empty;
-            ulong row = 0;
-            do
+            int row = 0;
+            bool result = true;
+            while (!streamReader.EndOfStream)
             {
                 line2 = streamReader.ReadLine();
-                switch (sortDirect)
+                if (sortDirect == EnumSortDirect.Asc)
                 {
-                    case EnumSortDirect.Asc:
-                        if (string.Compare(line1, line2, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) > 0)
-                        {
-                            //Console.WriteLine($"'{line1}' < '{line2}' at row {row}");
-                            result = false;
-                            break;
-                        }
+                    if (string.Compare(line1, line2, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) > 0)
+                    {
+                        result = false;
                         break;
-                    case EnumSortDirect.Desc:
-                        if (string.Compare(line1, line2, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) < 0)
-                        {
-                            //Console.WriteLine($"'{line1}' > '{line2}' at row {row}");
-                            result = false;
-                            break;
-                        }
+                    }
+                }
+                else
+                {
+                    if (string.Compare(line1, line2, AppHelper.Instance.StringCultureInfo, AppHelper.Instance.StringCompareOptions) < 0)
+                    {
+                        result = false;
                         break;
+                    }
                 }
                 line1 = line2;
                 row++;
-            } while (result && !streamReader.EndOfStream);
+            }
             streamReader.Close();
             streamReader.Dispose();
             return result;

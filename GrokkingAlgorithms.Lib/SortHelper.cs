@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -321,6 +322,11 @@ namespace GrokkingAlgorithms.Lib
                 : GetExecuteQuickRecursiveFast(content, sortDirect);
         }
 
+        private int GetRowsBlock(bool isNeedMoreBlock)
+        {
+            return !isNeedMoreBlock ? AppHelper.Instance.FileRowsBlock : AppHelper.Instance.FileRowsBlock * 2;
+        }
+
         /// <summary>
         /// Quick execute method.
         /// </summary>
@@ -332,95 +338,123 @@ namespace GrokkingAlgorithms.Lib
         {
             if (!File.Exists(fileIn))
                 return;
-            string fileTemp = fileOut + ".tmp";
-            ulong blockRows = AppHelper.Instance.FileBlockRows;
-            ulong fileRows = AppHelper.Instance.FileHelp.GetFileRowsCount(fileIn);
-
-            // All data.
-            if (!AppHelper.Instance.IsFileBlockRows || fileRows < blockRows)
+            if (Equals(fileIn, fileOut))
             {
-                //Console.WriteLine(fileRows < blockRows
-                //    ? @$"Processing data (file have less rows ({fileRows}) than block limit ({blockRows}))..."
-                //    : @$"Processing data (block mode is disabled)..."
-                //);
-                string contentIn = AppHelper.Instance.FileHelp.GetFileContent(fileIn);
-                ExecuteQuickBlock(fileOut, sortDirect, contentIn.Split(Environment.NewLine), true);
+                Console.WriteLine($"Input file must be different than output file!");
+                return;
             }
-            // Block data.
+            int rowsCount = FileHelper.Instance.GetFileRowsCount(fileIn);
+
+            // Check sorted.
+            if (FileHelper.Instance.IsFileSorted(fileIn, sortDirect))
+            {
+                Console.WriteLine($"Input file was sorted and just copied!");
+                if (File.Exists(fileOut))
+                    File.Delete(fileOut);
+                File.Copy(fileIn, fileOut);
+                return;
+            }
+
+            // Transform all data per one time.
+            if (!AppHelper.Instance.IsFileBlockRows || rowsCount < GetRowsBlock(false))
+            {
+                string[] content = FileHelper.Instance.GetFileContent(fileIn);
+                ExecuteQuickBlock(fileOut, sortDirect, content, true);
+            }
+            // Transform all data per few times through blocks.
             else
             {
-                //Console.WriteLine(@$"Processing data (block mode is enabled)...");
-                bool isStartMove = false;
-                bool isBlockDouble = false;
                 do
                 {
-                    if (!isBlockDouble)
-                        ExecuteQuickBlockData(fileIn, fileOut, sortDirect, blockRows, fileRows);
+                    //int fileTempCount = FileHelper.Instance.GetFileTempCount(fileIn, GetRowsBlock(step % 2 == 0));
+                    int fileTempCount = FileHelper.Instance.GetFileTempCount(fileIn, GetRowsBlock(false));
+                    string[] filesTemp = FileHelper.Instance.GetFilesTemp(fileTempCount, fileIn, "tmp");
+                    FileHelper.Instance.DeleteFiles(filesTemp);
+                    FileHelper.Instance.SplitFiles(fileIn, filesTemp, GetRowsBlock(false));
+                    if (fileTempCount == 1)
+                    {
+                        IEnumerable<string> contentTemp = FileHelper.Instance.GetFileContentAsEnumerable(filesTemp[0]);
+                        string[] content = GetExecuteQuickRecursiveFast(contentTemp.ToArray(), sortDirect);
+                        FileHelper.Instance.SetFileContent(fileOut, content, true);
+                    }
+                    else if (fileTempCount == 2)
+                    {
+                        IEnumerable<string> contentTemp = FileHelper.Instance.GetFileContentAsEnumerable(filesTemp);
+                        string[] content = GetExecuteQuickRecursiveFast(contentTemp.ToArray(), sortDirect);
+                        FileHelper.Instance.SetFileContent(fileOut, content, true);
+                    }
                     else
                     {
-                        // StartPosition = 0.
-                        if (!isStartMove)
+                        foreach (string fileTemp in filesTemp)
                         {
-                            ExecuteQuickBlockData(fileIn, fileOut, sortDirect, blockRows * 2, fileRows);
-                            isStartMove = true;
+                            IEnumerable<string> contentTemp = FileHelper.Instance.GetFileContentAsEnumerable(fileTemp);
+                            //ExecuteQuickBlock(fileTemp, sortDirect, contentTemp.Split(Environment.NewLine), true);
+                            string[] content = GetExecuteQuickRecursiveFast(contentTemp.ToArray(), sortDirect);
+                            FileHelper.Instance.SetFileContent(fileTemp, content, true);
                         }
-                        // Move StartPosition.
-                        else
+                        for (int i = 0; i < filesTemp.Count() - 1; i++)
                         {
-                            ExecuteQuickBlockData(fileIn, fileOut, sortDirect, blockRows * 2, fileRows, blockRows / 2);
-                            isStartMove = false;
+                            long processMemoryBytes = Process.GetCurrentProcess().WorkingSet64;
+                            if (processMemoryBytes > AppHelper.Instance.MemoryBytesLimit)
+                            {
+                                Console.WriteLine($"Allocated memory: {processMemoryBytes/1024:######} KB will be free.");
+                                GC.Collect();
+                            }
+                            //string fileMerge = $"{filesTemp[i]}.merge";
+                            //FileHelper.Instance.MergeFiles(new string[2] { filesTemp[i], filesTemp[i + 1] }, fileMerge);
+                            //string[] contentMerge = FileHelper.Instance.GetFileContent(fileMerge);
+                            IEnumerable<string> contentMerge = FileHelper.Instance.GetFileContentAsEnumerable(
+                                new string[2] { filesTemp[i], filesTemp[i + 1] });
+                            string[] content = GetExecuteQuickRecursiveFast(contentMerge.ToArray(), sortDirect);
+                            //FileHelper.Instance.SetFileContent(fileMerge, content, true);
+                            FileHelper.Instance.SetFileContent(filesTemp[i], Array.Empty<string>(), true);
+                            FileHelper.Instance.SetFileContent(filesTemp[i + 1], Array.Empty<string>(), true);
+                            FileHelper.Instance.SplitData(content, new string[2] { filesTemp[i], filesTemp[i + 1] }, GetRowsBlock(false));
+                            //File.Delete(fileMerge);
                         }
+                        FileHelper.Instance.MergeFiles(filesTemp, fileOut);
                     }
-                    isBlockDouble = !isBlockDouble;
-                    // Rotate files.
-                    if (File.Exists(fileTemp))
-                        File.Delete(fileTemp);
-                    File.Copy(fileOut, fileTemp);
-                    fileIn = fileTemp;
-                } while (!FileHelper.IsFileSorted(fileOut, sortDirect));
-                if (File.Exists(fileTemp))
-                    File.Delete(fileTemp);
+                    FileHelper.Instance.DeleteFiles(filesTemp);
+                    fileIn = fileOut;
+                    //step = step < 2 ? (byte)(step + 1) : (byte)0;
+                } while (!FileHelper.Instance.IsFileSorted(fileOut, sortDirect));
             }
-            //Console.WriteLine(@$"Processing data complete.");
         }
 
-        private void ExecuteQuickBlockData(string fileIn, string fileOut, EnumSortDirect sortDirect, ulong blockRows, ulong fileRows, ulong startRow = 0)
+        private void ExecuteQuickBlockData(string fileIn, string fileOut, EnumSortDirect sortDirect, int rowsBlock, int rowsFile, int rowStart)
         {
             bool isRewriteFile = true;
             string[] dataBlock;
 
             // Working with initial data.
-            if (startRow > 0)
+            if (rowStart > 0)
             {
-                //if (startRow % 2 != 0) startRow++;
-                dataBlock = AppHelper.Instance.FileHelp.GetFileContentBlock(fileIn, 0, startRow);
+                dataBlock = FileHelper.Instance.GetFileContentBlock(fileIn, 0, rowStart);
                 ExecuteQuickBlock(fileOut, sortDirect, dataBlock, isRewriteFile);
                 if (isRewriteFile)
                     isRewriteFile = false;
             }
 
             // Working with sliced data.
-            ulong count = (fileRows - startRow) / blockRows;
-            ulong i;
+            int count = (rowsFile - rowStart) / rowsBlock;
+            int i;
             for (i = 0; i < count; i++)
             {
-                dataBlock = AppHelper.Instance.FileHelp.GetFileContentBlock(fileIn, startRow + (i * blockRows), blockRows);
+                dataBlock = FileHelper.Instance.GetFileContentBlock(fileIn, rowStart + (i * rowsBlock), rowsBlock);
                 ExecuteQuickBlock(fileOut, sortDirect, dataBlock, isRewriteFile);
                 if (isRewriteFile)
                     isRewriteFile = false;
             }
 
             // Working with remaining data.
-            ulong elapsedRows = fileRows - startRow - (blockRows * i);
-            dataBlock = AppHelper.Instance.FileHelp.GetFileContentBlock(fileIn, startRow + (i * blockRows), elapsedRows);
+            int elapsedRows = rowsFile - rowStart - (rowsBlock * i);
+            dataBlock = FileHelper.Instance.GetFileContentBlock(fileIn, rowStart + (i * rowsBlock), elapsedRows);
             ExecuteQuickBlock(fileOut, sortDirect, dataBlock, isRewriteFile);
         }
 
         private void ExecuteQuickBlock(string fileOut, EnumSortDirect sortDirect, string[] content, bool isRewriteFile)
         {
-            //IEnumerable<string> contentTransform = GetExecuteQuickRecursiveSlow(content.ToList(), sortDirect);
-            IEnumerable<string> contentTransform = GetExecuteQuickRecursiveFast(content, sortDirect);
-            AppHelper.Instance.FileHelp.SetFileContent(fileOut, contentTransform, isRewriteFile, true);
+            FileHelper.Instance.SetFileContent(fileOut, GetExecuteQuickRecursiveFast(content, sortDirect), isRewriteFile);
         }
 
         /// <summary>

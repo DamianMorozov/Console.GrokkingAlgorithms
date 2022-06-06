@@ -22,7 +22,7 @@
 - First value recursive & foreach
 - Sort selection
 - Quick sort
-- Quick sorting for a single file
+- Quick sorting for one file
 - Quick sorting for directory files
 
 # Support

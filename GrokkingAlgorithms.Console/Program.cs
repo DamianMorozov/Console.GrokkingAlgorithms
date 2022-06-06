@@ -51,7 +51,7 @@ namespace GrokkingAlgorithms.Console
             System.Console.WriteLine(" 5. First value recursive & foreach.");
             System.Console.WriteLine(" 6. Sort selection.");
             System.Console.WriteLine(" 7. Quick sort.");
-            System.Console.WriteLine(" 8. Quick sorting for a single file.");
+            System.Console.WriteLine(" 8. Quick sorting for one file.");
             System.Console.WriteLine(" 9. Quick sorting for directory files.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.Write("Type switch: ");
@@ -422,17 +422,17 @@ namespace GrokkingAlgorithms.Console
         }
 
         /// <AppHelp.SummaryHelp>
-        /// Quick sorting for a single file.
+        /// Quick sorting for one file.
         /// </AppHelp.SummaryHelp>
         /// <param name="isBlock"></param>
         internal static void PrintFileQuickSort()
         {
             System.Console.WriteLine(@"----------------------------------------------------------------------");
-            System.Console.WriteLine(@"---                 Quick sorting for a single file                ---");
+            System.Console.WriteLine(@"---                 Quick sorting for one file                ---");
             System.Console.WriteLine(@"----------------------------------------------------------------------");
             System.Console.WriteLine(@$"{nameof(AppHelp.StringCultureInfo)}: {AppHelp.StringCultureInfo.Name}");
             System.Console.WriteLine(@$"{nameof(AppHelp.StringCompareOptions)}: {AppHelp.StringCompareOptions}");
-            System.Console.WriteLine(@$"{nameof(AppHelp.FileBlockRows)}: {AppHelp.FileBlockRows}");
+            System.Console.WriteLine(@$"{nameof(AppHelp.FileRowsBlock)}: {AppHelp.FileRowsBlock}");
 
             string fileIn = AppHelp.FileHelp.GetFileName(AppHelp.FileHelp.MessageGetFileInput, true);
             string fileOut = AppHelp.FileHelp.GetFileName(AppHelp.FileHelp.MessageGetFileOutput, false);
@@ -472,9 +472,6 @@ namespace GrokkingAlgorithms.Console
             foreach (string fileIn in Directory.GetFiles(dirIn))
             {
                 string fileOut = Path.Combine(dirOut, Path.GetFileName(fileIn));
-                //string contentIn = AppHelp.FileHelp.GetFileContent(fileIn);
-                //IEnumerable<string> contentOut = AppHelp.SortHelp.GetExecuteQuick(contentIn.Split(Environment.NewLine), EnumSortDirect.Asc);
-                //AppHelp.FileHelp.SetFileContent(fileOut, contentOut, true, true);
                 AppHelp.SortHelp.ExecuteQuick(fileIn, fileOut, EnumSortDirect.Asc);
             }
             sw.Stop();

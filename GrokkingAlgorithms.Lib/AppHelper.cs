@@ -31,12 +31,13 @@ namespace GrokkingAlgorithms.Lib
         public CountHelper CountHelp { get; private set; } = CountHelper.Instance;
         public FileHelper FileHelp { get; private set; } = FileHelper.Instance;
         public FirstValueHelper FirstValueHelp { get; private set; } = FirstValueHelper.Instance;
-        public ulong FileBlockRows { get; set; } = 1024;
+        public int FileRowsBlock { get; set; } = 1_024;
+        public int MemoryBytesLimit { get; set; } = 500_000_000;
         public bool IsFileBlockRows { get; set; } = true;
         public RecursionHelper RecursionHelp { get; private set; } = RecursionHelper.Instance;
         public SortHelper SortHelp { get; private set; } = SortHelper.Instance;
         public SummaryHelper SummaryHelp { get; private set; } = SummaryHelper.Instance;
-        public System.Globalization.CompareOptions StringCompareOptions { get; set; } = System.Globalization.CompareOptions.None;
+        public System.Globalization.CompareOptions StringCompareOptions { get; set; } = System.Globalization.CompareOptions.OrdinalIgnoreCase;
         public System.Globalization.CultureInfo StringCultureInfo { get; set; } = System.Globalization.CultureInfo.InvariantCulture;
 
         #endregion
@@ -79,16 +80,16 @@ namespace GrokkingAlgorithms.Lib
             bool isCorrect = false;
             while (!isCorrect)
             {
-                Console.Write(@$"Input block size (press Enter for default value ({FileBlockRows})): ");
+                Console.Write(@$"Input block size (press Enter for default value ({FileRowsBlock})): ");
                 string str = Console.ReadLine();
                 if (string.IsNullOrEmpty(str))
                 {
-                    Console.WriteLine(@$"Set default value for input block size: {FileBlockRows}");
+                    Console.WriteLine(@$"Set default value for input block size: {FileRowsBlock}");
                     break;
                 }
-                if (ulong.TryParse(str, out ulong blockRows))
+                if (int.TryParse(str, out int blockRows))
                 {
-                    FileBlockRows = blockRows;
+                    FileRowsBlock = blockRows;
                     isCorrect = true;
                 }
             }

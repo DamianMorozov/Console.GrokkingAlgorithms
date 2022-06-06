@@ -2,12 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.03.130] - 2022-06-06
+### Fixed preview
+- Quick sorting for one file
+
 ## [0.03.120] - 2022-05-13
 ### Changed
 - Target Framework 6.0
 - Optimize calling helpers
 ### Added
-- Quick sorting for a single file
+- Quick sorting for one file
 - Quick sorting for directory files
 
 ## [0.03.100] - 2022-05-11
