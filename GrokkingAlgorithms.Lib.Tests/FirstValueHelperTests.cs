@@ -43,10 +43,10 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} start.");
-			var sw = Stopwatch.StartNew();
+			Stopwatch sw = Stopwatch.StartNew();
 
-            var arr = new int?[0];
-			var actual = _firstValueHelper.Execute(arr, EnumSortDirect.Asc);
+            int?[] arr = new int?[0];
+			(int pos, int? val) actual = _firstValueHelper.Execute(arr, EnumSortDirect.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((-1, default(int?)), actual);
 			arr = _arrayHelper.SortArray(1234, 2345, EnumSortDirect.Asc);
@@ -87,10 +87,10 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
-			var sw = Stopwatch.StartNew();
+			Stopwatch sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.SortArray(1233, 2345, EnumSortDirect.Asc);
-			var actual = _firstValueHelper.Execute(arr, EnumSortDirect.Asc);
+            int?[] arr = _arrayHelper.SortArray(1233, 2345, EnumSortDirect.Asc);
+			(int pos, int? val) actual = _firstValueHelper.Execute(arr, EnumSortDirect.Asc);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual((0, 1233), actual);
 			actual = _firstValueHelper.Execute(arr, EnumSortDirect.Desc);

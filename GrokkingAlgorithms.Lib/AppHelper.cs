@@ -15,30 +15,21 @@ namespace GrokkingAlgorithms.Lib
 
         #endregion
 
-        #region Constructor and destructor
-
-        public AppHelper()
-        {
-            // Type code here.
-        }
-
-        #endregion
-
         #region Public and private fields and properties
 
-        public ArrayHelper ArrayHelp { get; private set; } = ArrayHelper.Instance;
-        public BinarySearchHelper BinarySearchHelp { get; private set; } = BinarySearchHelper.Instance;
-        public CountHelper CountHelp { get; private set; } = CountHelper.Instance;
-        public FileHelper FileHelp { get; private set; } = FileHelper.Instance;
-        public FirstValueHelper FirstValueHelp { get; private set; } = FirstValueHelper.Instance;
+        public ArrayHelper ArrayHelp { get; } = ArrayHelper.Instance;
+        public BinarySearchHelper BinarySearchHelp { get; } = BinarySearchHelper.Instance;
+        public CountHelper CountHelp { get; } = CountHelper.Instance;
+        public FileHelper FileHelp { get; } = FileHelper.Instance;
+        public FirstValueHelper FirstValueHelp { get; } = FirstValueHelper.Instance;
         public int FileRowsBlock { get; set; } = 1_024;
-        public int MemoryBytesLimit { get; set; } = 500_000_000;
-        public bool IsFileBlockRows { get; set; } = true;
-        public RecursionHelper RecursionHelp { get; private set; } = RecursionHelper.Instance;
-        public SortHelper SortHelp { get; private set; } = SortHelper.Instance;
-        public SummaryHelper SummaryHelp { get; private set; } = SummaryHelper.Instance;
-        public System.Globalization.CompareOptions StringCompareOptions { get; set; } = System.Globalization.CompareOptions.OrdinalIgnoreCase;
-        public System.Globalization.CultureInfo StringCultureInfo { get; set; } = System.Globalization.CultureInfo.InvariantCulture;
+        public int MemoryBytesLimit => 500_000_000;
+        public bool IsFileBlockRows { get; private set; } = true;
+        public RecursionHelper RecursionHelp { get; } = RecursionHelper.Instance;
+        public SortHelper SortHelp { get; } = SortHelper.Instance;
+        public SummaryHelper SummaryHelp { get; } = SummaryHelper.Instance;
+        public System.Globalization.CompareOptions StringCompareOptions { get; init; } = System.Globalization.CompareOptions.OrdinalIgnoreCase;
+        public System.Globalization.CultureInfo StringCultureInfo { get; init; } = System.Globalization.CultureInfo.InvariantCulture;
 
         #endregion
 

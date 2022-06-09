@@ -43,9 +43,9 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(Execute_Fast_AreEqual)} start.");
-			var sw = Stopwatch.StartNew();
+			Stopwatch sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirect.Asc);
+			int?[] arr = _arrayHelper.SortArray(0, 10, EnumSortDirect.Asc);
 			int expected = 55;
 			int actual = _summaryHelper.Execute(arr);
 			TestContext.WriteLine($"actual/expected: {actual}");
@@ -86,9 +86,9 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(Execute_Slow_AreEqual)} start.");
-			var sw = Stopwatch.StartNew();
+			Stopwatch sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.SortArray(0, 10, EnumSortDirect.Asc);
+			int?[] arr = _arrayHelper.SortArray(0, 10, EnumSortDirect.Asc);
 			int expected = 55;
 			int actual = _summaryHelper.Execute(arr, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {actual}");

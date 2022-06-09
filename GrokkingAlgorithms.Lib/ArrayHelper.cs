@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Threading;
 
 namespace GrokkingAlgorithms.Lib
 {
@@ -10,13 +11,14 @@ namespace GrokkingAlgorithms.Lib
     /// </summary>
     public sealed class ArrayHelper
     {
-        #region Design pattern "Singleton".
+        #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<ArrayHelper> _instance = new(() => new ArrayHelper());
-        public static ArrayHelper Instance => _instance.Value;
-        private ArrayHelper() { }
+        private static ArrayHelper _instance;
+        public static ArrayHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
+
+        #region Public and private methods
 
         /// <summary>
         /// Get sorted array.
@@ -28,24 +30,29 @@ namespace GrokkingAlgorithms.Lib
         public int?[] SortArray(int startValue, int endValue, EnumSortDirect sortDirect)
         {
             int?[] arr = null;
-            var i = 0;
-            if (sortDirect == EnumSortDirect.Asc)
+            int i = 0;
+            switch (sortDirect)
             {
-                arr = new int?[endValue - startValue + 1];
-                for (var j = startValue; j <= endValue; j++)
-                {
-                    arr[i] = j;
-                    i++;
-                }
-            }
-            else if (sortDirect == EnumSortDirect.Desc)
-            {
-                arr = new int?[startValue - endValue + 1];
-                for (var j = startValue; j >= endValue; j--)
-                {
-                    arr[i] = j;
-                    i++;
-                }
+                case EnumSortDirect.Asc:
+                    {
+                        arr = new int?[endValue - startValue + 1];
+                        for (int j = startValue; j <= endValue; j++)
+                        {
+                            arr[i] = j;
+                            i++;
+                        }
+                        break;
+                    }
+                case EnumSortDirect.Desc:
+                    {
+                        arr = new int?[startValue - endValue + 1];
+                        for (int j = startValue; j >= endValue; j--)
+                        {
+                            arr[i] = j;
+                            i++;
+                        }
+                        break;
+                    }
             }
             return arr;
         }
@@ -58,9 +65,9 @@ namespace GrokkingAlgorithms.Lib
         /// <returns></returns>
         public int?[] RandomArray(int size, int maxValue)
         {
-            var arr = new int?[size];
-            var random = new Random();
-            for (var i = 0; i < size; i++)
+            int?[] arr = new int?[size];
+            Random random = new();
+            for (int i = 0; i < size; i++)
             {
                 arr[i] = random.Next(maxValue);
             }
@@ -90,7 +97,7 @@ namespace GrokkingAlgorithms.Lib
         /// <returns></returns>
         public T[] Sub<T>(T[] data, int index, int length)
         {
-            var result = new T[length];
+            T[] result = new T[length];
             Array.Copy(data, index, result, 0, length);
             return result;
         }
@@ -114,5 +121,7 @@ namespace GrokkingAlgorithms.Lib
         {
             return Sub(data, 0, data.Length);
         }
+
+        #endregion
     }
 }

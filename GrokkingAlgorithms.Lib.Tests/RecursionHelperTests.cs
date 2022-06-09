@@ -41,7 +41,7 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(Factorial_AreEqual)} start.");
-			var sw = Stopwatch.StartNew();
+			Stopwatch sw = Stopwatch.StartNew();
 
 			Assert.AreEqual(-5, _recursionHelper.Factorial(-5));
 			Assert.AreEqual(-4, _recursionHelper.Factorial(-4));

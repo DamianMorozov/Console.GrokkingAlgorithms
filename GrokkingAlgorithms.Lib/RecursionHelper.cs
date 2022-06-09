@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Threading;
 
 namespace GrokkingAlgorithms.Lib
 {
@@ -10,13 +11,14 @@ namespace GrokkingAlgorithms.Lib
     /// </summary>
     public sealed class RecursionHelper
     {
-        #region Design pattern "Singleton".
+        #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<RecursionHelper> _instance = new(() => new RecursionHelper());
-        public static RecursionHelper Instance => _instance.Value;
-        private RecursionHelper() { }
+        private static RecursionHelper _instance;
+        public static RecursionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
+
+        #region Public and private methods
 
         /// <summary>
         /// Factorial method.
@@ -29,5 +31,7 @@ namespace GrokkingAlgorithms.Lib
                 return x;
             return x * Factorial(x - 1);
         }
+
+        #endregion
     }
 }

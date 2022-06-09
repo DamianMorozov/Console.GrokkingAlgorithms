@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.03.140] - 2022-06-06
+### Preview
+- Some refactoring
+
 ## [0.03.130] - 2022-06-06
 ### Fixed preview
 - Quick sorting for one file

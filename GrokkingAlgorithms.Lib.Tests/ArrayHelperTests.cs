@@ -45,9 +45,9 @@ namespace GrokkingAlgorithms.Lib.Tests
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SortArray_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var actual = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
+            int?[] actual = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedAsc, actual);
 
@@ -64,9 +64,9 @@ namespace GrokkingAlgorithms.Lib.Tests
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(RandomArray_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.RandomArray(12_500, 100_000);
+            int?[] arr = _arrayHelper.RandomArray(12_500, 100_000);
             TestContext.WriteLine($"actual/expected: {arr.Length}");
             Assert.AreEqual(12_500, arr.Length);
 
@@ -100,10 +100,10 @@ namespace GrokkingAlgorithms.Lib.Tests
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Sub_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
-            var actual = _arrayHelper.Sub(arr, 6, 5);
+            int?[] arr = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
+            int?[] actual = _arrayHelper.Sub(arr, 6, 5);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedSubDesc, actual);
 
@@ -142,10 +142,10 @@ namespace GrokkingAlgorithms.Lib.Tests
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Copy_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
-            var actual = _arrayHelper.Copy(arr);
+            int?[] arr = _arrayHelper.SortArray(210, 220, EnumSortDirect.Asc);
+            int?[] actual = _arrayHelper.Copy(arr);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedAsc, actual);
 

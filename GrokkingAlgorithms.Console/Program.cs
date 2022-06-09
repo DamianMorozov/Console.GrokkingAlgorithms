@@ -15,7 +15,7 @@ namespace GrokkingAlgorithms.Console
 {
     internal static class Program
     {
-        private static AppHelper AppHelp { get; set; } = AppHelper.Instance;
+        private static AppHelper AppHelp { get; } = AppHelper.Instance;
 
         internal static void Main()
         {
@@ -254,11 +254,11 @@ namespace GrokkingAlgorithms.Console
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"count.Execute(arr, EnumSpeed.Fast):  {AppHelp.CountHelp.Execute(arr, EnumSpeed.Fast):N0}. ");
+            System.Console.Write($"count.Execute(arr, EnumSpeed.Fast):  {AppHelp.CountHelp.Execute(arr):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             sw = Stopwatch.StartNew();
-            System.Console.Write($"count.Execute(list, EnumSpeed.Fast): {AppHelp.CountHelp.Execute(list, EnumSpeed.Fast):N0}. ");
+            System.Console.Write($"count.Execute(list, EnumSpeed.Fast): {AppHelp.CountHelp.Execute(list):N0}. ");
             sw.Stop();
             System.Console.WriteLine($"Elapsed time: {sw.Elapsed}.");
             System.Console.WriteLine(@"----------------------------------------------------------------------");

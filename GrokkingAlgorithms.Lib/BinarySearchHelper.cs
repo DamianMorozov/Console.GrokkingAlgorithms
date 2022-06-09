@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace GrokkingAlgorithms.Lib
 {
@@ -12,13 +12,14 @@ namespace GrokkingAlgorithms.Lib
     /// </summary>
     public sealed class BinarySearchHelper
     {
-        #region Design pattern "Singleton".
+        #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<BinarySearchHelper> _instance = new(() => new BinarySearchHelper());
-        public static BinarySearchHelper Instance => _instance.Value;
-        private BinarySearchHelper() { }
+        private static BinarySearchHelper _instance;
+        public static BinarySearchHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
+
+        #region Public and private methods
 
         /// <summary>
         /// Execute method.
@@ -29,16 +30,16 @@ namespace GrokkingAlgorithms.Lib
         /// <returns></returns>
         public (int? pos, int count) Execute(int?[] arr, int item, EnumSortDirect sortDirect)
         {
-            var count = 0;
+            int count = 0;
             if (sortDirect == EnumSortDirect.Asc)
             {
-                var start = 0;
-                var end = arr.Length - 1;
+                int start = 0;
+                int end = arr.Length - 1;
                 while (start <= end)
                 {
                     count++;
-                    var mid = (start + end) / 2;
-                    var guess = arr[mid];
+                    int mid = (start + end) / 2;
+                    int? guess = arr[mid];
                     if (guess == item) return (mid, count);
                     if (guess > item)
                         end = mid - 1;
@@ -48,13 +49,13 @@ namespace GrokkingAlgorithms.Lib
             }
             else if (sortDirect == EnumSortDirect.Desc)
             {
-                var end = 0;
-                var start = arr.Length - 1;
+                int end = 0;
+                int start = arr.Length - 1;
                 while (start >= end)
                 {
                     count++;
-                    var mid = (start + end) / 2;
-                    var guess = arr[mid];
+                    int mid = (start + end) / 2;
+                    int? guess = arr[mid];
                     if (guess == item) return (mid, count);
                     if (guess > item)
                         end = mid + 1;
@@ -74,16 +75,16 @@ namespace GrokkingAlgorithms.Lib
         /// <returns></returns>
         public (int? pos, int count) Execute(IEnumerable<int?> list, int item, EnumSortDirect sortDirect)
         {
-            var count = 0;
+            int count = 0;
             if (sortDirect == EnumSortDirect.Asc)
             {
-                var start = 0;
-                var end = list.Count() - 1;
+                int start = 0;
+                int end = list.Count() - 1;
                 while (start <= end)
                 {
                     count++;
-                    var mid = (start + end) / 2;
-                    var guess = list.ElementAt(mid);
+                    int mid = (start + end) / 2;
+                    int? guess = list.ElementAt(mid);
                     if (guess == item) return (mid, count);
                     if (guess > item)
                         end = mid - 1;
@@ -93,13 +94,13 @@ namespace GrokkingAlgorithms.Lib
             }
             else if (sortDirect == EnumSortDirect.Desc)
             {
-                var end = 0;
-                var start = list.Count() - 1;
+                int end = 0;
+                int start = list.Count() - 1;
                 while (start >= end)
                 {
                     count++;
-                    var mid = (start + end) / 2;
-                    var guess = list.ElementAt(mid);
+                    int mid = (start + end) / 2;
+                    int? guess = list.ElementAt(mid);
                     if (guess == item) return (mid, count);
                     if (guess > item)
                         end = mid + 1;
@@ -109,5 +110,7 @@ namespace GrokkingAlgorithms.Lib
             }
             return (null, count);
         }
+
+        #endregion
     }
 }

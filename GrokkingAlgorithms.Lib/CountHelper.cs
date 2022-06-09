@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace GrokkingAlgorithms.Lib
 {
@@ -12,13 +13,14 @@ namespace GrokkingAlgorithms.Lib
     /// </summary>
     public sealed class CountHelper
     {
-        #region Design pattern "Singleton".
+        #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<CountHelper> _instance = new(() => new CountHelper());
-        public static CountHelper Instance => _instance.Value;
-        private CountHelper() { }
+        private static CountHelper _instance;
+        public static CountHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
+
+        #region Public and private methods
 
         /// <summary>
         /// Execute method. Fast - for & foreach. Slow - recursion.
@@ -51,7 +53,7 @@ namespace GrokkingAlgorithms.Lib
         {
             if (arr.Length == 0)
                 return 0;
-            var list = arr.ToList();
+            List<int?> list = arr.ToList();
             list.RemoveAt(0);
             return 1 + ExecuteRecursive(list.ToArray());
         }
@@ -63,8 +65,8 @@ namespace GrokkingAlgorithms.Lib
         /// <returns></returns>
         private int ExecuteForeach(int?[] arr)
         {
-            var result = 0;
-            for (var i = 0; i < arr.Length; i++)
+            int result = 0;
+            for (int i = 0; i < arr.Length; i++)
                 result++;
             return result;
         }
@@ -90,10 +92,12 @@ namespace GrokkingAlgorithms.Lib
         {
             if (!list.Any())
                 return 0;
-            var result = 0;
-            foreach (var item in list)
+            int result = 0;
+            foreach (int? item in list)
                 result++;
             return result;
         }
+
+        #endregion
     }
 }

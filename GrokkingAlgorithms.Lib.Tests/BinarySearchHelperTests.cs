@@ -43,11 +43,11 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(GetSortArray_AreEqual)} start.");
-			var sw = Stopwatch.StartNew();
+			Stopwatch sw = Stopwatch.StartNew();
 
             // array
-			var arr = _arrayHelper.SortArray(1300, 1400, EnumSortDirect.Asc);
-			var actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirect.Asc);
+			int?[] arr = _arrayHelper.SortArray(1300, 1400, EnumSortDirect.Asc);
+			(int? pos, int count) actual = _binarySearchHelper.Execute(arr, 1313, EnumSortDirect.Asc);
 			(int?, int) expected = (13, 7);
 			TestContext.WriteLine($"actual/expected: {actual}");
 			Assert.AreEqual(expected, actual);

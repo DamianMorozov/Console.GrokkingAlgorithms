@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace GrokkingAlgorithms.Lib
 {
@@ -12,13 +13,14 @@ namespace GrokkingAlgorithms.Lib
     /// </summary>
     public sealed class FirstValueHelper
     {
-        #region Design pattern "Singleton".
+        #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<FirstValueHelper> _instance = new(() => new FirstValueHelper());
-        public static FirstValueHelper Instance => _instance.Value;
-        private FirstValueHelper() { }
+        private static FirstValueHelper _instance;
+        public static FirstValueHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
+
+        #region Public and private methods
 
         /// <summary>
         /// Execute method. Fast - for & foreach. Slow - recursion.
@@ -60,9 +62,9 @@ namespace GrokkingAlgorithms.Lib
                 return (-1, null);
             if (arr.Length == 1)
                 return (0, arr[0]);
-            var i = 0;
+            int i = 0;
             int? value = null;
-            for (var j = 0; j < arr.Length; j++)
+            for (int j = 0; j < arr.Length; j++)
             {
                 if (value == null)
                     value = arr[j];
@@ -96,10 +98,10 @@ namespace GrokkingAlgorithms.Lib
                 return (-1, default(T));
             if (arr.Length == 1)
                 return (0, arr[0]);
-            var i = 0;
-            var value = default(T);
-            var comparer = Comparer<T>.Default;
-            for (var j = 0; j < arr.Length; j++)
+            int i = 0;
+            T value = default(T);
+            Comparer<T> comparer = Comparer<T>.Default;
+            for (int j = 0; j < arr.Length; j++)
             {
                 if (value == null)
                     value = arr[j];
@@ -133,7 +135,7 @@ namespace GrokkingAlgorithms.Lib
         {
             int i = 0, j = 0;
             int? value = null;
-            foreach (var item in list)
+            foreach (int? item in list)
             {
                 if (value == null)
                     value = item;
@@ -169,10 +171,12 @@ namespace GrokkingAlgorithms.Lib
             if (list.Count() == 2) return sortDirect == EnumSortDirect.Desc
                 ? list.First() > list.Skip(1).Take(1).First() ? list.First() : list.Skip(1).Take(1).First()
                 : list.First() < list.Skip(1).Take(1).First() ? list.First() : list.Skip(1).Take(1).First();
-            var sub_max = ExecuteRecursive(list.Skip(1), sortDirect);
+            int? sub_max = ExecuteRecursive(list.Skip(1), sortDirect);
             return sortDirect == EnumSortDirect.Desc
                 ? list.First() > sub_max ? list.First() : sub_max
                 : list.First() < sub_max ? list.First() : sub_max;
         }
+
+        #endregion
     }
 }

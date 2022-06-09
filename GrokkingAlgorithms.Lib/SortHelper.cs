@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace GrokkingAlgorithms.Lib
 {
@@ -16,17 +17,8 @@ namespace GrokkingAlgorithms.Lib
     {
         #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<SortHelper> _instance = new(() => new SortHelper());
-        public static SortHelper Instance => _instance.Value;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        private SortHelper()
-        {
-            // Type code here.
-        }
+        private static SortHelper _instance;
+        public static SortHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 

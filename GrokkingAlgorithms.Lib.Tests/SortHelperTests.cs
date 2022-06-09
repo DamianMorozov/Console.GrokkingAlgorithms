@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections.Generic;
 using NUnit.Framework;
 using System.Diagnostics;
 
@@ -44,9 +45,9 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(ExecuteSelection_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-			var actual = _arrayHelper.SortArray(2110, 2120, EnumSortDirect.Asc);
+			int?[] actual = _arrayHelper.SortArray(2110, 2120, EnumSortDirect.Asc);
 			_sortHelper.ExecuteSelection(actual, EnumSortDirect.Desc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
 			Assert.AreEqual(_expectedDesc, actual);
@@ -77,10 +78,10 @@ namespace GrokkingAlgorithms.Lib.Tests
 		{
 			TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 			TestContext.WriteLine($@"{nameof(GetExecuteSelection_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-			var arr = _arrayHelper.SortArray(2110, 2120, EnumSortDirect.Asc);
-			var actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirect.Desc, EnumSpeed.Slow);
+			int?[] arr = _arrayHelper.SortArray(2110, 2120, EnumSortDirect.Asc);
+			int?[] actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirect.Desc, EnumSpeed.Slow);
 			TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
 			Assert.AreEqual(_expectedDesc, actual);
             actual = _sortHelper.GetExecuteSelection(arr, EnumSortDirect.Asc, EnumSpeed.Slow);
@@ -110,10 +111,10 @@ namespace GrokkingAlgorithms.Lib.Tests
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(ExecuteQuickGet_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var arr = _arrayHelper.SortArray(2110, 2120, EnumSortDirect.Asc);
-            var actual = _sortHelper.GetExecuteQuick(arr, EnumSortDirect.Asc, EnumSpeed.Slow);
+            int?[] arr = _arrayHelper.SortArray(2110, 2120, EnumSortDirect.Asc);
+            IEnumerable<int?> actual = _sortHelper.GetExecuteQuick(arr, EnumSortDirect.Asc, EnumSpeed.Slow);
             TestContext.WriteLine($"actual/expected: {string.Join(", ", actual)}");
             Assert.AreEqual(_expectedAsc, actual);
 

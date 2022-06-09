@@ -6,24 +6,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace GrokkingAlgorithms.Lib
 {
     public class FileHelper
     {
-        #region Design pattern "Singleton".
+        #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<FileHelper> _instance = new(() => new FileHelper());
-        public static FileHelper Instance => _instance.Value;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public FileHelper()
-        {
-            // Type code here.
-        }
+        private static FileHelper _instance;
+        public static FileHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
@@ -141,10 +133,10 @@ namespace GrokkingAlgorithms.Lib
         public List<string> GetFileContentAsEnumerable(string file)
         {        
             if (string.IsNullOrEmpty(file) || !File.Exists(file))
-                return new();
+                return new List<string>();
             int rowsCount = GetFileRowsCount(file);
             if (rowsCount == 0)
-                return new();
+                return new List<string>();
             List<string> result = new();
             using Stream stream = File.Open(file, FileMode.Open, FileAccess.Read);
             using StreamReader streamReader = new(stream);

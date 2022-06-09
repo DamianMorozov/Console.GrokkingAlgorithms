@@ -39,12 +39,12 @@ namespace GrokkingAlgorithms.Console.Tests
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SetValue_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var defValue = 111;
-            Program.SetValue("123", out var actual, defValue);
+            int defValue = 111;
+            Program.SetValue("123", out int actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
-            var expected = 123;
+            int expected = 123;
             TestContext.WriteLine($"expected: {expected}");
             Assert.AreEqual(expected, actual);
 
@@ -69,12 +69,12 @@ namespace GrokkingAlgorithms.Console.Tests
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SetValueSafe_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var defValue = 111;
-            Program.SetValueSafe("123", out var actual, defValue);
+            int defValue = 111;
+            Program.SetValueSafe("123", out int actual, defValue);
             TestContext.WriteLine($"actual: {actual}");
-            var expected = 123;
+            int expected = 123;
             TestContext.WriteLine($"expected: {expected}");
             Assert.AreEqual(expected, actual);
 
